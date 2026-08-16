@@ -573,7 +573,7 @@
         </ul>
     </div>
 
-    <!-- ১. প্রথম পেজ: রেজিস্ট্রেশন/সাবমিট পেজ (ওয়েবসাইটে ঢোকার সাথে সাথে আসবে) -->
+    <!-- ১. প্রথম পেজ: রেজিস্ট্রেশন/সাবমিট পেজ -->
     <div id="registerPage" class="section-page active">
         <header class="navbar">
             <div class="nav-left">
@@ -590,28 +590,28 @@
                     <label>Full Name</label>
                     <div class="input-field">
                         <i class="fa-solid fa-user"></i>
-                        <input type="text" id="regName" placeholder="আপনার পুরো নাম লিখুন" required>
+                        <input type="text" id="regName" placeholder="আপনার পুরো নাম লিখুন" autocomplete="name" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Phone Number</label>
                     <div class="input-field">
                         <i class="fa-solid fa-phone"></i>
-                        <input type="text" id="regPhone" placeholder="আপনার Phone নাম্বার দিন" required>
+                        <input type="tel" id="regPhone" placeholder="আপনার Phone নাম্বার দিন" autocomplete="tel" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Email Address (Gmail)</label>
                     <div class="input-field">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="regEmail" placeholder="আপনার জিমেইল একাউন্ট" required>
+                        <input type="email" id="regEmail" placeholder="আপনার জিমেইল একাউন্ট" autocomplete="email" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="regPass" placeholder="পাসওয়ার্ড দিন" required>
+                        <input type="password" id="regPass" placeholder="পাসওয়ার্ড দিন" autocomplete="new-password" required>
                     </div>
                 </div>
                 <button type="submit" class="auth-btn">SUBMIT & REGISTER →</button>
@@ -639,14 +639,14 @@
                     <label>Email (Gmail)</label>
                     <div class="input-field">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="loginEmail" placeholder="আপনার জিমেইল দিন" required>
+                        <input type="email" id="loginEmail" placeholder="আপনার জিমেইল দিন" autocomplete="email" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="loginPass" placeholder="পাসওয়ার্ড দিন" required>
+                        <input type="password" id="loginPass" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password" required>
                     </div>
                 </div>
                 <button type="submit" class="auth-btn">লগইন করুন</button>
@@ -763,7 +763,7 @@
                         <label>Your Sender Number (যে নাম্বার থেকে টাকা পাঠিয়েছেন)</label>
                         <div class="input-field">
                             <i class="fa-solid fa-phone"></i>
-                            <input type="text" id="senderNumber" placeholder="017xxxxxxxx" required>
+                            <input type="tel" id="senderNumber" placeholder="017xxxxxxxx" autocomplete="tel" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -787,7 +787,7 @@
         </div>
     </div>
 
-    <!-- উইথড্র পেজ (৫% চার্জ সহ) -->
+    <!-- উইথড্র পেজ -->
     <div id="withdrawPage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
@@ -822,7 +822,7 @@
                         <label>Account Number (যে নাম্বারে টাকা নেবেন)</label>
                         <div class="input-field">
                             <i class="fa-solid fa-phone"></i>
-                            <input type="text" id="withNumber" placeholder="017xxxxxxxx" required>
+                            <input type="tel" id="withNumber" placeholder="017xxxxxxxx" autocomplete="tel" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -877,14 +877,14 @@
                         <label>Gmail Address</label>
                         <div class="input-field">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="email" id="gmailEmail" placeholder="example@gmail.com" required>
+                            <input type="email" id="gmailEmail" placeholder="example@gmail.com" autocomplete="email" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label>Account Password</label>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" id="gmailPass" placeholder="Enter given password" required>
+                            <input type="password" id="gmailPass" placeholder="Enter given password" autocomplete="current-password" required>
                         </div>
                     </div>
                     <div class="report-note"><i class="fa-solid fa-circle-info"></i> রিপোর্ট টাইম: ২০-৩০ ঘণ্টা</div>
@@ -932,14 +932,14 @@
                         <label>Facebook UID / Email / Number</label>
                         <div class="input-field">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="text" id="fbUid" placeholder="Enter Facebook UID" required>
+                            <input type="text" id="fbUid" placeholder="Enter Facebook UID" autocomplete="username" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label>Account Password</label>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" id="fbPass" placeholder="Enter Password" required>
+                            <input type="password" id="fbPass" placeholder="Enter Password" autocomplete="current-password" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -994,14 +994,14 @@
                         <label>Instagram Username</label>
                         <div class="input-field">
                             <i class="fa-brands fa-instagram"></i>
-                            <input type="text" id="instaUser" placeholder="Enter Username" required>
+                            <input type="text" id="instaUser" placeholder="Enter Username" autocomplete="username" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label>Account Password</label>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" id="instaPass" placeholder="Enter Password" required>
+                            <input type="password" id="instaPass" placeholder="Enter Password" autocomplete="current-password" required>
                         </div>
                     </div>
                     <button type="submit" class="submit-account-btn">SUBMIT INSTAGRAM ACCOUNT</button>
