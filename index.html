@@ -1005,7 +1005,7 @@
         <div class="dashboard">
             <div class="service-top-card">
                 <h3><i class="fa-solid fa-user-circle"></i> User Profile</h3>
-                <p>আপনার অ্যাকাউন্ট সম্পর্কিত তথ্যাবলী</p>
+                <p>আপনার অ্যাকাউন্ট সম্পর্কিত তথ্যাবলী ও কাজের হিস্ট্রি</p>
             </div>
 
             <div class="profile-info-card">
@@ -1024,6 +1024,18 @@
                 <div class="profile-info-row">
                     <span>Account Status:</span>
                     <span style="color: #34d399;">Active (Verified)</span>
+                </div>
+                <div class="profile-info-row">
+                    <span>Total Submitted Tasks:</span>
+                    <span id="profTotalSubmitted">0</span>
+                </div>
+                <div class="profile-info-row">
+                    <span>Approved Tasks (কাজ সঠিক হয়েছে):</span>
+                    <span id="profApprovedTasks" style="color: #34d399;">0</span>
+                </div>
+                <div class="profile-info-row">
+                    <span>Rejected Tasks (কাজ সঠিক হয়নি):</span>
+                    <span id="profRejectedTasks" style="color: #ef4444;">0</span>
                 </div>
             </div>
         </div>
@@ -1264,7 +1276,7 @@
                 <div class="stats-row">
                     <div class="stat-box"><span>RATE</span><h2>৳15.70</h2></div>
                     <div class="stat-box"><span>LIMIT</span><h2>1000</h2></div>
-                    <div class="stat-box"><span>SUBMIT</span><h2>0</h2></div>
+                    <div class="stat-box"><span>SUBMIT</span><h2 id="gmailSubmitCount">0</h2></div>
                 </div>
             </div>
 
@@ -1319,7 +1331,7 @@
                 <div class="stats-row">
                     <div class="stat-box"><span>RATE</span><h2>৳5.70</h2></div>
                     <div class="stat-box"><span>LIMIT</span><h2>1000</h2></div>
-                    <div class="stat-box"><span>SUBMIT</span><h2>0</h2></div>
+                    <div class="stat-box"><span>SUBMIT</span><h2 id="fbSubmitCount">0</h2></div>
                 </div>
             </div>
 
@@ -1381,7 +1393,7 @@
                 <div class="stats-row">
                     <div class="stat-box"><span>RATE</span><h2>৳4.20</h2></div>
                     <div class="stat-box"><span>LIMIT</span><h2>1000</h2></div>
-                    <div class="stat-box"><span>SUBMIT</span><h2>0</h2></div>
+                    <div class="stat-box"><span>SUBMIT</span><h2 id="instaSubmitCount">0</h2></div>
                 </div>
             </div>
 
@@ -1431,7 +1443,7 @@
         <i class="fa-solid fa-headset"></i>
     </a>
 
-    <!-- হোয়াটসঅ্যাপ সাপোর্ট বাটন (যোগ করা হয়েছে) -->
+    <!-- হোয়াটসঅ্যাপ সাপোর্ট বাটন -->
     <a href="https://wa.me/8801906748429" target="_blank" class="whatsapp-support">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -1465,6 +1477,16 @@
             if(document.getElementById('currentDateLabel3')) document.getElementById('currentDateLabel3').innerText = dateStr;
         }
 
+        function updateSubmitCounts() {
+            let gmailCount = localStorage.getItem('gmailSubmits') || 0;
+            let fbCount = localStorage.getItem('fbSubmits') || 0;
+            let instaCount = localStorage.getItem('instaSubmits') || 0;
+
+            if(document.getElementById('gmailSubmitCount')) document.getElementById('gmailSubmitCount').innerText = gmailCount;
+            if(document.getElementById('fbSubmitCount')) document.getElementById('fbSubmitCount').innerText = fbCount;
+            if(document.getElementById('instaSubmitCount')) document.getElementById('instaSubmitCount').innerText = instaCount;
+        }
+
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const refUser = urlParams.get('ref');
@@ -1486,6 +1508,7 @@
             }
 
             updateDailyPasswords();
+            updateSubmitCounts();
         };
 
         function showPage(pageId) {
@@ -1501,6 +1524,19 @@
             document.getElementById('profName').innerText = localStorage.getItem('savedName') || 'Abul Kalam';
             document.getElementById('profPhone').innerText = localStorage.getItem('savedPhone') || '017XXXXXXXX';
             document.getElementById('profEmail').innerText = localStorage.getItem('savedEmail') || 'user@gmail.com';
+            
+            let gmailCount = parseInt(localStorage.getItem('gmailSubmits') || 0);
+            let fbCount = parseInt(localStorage.getItem('fbSubmits') || 0);
+            let instaCount = parseInt(localStorage.getItem('instaSubmits') || 0);
+            let totalSubmits = gmailCount + fbCount + instaCount;
+
+            let approvedTasks = parseInt(localStorage.getItem('approvedTasks') || 0);
+            let rejectedTasks = parseInt(localStorage.getItem('rejectedTasks') || 0);
+
+            document.getElementById('profTotalSubmitted').innerText = totalSubmits;
+            document.getElementById('profApprovedTasks').innerText = approvedTasks;
+            document.getElementById('profRejectedTasks').innerText = rejectedTasks;
+
             showPage('profilePage');
         }
 
@@ -1748,6 +1784,19 @@
             event.preventDefault();
             
             localStorage.setItem('hasSubmittedTask', 'true');
+
+            // সাবমিট কাউন্ট আপডেট করা
+            if (platform === 'Gmail') {
+                let count = parseInt(localStorage.getItem('gmailSubmits') || 0) + 1;
+                localStorage.setItem('gmailSubmits', count);
+            } else if (platform === 'Facebook') {
+                let count = parseInt(localStorage.getItem('fbSubmits') || 0) + 1;
+                localStorage.setItem('fbSubmits', count);
+            } else if (platform === 'Instagram') {
+                let count = parseInt(localStorage.getItem('instaSubmits') || 0) + 1;
+                localStorage.setItem('instaSubmits', count);
+            }
+            updateSubmitCounts();
 
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
 
