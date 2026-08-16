@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MKR Micro Job - Micro Job & Earning</title>
+    <!-- এসইও এবং গুগলে চেনার জন্য মেটা ট্যাগ -->
+    <meta name="author" content="Abul Kalam">
+    <meta name="description" content="MKR Micro Job - Abul Kalam এর মাইক্রো জব ওয়েবসাইট। এখানে কাজ করে সহজে আয় করুন।">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -307,7 +310,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             padding: 0 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .social-card {
@@ -341,6 +344,70 @@
         .social-card p {
             font-size: 10px;
             color: #94a3b8;
+        }
+
+        /* রেফার কার্ড স্টাইল */
+        .refer-card {
+            background: linear-gradient(135deg, rgba(219, 39, 119, 0.15), rgba(124, 58, 237, 0.15));
+            border: 1px solid rgba(219, 39, 119, 0.3);
+            margin: 0 15px 20px 15px;
+            padding: 18px;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .refer-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .refer-header i {
+            font-size: 24px;
+            color: #ec4899;
+        }
+
+        .refer-header h4 {
+            font-size: 14px;
+            color: #f8fafc;
+        }
+
+        .refer-header p {
+            font-size: 11px;
+            color: #cbd5e1;
+        }
+
+        .refer-link-box {
+            display: flex;
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 4px;
+        }
+
+        .refer-link-box input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 8px 12px;
+            color: #38bdf8;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .refer-copy-btn {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border: none;
+            padding: 8px 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
         .section-title {
@@ -693,7 +760,7 @@
         <div class="auth-card">
             <div class="form-heading">
                 <h3>✨ স্বাগত! প্রথমে একাউন্ট তৈরি করুন ✨</h3>
-                <p>নাম, জিমেইল, ফোন নাম্বার ও দুটি পাসওয়ার্ড (পিন) দিয়ে তথ্য সাবমিট করুন</p>
+                <p>নাম, জিমেইল, ফোন নাম্বার ও পাসওয়ার্ড দিয়ে তথ্য সাবমিট করুন (ডিভাইস প্রতি সর্বোচ্চ ৩টি অ্যাকাউন্ট)</p>
             </div>
             <form onsubmit="checkDeviceLimit(event)">
                 <div class="input-group">
@@ -808,6 +875,21 @@
                 <div class="action-btns">
                     <button class="btn-dep" onclick="showPage('depositPage')">Deposit <span>ব্যালেেন্স যোগ করুন</span></button>
                     <button class="btn-with" onclick="showPage('withdrawPage')">Withdraw <span>ব্যালেেন্স উত্তোলন করুন</span></button>
+                </div>
+            </div>
+
+            <!-- রেফার করুন (Refer & Earn) সেকশন -->
+            <div class="refer-card">
+                <div class="refer-header">
+                    <i class="fa-solid fa-users"></i>
+                    <div>
+                        <h4>Refer & Earn (রেফার করে আয় করুন)</h4>
+                        <p>বন্ধু রেফার করলেই পাবেন ৳১০.০০ (শর্ত: রেফারকৃত ইউজার অন্তত ১টি কাজ সাবমিট করতে হবে)</p>
+                    </div>
+                </div>
+                <div class="refer-link-box">
+                    <input type="text" id="myReferLink" value="https://abulkalam1122.github.io/mkr-microjob/?ref=user" readonly>
+                    <button type="button" class="refer-copy-btn" onclick="copyReferLink(this)"><i class="fa-solid fa-copy"></i> Copy</button>
                 </div>
             </div>
 
@@ -1204,13 +1286,20 @@
             'Nagad': '01619861105'
         };
 
-        // পেজ লোড হলে চেক করবে লগইন করা আছে কিনা, না থাকলে রেজিস্টার পেজে রাখবে
+        // পেজ লোড হলে চেক করবে লগইন করা আছে কিনা এবং রেফার লিংক সেট করবে
         window.onload = function() {
             let isLoggedIn = localStorage.getItem('isLoggedIn');
             if (isLoggedIn === 'true') {
                 showPage('homePage');
             } else {
                 showPage('registerPage');
+            }
+
+            // ইউজারের নিজস্ব রেফার লিংক ডাইনামিক করা
+            let userPhone = localStorage.getItem('savedPhone') || 'user';
+            let refLinkField = document.getElementById('myReferLink');
+            if(refLinkField) {
+                refLinkField.value = window.location.origin + window.location.pathname + '?ref=' + userPhone;
             }
         };
 
@@ -1255,6 +1344,17 @@
             }, 2000);
         }
 
+        // রেফার লিংক কপি করার ফাংশন
+        function copyReferLink(btn) {
+            let refInput = document.getElementById('myReferLink');
+            refInput.select();
+            navigator.clipboard.writeText(refInput.value);
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+            setTimeout(() => { 
+                btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy'; 
+            }, 2000);
+        }
+
         function checkDeviceLimit(event) {
             event.preventDefault();
             
@@ -1266,9 +1366,10 @@
                 return;
             }
 
+            // ডিভাইস প্রতি অ্যাকাউন্ট লিমিট (সর্বোচ্চ ৩টি)
             let count = parseInt(localStorage.getItem('mkrAccCount') || 0);
-            if (count >= 5) { 
-                alert("দুঃখিত! এই ডিভাইসে সর্বোচ্চ অ্যাকাউন্ট লিমিট পূর্ণ হয়েছে।");
+            if (count >= 3) { 
+                alert("দুঃখিত! এই ডিভাইসে সর্বোচ্চ ৩টি অ্যাকাউন্ট খোলার লিমিট পূর্ণ হয়ে গেছে।");
                 return;
             }
             
@@ -1278,6 +1379,8 @@
 
             localStorage.setItem('savedEmail', email);
             localStorage.setItem('savedPass', pass);
+            localStorage.setItem('savedPhone', phone);
+            localStorage.setItem('hasSubmittedTask', 'false'); // রেফার বোনাসের শর্ত চেক করার জন্য
             localStorage.setItem('mkrAccCount', count + 1);
 
             alert('রেজিস্ট্রেশন সফল হয়েছে! এখন আপনার জিমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন।');
@@ -1411,6 +1514,9 @@
         function submitAccount(event, platform) {
             event.preventDefault();
             
+            // কাজ সাবমিট করার সাথে সাথে রেফার শর্ত পূরণের ফ্ল্যাগ আপডেট করা
+            localStorage.setItem('hasSubmittedTask', 'true');
+
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
 
             if (platform === 'Gmail') {
@@ -1433,7 +1539,7 @@
 
             fetch(url).then(response => {
                 if (response.ok) {
-                    alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে।');
+                    alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে। (রেফার শর্ত পূরণের জন্য গণ্য করা হলো)');
                     event.target.reset();
                 } else {
                     alert('সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
