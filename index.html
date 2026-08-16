@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKR Micro Job - All-in-One Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f4f7f6;
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .navbar {
+            background: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar h2 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .section-page {
+            display: none;
+        }
+
+        .section-page.active {
+            display: block;
+        }
+
+        .dashboard {
+            padding-bottom: 20px;
+        }
+
+        .balance-card {
+            background: #1e293b;
+            color: white;
+            padding: 25px 20px;
+            border-radius: 20px;
+            margin: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .balance-card p {
+            font-size: 12px;
+            color: #94a3b8;
+            letter-spacing: 1px;
+        }
+
+        .balance-card h1 {
+            font-size: 36px;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        .earn-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btns button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-dep { background: #3b82f6; color: white; }
+        .btn-with { background: #334155; color: white; }
+
+        .section-title {
+            padding: 0 15px;
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 0 15px 20px 15px;
+        }
+
+        .service-card {
+            background: #ffffff;
+            padding: 20px 10px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .service-card i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .service-card h4 {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .service-card p {
+            font-size: 10px;
+            color: #777;
+        }
+
+        .service-top-card {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px;
+            text-align: center;
+        }
+
+        .service-top-card h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .service-top-card p {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+
+        .stat-box span {
+            font-size: 10px;
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-box h2 {
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .password-box {
+            background: #ffffff;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .pass-text span {
+            display: block;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .pass-text strong {
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .copy-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #3b82f6;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .submit-form-card {
+            background: #ffffff;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .form-heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-heading h3 {
+            font-size: 16px;
+            color: #1e293b;
+            margin-bottom: 3px;
+        }
+
+        .form-heading p {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: #444;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .input-field {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field i:first-child {
+            position: absolute;
+            left: 15px;
+            color: #3b82f6;
+            font-size: 14px;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            background: #f9f9f9;
+        }
+
+        .report-note {
+            font-size: 11px;
+            color: #eab308;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .submit-account-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .admin-support {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #0088cc;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
+            text-decoration: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ১. হোম পেজ সেকশন -->
+    <div id="homePage" class="section-page active">
+        <header class="navbar">
+            <i class="fa-solid fa-bars"></i>
+            <h2>MKR Micro Job</h2>
+        </header>
+
+        <div class="dashboard">
+            <div class="balance-card">
+                <p>TOTAL BALANCE</p>
+                <h1>৳0.00</h1>
+                <button class="earn-btn">কাজ করে আয় করুন আরও বেশি</button>
+                <div class="action-btns">
+                    <button class="btn-dep">Deposit</button>
+                    <button class="btn-with">Withdraw</button>
+                </div>
+            </div>
+
+            <h3 class="section-title">আমাদের ডিজিটাল সেবাসমূহ</h3>
+            <div class="services-grid">
+                <div class="service-card" onclick="showPage('gmailPage')">
+                    <i class="fa-solid fa-envelope" style="color: #ea4335;"></i>
+                    <h4>Gmail Sell</h4>
+                    <p>জিমেইল একাউন্ট</p>
+                </div>
+                <div class="service-card" onclick="showPage('facebookPage')">
+                    <i class="fa-brands fa-facebook" style="color: #1877f2;"></i>
+                    <h4>Facebook</h4>
+                    <p>ফেসবুক সার্ভিস</p>
+                </div>
+                <div class="service-card" onclick="showPage('instagramPage')">
+                    <i class="fa-brands fa-instagram" style="color: #e4405f;"></i>
+                    <h4>Instagram</h4>
+                    <p>ইনস্টাগ্রাম সার্ভিস</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ২. জিমেইল সেল পেজ সেকশন -->
+    <div id="gmailPage" class="section-page">
+        <header class="navbar">
+            <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+            <h2>MKR Micro Job</h2>
+        </header>
+
+        <div class="dashboard">
+            <div class="service-top-card">
+                <h3><i class="fa-solid fa-envelope"></i> Gmail Account Sell</h3>
+                <p>সহজেই জিমেইল সেল করে টাকা আয় করুন</p>
+                <div class="stats-row">
+                    <div class="stat-box"><span>RATE</span><h2>৳16.00</h2></div>
+                    <div class="stat-box"><span>LIMIT</span><h2>1000</h2></div>
+                    <div class="stat-box"><span>SUBMIT</span><h2>0</h2></div>
+                </div>
+            </div>
+
+            <div class="password-box">
+                <div class="pass-text">
+                    <span>Today's Password:</span>
+                    <strong id="passText1">@MyJob_MKR16</strong>
+                </div>
+                <button class="copy-btn" onclick="copyPassword('passText1', this)"><i class="fa-solid fa-copy"></i> Copy Password</button>
+            </div>
+
+            <div class="submit-form-card">
+                <div class="form-heading">
+                    <h3>Submit Your Account</h3>
+                    <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('সফলভাবে সাবমিট হয়েছে!');">
+                    <div class="input-group">
+                        <label>Gmail Address</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" placeholder="example@gmail.com" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Account Password</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Enter given password" required>
+                        </div>
+                    </div>
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> রিপোর্ট টাইম: ২০-৩০ ঘণ্টা</div>
+                    <button type="submit" class="submit-account-btn">SUBMIT GMAIL ACCOUNT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৩. ফেসবুক সেল পেজ সেকশন -->
+    <div id="facebookPage" class="section-page">
+        <header class="navbar">
+            <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+            <h2>MKR Micro Job</h2>
+        </header>
+
+        <div class="dashboard">
+            <div class="service-top-card">
+                <h3><i class="fa-brands fa-facebook"></i> Facebook Account Sell</h3>
+                <p>আপনার ফেসবুক একাউন্ট সেল করে দ্রুত পেমেন্ট নিন</p>
+                <div class="stats-row">
+                    <div class="stat-box"><span>CURRENT RATE</span><h2>৳6.00</h2></div>
+                    <div class="stat-box"><span>DAILY LIMIT</span><h2>1000</h2></div>
+                    <div class="stat-box"><span>SUBMITTED</span><h2>0</h2></div>
+                </div>
+            </div>
+
+            <div class="password-box">
+                <div class="pass-text">
+                    <span>Today's Password:</span>
+                    <strong id="passText2">MYJOB_MKR16</strong>
+                </div>
+                <button class="copy-btn" onclick="copyPassword('passText2', this)"><i class="fa-solid fa-copy"></i> Copy Password</button>
+            </div>
+
+            <div class="submit-form-card">
+                <div class="form-heading">
+                    <h3>Submit Your Account</h3>
+                    <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('সফলভাবে সাবমিট হয়েছে!');">
+                    <div class="input-group">
+                        <label>Facebook UID / Email / Number</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="text" placeholder="Enter Facebook UID" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Account Password</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Cookies</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-cookie"></i>
+                            <input type="text" placeholder="Paste Cookies here..." required>
+                        </div>
+                    </div>
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> রিপোর্ট টাইম: ১২-২৪ ঘণ্টা</div>
+                    <button type="submit" class="submit-account-btn">SUBMIT FACEBOOK ACCOUNT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ৪. ইনস্টাগ্রাম সেল পেজ সেকশন -->
+    <div id="instagramPage" class="section-page">
+        <header class="navbar">
+            <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+            <h2>MKR Micro Job</h2>
+        </header>
+
+        <div class="dashboard">
+            <div class="service-top-card">
+                <h3><i class="fa-brands fa-instagram"></i> Instagram Account Sell</h3>
+                <p>ইনস্টাগ্রাম অ্যাকাউন্ট সেল করে টাকা ইনকাম করুন</p>
+                <div class="stats-row">
+                    <div class="stat-box"><span>CURRENT RATE</span><h2>৳4.50</h2></div>
+                    <div class="stat-box"><span>DAILY LIMIT</span><h2>1000</h2></div>
+                    <div class="stat-box"><span>SUBMITTED</span><h2>2</h2></div>
+                </div>
+            </div>
+
+            <div class="password-box">
+                <div class="pass-text">
+                    <span>Today's Password:</span>
+                    <strong id="passText3">MYJOB_MKR16</strong>
+                </div>
+                <button class="copy-btn" onclick="copyPassword('passText3', this)"><i class="fa-solid fa-copy"></i> Copy Password</button>
+            </div>
+
+            <div class="submit-form-card">
+                <div class="form-heading">
+                    <h3>Submit Your Account</h3>
+                    <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
+                </div>
+                <form onsubmit="event.preventDefault(); alert('সফলভাবে সাবমিট হয়েছে!');">
+                    <div class="input-group">
+                        <label>Instagram Username</label>
+                        <div class="input-field">
+                            <i class="fa-brands fa-instagram"></i>
+                            <input type="text" placeholder="Enter Username" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Account Password</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>2FA Key / Backup Codes</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-shield"></i>
+                            <input type="text" placeholder="Enter 2FA Key" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-account-btn">SUBMIT INSTAGRAM ACCOUNT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- অ্যাডমিন সাপোর্ট টেলিগ্রাম বট বাটন -->
+    <a href="https://t.me/abulkalam_mkr_bot" target="_blank" class="admin-support">
+        <i class="fa-solid fa-headset"></i>
+    </a>
+
+    <!-- জাভাস্ক্রিপ্ট কোড (পেইজ সুইচ এবং পাসওয়ার্ড কপি করার জন্য) -->
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.section-page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function copyPassword(id, btn) {
+            var text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+            setTimeout(() => { 
+                btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy Password'; 
+            }, 2000);
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKR Micro Job - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f4f7f6;
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: #ffffff;
+            width: 100%;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .login-card h2 {
+            font-size: 22px;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        .login-card p {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: #444;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .input-field {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .input-field i {
+            position: absolute;
+            left: 15px;
+            color: #3b82f6;
+            font-size: 14px;
+        }
+        .input-field input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            background: #f9f9f9;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>MKR Micro Job</h2>
+        <p>আপনার অ্যাকাউন্টে লগইন করুন</p>
+        
+        <form action="index.html" method="GET">
+            <div class="input-group">
+                <label>Email or Username</label>
+                <div class="input-field">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Enter your username" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">LOGIN</button>
+        </form>
+    </div>
+
+</body>
+</html>
