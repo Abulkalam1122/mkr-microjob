@@ -37,7 +37,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 2px solid rgba(0, 242, 254, 0.3);
+            border-bottom: 2px solid rgba(0, 242, 254, 0.5);
         }
 
         .nav-left {
@@ -50,7 +50,6 @@
             font-size: 17px;
             color: #00f2fe;
             font-weight: 700;
-            text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
         }
 
         /* প্রোফাইল ড্রপডাউন কন্টেইনার */
@@ -68,7 +67,7 @@
             justify-content: center;
             color: #fff;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.8);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         /* ড্রপডাউন মেনু স্টাইল */
@@ -77,7 +76,7 @@
             right: 0;
             top: 45px;
             background: #191436;
-            border: 2px solid rgba(0, 242, 254, 0.4);
+            border: 2px solid rgba(0, 242, 254, 0.6);
             border-radius: 16px;
             width: 200px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.8);
@@ -96,7 +95,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #e2e8f0;
+            color: #fff;
             text-decoration: none;
             font-size: 13px;
             font-weight: 600;
@@ -139,7 +138,7 @@
             transition: 0.3s ease;
             box-shadow: 5px 0 25px rgba(0,0,0,0.8);
             padding: 20px;
-            border-right: 2px solid rgba(0, 242, 254, 0.3);
+            border-right: 2px solid rgba(0, 242, 254, 0.5);
         }
 
         .sidebar.active {
@@ -150,7 +149,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
@@ -167,18 +166,17 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #cbd5e1;
+            color: #fff;
             font-weight: 600;
             font-size: 14px;
             transition: 0.3s;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .sidebar-menu li:hover {
             background: linear-gradient(135deg, #00f2fe, #4facfe);
             color: #000;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
         }
 
         .sidebar-menu li i {
@@ -215,18 +213,18 @@
 
         .notice-bar {
             background: #191436;
-            border: 2px solid rgba(0, 242, 254, 0.4);
+            border: 2px solid rgba(0, 242, 254, 0.6);
             margin: 15px;
             padding: 12px 15px;
             border-radius: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
             font-size: 13px;
             color: #fff;
-            overflow: hidden;
             white-space: nowrap;
+            overflow: hidden;
         }
 
         .notice-bar i {
@@ -234,25 +232,16 @@
             font-size: 16px;
         }
 
-        /* ঝিলমিলে বা glowing ব্যালেন্স কার্ড */
+        /* স্পষ্ট ও উজ্জ্বল ব্যালেন্স কার্ড */
         .balance-card {
             background: linear-gradient(135deg, #ff007f, #7928ca, #00f2fe);
-            background-size: 200% 200%;
-            animation: glowingGradient 5s ease infinite;
             color: white;
             padding: 22px;
             border-radius: 20px;
             margin: 15px;
             position: relative;
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.6), 0 0 45px rgba(0, 242, 254, 0.4);
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
-
-        @keyframes glowingGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.6);
         }
 
         .balance-card p {
@@ -260,20 +249,18 @@
             color: #fff;
             letter-spacing: 1px;
             font-weight: 700;
-            text-shadow: 0 0 8px rgba(0,0,0,0.8);
         }
 
         .balance-card h1 {
             font-size: 34px;
             margin: 8px 0;
             color: #fff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 25px rgba(0, 242, 254, 0.9);
             font-weight: 800;
         }
 
         .earn-btn {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             color: #fff;
             padding: 6px 14px;
             border-radius: 20px;
@@ -283,7 +270,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+            font-weight: 600;
         }
 
         .action-btns {
@@ -303,18 +290,18 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             transition: 0.3s;
         }
 
         .action-btns button span {
             font-size: 10px;
             font-weight: normal;
-            opacity: 0.95;
+            color: #fff;
         }
 
-        .btn-dep { background: linear-gradient(135deg, #00b09b, #96c93d); color: white; box-shadow: 0 0 15px rgba(0, 176, 155, 0.7); border: 1px solid rgba(255,255,255,0.3); }
-        .btn-with { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; box-shadow: 0 0 15px rgba(255, 65, 108, 0.7); border: 1px solid rgba(255,255,255,0.3); }
+        .btn-dep { background: linear-gradient(135deg, #00b09b, #96c93d); color: white; border: 1px solid rgba(255,255,255,0.4); }
+        .btn-with { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; border: 1px solid rgba(255,255,255,0.4); }
 
         .social-grid {
             display: grid;
@@ -326,21 +313,19 @@
 
         .social-card {
             background: #191436;
-            border: 2px solid rgba(0, 242, 254, 0.3);
+            border: 2px solid rgba(0, 242, 254, 0.5);
             padding: 15px;
             border-radius: 16px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             text-decoration: none;
             transition: 0.3s;
         }
 
         .social-card:hover {
-            transform: translateY(-3px);
             border-color: #00f2fe;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
         }
 
         .social-card i {
@@ -349,7 +334,8 @@
 
         .social-card h4 {
             font-size: 13px;
-            color: #f8fafc;
+            color: #fff;
+            font-weight: 700;
         }
 
         .social-card p {
@@ -360,11 +346,11 @@
         /* রেফার কার্ড স্টাইল */
         .refer-card {
             background: #191436;
-            border: 2px solid rgba(0, 242, 254, 0.4);
+            border: 2px solid rgba(0, 242, 254, 0.6);
             margin: 0 15px 20px 15px;
             padding: 18px;
             border-radius: 18px;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .refer-header {
@@ -377,12 +363,12 @@
         .refer-header i {
             font-size: 24px;
             color: #00f2fe;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
         }
 
         .refer-header h4 {
             font-size: 14px;
-            color: #f8fafc;
+            color: #fff;
+            font-weight: 700;
         }
 
         .refer-header p {
@@ -393,7 +379,7 @@
         .refer-link-box {
             display: flex;
             background: #0f0c29;
-            border: 2px solid rgba(0, 242, 254, 0.3);
+            border: 2px solid rgba(0, 242, 254, 0.5);
             border-radius: 12px;
             overflow: hidden;
             padding: 4px;
@@ -407,6 +393,7 @@
             color: #00f2fe;
             font-size: 12px;
             outline: none;
+            font-weight: 600;
         }
 
         .refer-copy-btn {
@@ -419,13 +406,12 @@
             border-radius: 10px;
             cursor: pointer;
             white-space: nowrap;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         .section-title {
             padding: 0 15px;
             font-size: 15px;
-            color: #f8fafc;
+            color: #fff;
             margin-bottom: 12px;
             font-weight: 700;
         }
@@ -439,19 +425,17 @@
 
         .service-card {
             background: #191436;
-            border: 2px solid rgba(0, 242, 254, 0.3);
+            border: 2px solid rgba(0, 242, 254, 0.5);
             padding: 20px 10px;
             text-align: center;
             border-radius: 16px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             cursor: pointer;
             transition: 0.3s;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
             border-color: #00f2fe;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
         }
 
         .service-card i {
@@ -461,8 +445,9 @@
 
         .service-card h4 {
             font-size: 13px;
-            color: #f8fafc;
+            color: #fff;
             margin-bottom: 2px;
+            font-weight: 700;
         }
 
         .service-card p {
@@ -477,7 +462,7 @@
             border-radius: 16px;
             margin: 15px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             font-weight: 600;
             border: 2px solid #fff;
         }
@@ -485,6 +470,7 @@
         .service-top-card h3 {
             font-size: 18px;
             margin-bottom: 5px;
+            font-weight: 800;
         }
 
         .service-top-card p {
@@ -497,7 +483,7 @@
         .stats-row {
             display: flex;
             justify-content: space-around;
-            border-top: 2px solid rgba(0, 0, 0, 0.3);
+            border-top: 2px solid rgba(0, 0, 0, 0.2);
             padding-top: 15px;
         }
 
@@ -512,18 +498,19 @@
         .stat-box h2 {
             font-size: 16px;
             color: #000;
+            font-weight: 800;
         }
 
         .password-box, .deposit-info-box {
             background: #191436;
-            border: 2px solid rgba(0, 242, 254, 0.4);
+            border: 2px solid rgba(0, 242, 254, 0.6);
             margin: 15px;
             padding: 15px;
             border-radius: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .pass-text span {
@@ -535,7 +522,7 @@
         .pass-text strong {
             font-size: 14px;
             color: #00f2fe;
-            text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+            font-weight: 700;
         }
 
         .copy-btn {
@@ -547,16 +534,15 @@
             color: #000;
             cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
         }
 
         .submit-form-card, .auth-card {
             background: #191436;
-            border: 2px solid rgba(0, 242, 254, 0.4);
+            border: 2px solid rgba(0, 242, 254, 0.6);
             margin: 15px;
             padding: 22px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .form-heading {
@@ -568,7 +554,7 @@
             font-size: 18px;
             color: #00f2fe;
             margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+            font-weight: 700;
         }
 
         .form-heading p {
@@ -583,7 +569,7 @@
         .input-group label {
             display: block;
             font-size: 12px;
-            color: #e2e8f0;
+            color: #fff;
             margin-bottom: 6px;
             font-weight: 600;
         }
@@ -604,12 +590,13 @@
         .input-field input, .input-field select {
             width: 100%;
             padding: 12px 15px 12px 45px;
-            border: 2px solid rgba(0, 242, 254, 0.3);
+            border: 2px solid rgba(0, 242, 254, 0.5);
             border-radius: 12px;
             outline: none;
             font-size: 14px;
             background: #0f0c29;
             color: #fff;
+            font-weight: 600;
         }
 
         .input-field input::placeholder {
@@ -618,7 +605,6 @@
 
         .input-field input:focus, .input-field select:focus {
             border-color: #00f2fe;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.8);
         }
 
         .report-note {
@@ -632,6 +618,7 @@
             padding: 8px 12px;
             border-radius: 8px;
             border: 1px solid rgba(251, 191, 36, 0.4);
+            font-weight: 600;
         }
 
         .submit-account-btn, .auth-btn {
@@ -645,13 +632,7 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 5px;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
             transition: 0.3s;
-        }
-
-        .submit-account-btn:hover, .auth-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.9);
         }
 
         .auth-switch {
@@ -689,7 +670,7 @@
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.6);
             text-decoration: none;
             z-index: 100;
             border: 2px solid #fff;
@@ -697,7 +678,7 @@
 
         .calc-box {
             background: #0f0c29;
-            border: 2px solid rgba(0, 242, 254, 0.3);
+            border: 2px solid rgba(0, 242, 254, 0.5);
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 15px;
@@ -720,11 +701,10 @@
             font-weight: bold;
             margin-bottom: 0;
             padding-top: 5px;
-            text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
         }
         .number-display-box {
             background: #0f0c29;
-            border: 2px solid rgba(0, 242, 254, 0.3);
+            border: 2px solid rgba(0, 242, 254, 0.5);
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 15px;
@@ -742,7 +722,6 @@
             font-size: 16px;
             color: #00f2fe;
             letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
         }
     </style>
 </head>
@@ -885,7 +864,7 @@
         </div>
 
         <div class="dashboard">
-            <!-- ঝিলমিলে ব্যাকগ্রাউন্ড সহ টোটাল ব্যালেন্স কার্ড -->
+            <!-- ব্যালেন্স কার্ড -->
             <div class="balance-card">
                 <p>TOTAL BALANCE</p>
                 <h1>৳0.00</h1>
@@ -1015,7 +994,7 @@
                             <span>আপনাকে পাঠাতে হবে:</span>
                             <span id="depCalcTotal">৳0.00</span>
                         </div>
-                        <div style="font-size: 11px; color: #34d399; margin-top: 8px; text-align: center;">
+                        <div style="font-size: 11px; color: #34d399; margin-top: 8px; text-align: center; font-weight: 600;">
                             <i class="fa-solid fa-circle-check"></i> <span id="depFinalSuccessMsg">আপনার ব্যালেন্স ৳0.00 যোগ হবে।</span>
                         </div>
                     </div>
@@ -1304,7 +1283,6 @@
             'Nagad': '01619861105'
         };
 
-        // তারিখ অনুযায়ী পাসওয়ার্ড আপডেট এবং সেট করার ফাংশন
         function updateDailyPasswords() {
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
@@ -1325,13 +1303,10 @@
             if(document.getElementById('currentDateLabel3')) document.getElementById('currentDateLabel3').innerText = dateStr;
         }
 
-        // পেজ লোড হলে চেক করা এবং রেফারি হ্যান্ডেল করা
         window.onload = function() {
-            // URL থেকে রেফার কোড চেক করা (যেমন: ?ref=017XXXXXXXX)
             const urlParams = new URLSearchParams(window.location.search);
             const refUser = urlParams.get('ref');
             if (refUser) {
-                // ব্রাউজারে রেফারকারী ইউজারের তথ্য সেভ করে রাখা
                 localStorage.setItem('referredBy', refUser);
             }
 
@@ -1429,13 +1404,11 @@
             localStorage.setItem('hasSubmittedTask', 'false');
             localStorage.setItem('mkrAccCount', count + 1);
 
-            // রেফারি লজিক কাউন্ট (রেফার করলে ১ অথবা ২ রেকর্ড হ্যান্ডেল করা)
             let referredBy = localStorage.getItem('referredBy');
             if (referredBy) {
                 let refCountKey = 'ref_count_' + referredBy;
                 let currentRefCount = parseInt(localStorage.getItem(refCountKey) || 0) + 1;
                 
-                // রিকোয়ারমেন্ট অনুযায়ী ১ বা ২ রেক লেখার লজিক
                 if (currentRefCount === 1) {
                     localStorage.setItem(refCountKey, '1 রেক (প্রথম রেফার)');
                 } else {
@@ -1444,8 +1417,6 @@
             }
 
             alert('রেজিস্ট্রেশন সফল হয়েছে! এখন আপনার জিমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন।');
-            
-            // সফল হওয়ার পর অন্য পেজে রিডাইরেক্ট (লগইন পেজে যাচ্ছে)
             showPage('loginPage');
         }
 
@@ -1464,8 +1435,6 @@
 
             localStorage.setItem('isLoggedIn', 'true');
             alert('লগইন সফল হয়েছে!');
-            
-            // সফলভাবে লগইন হওয়ার পর হোম পেজে রিডাইরেক্ট
             showPage('homePage');
         }
 
@@ -1514,8 +1483,6 @@
                     alert('ডিপোজিট রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
                     event.target.reset();
                     updateDepositInfo();
-                    
-                    // সাকসেস হওয়ার পর হোম পেজে রিডাইরেক্ট
                     showPage('homePage');
                 } else {
                     alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
@@ -1568,8 +1535,6 @@
                     alert('উইথড্র রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে! ৫% চার্জ কেটে খুব শীঘ্রই পেমেন্ট দেওয়া হবে।');
                     event.target.reset();
                     calculateWithdrawFee();
-                    
-                    // সাকসেস হওয়ার পর হোম পেজে রিডাইরেক্ট
                     showPage('homePage');
                 } else {
                     alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
@@ -1591,7 +1556,7 @@
                 let pass = document.getElementById('gmailPass').value;
                 message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
             } else if (platform === 'Facebook') {
-                let uid = document.getElementById('fbUid,').value || document.getElementById('fbUid').value;
+                let uid = document.getElementById('fbUid').value;
                 let pass = document.getElementById('fbPass').value;
                 let cookies = document.getElementById('fbCookies').value;
                 message += `👤 UID/Email: ${uid}\n🔑 পাসওয়ার্ড: ${pass}\n🍪 Cookies: ${cookies}`;
@@ -1608,8 +1573,6 @@
                 if (response.ok) {
                     alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে।');
                     event.target.reset();
-                    
-                    // কাজ সফলভাবে সাবমিট হওয়ার পর হোম পেজে রিডাইরেক্ট
                     showPage('homePage');
                 } else {
                     alert('সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
