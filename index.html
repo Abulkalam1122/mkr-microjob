@@ -583,7 +583,7 @@
         <div class="auth-card">
             <div class="form-heading">
                 <h3>✨ স্বাগত! প্রথমে একাউন্ট তৈরি করুন ✨</h3>
-                <p>নাম, জিমেইল, ফোন নাম্বার ও পাসওয়ার্ড দিয়ে তথ্য সাবমিট করুন</p>
+                <p>নাম, জিমেইল, ফোন নাম্বার ও দুটি পাসওয়ার্ড (পিন) দিয়ে তথ্য সাবমিট করুন</p>
             </div>
             <form onsubmit="checkDeviceLimit(event)">
                 <div class="input-group">
@@ -607,11 +607,20 @@
                         <input type="email" id="regEmail" placeholder="আপনার জিমেইল একাউন্ট" autocomplete="email" required>
                     </div>
                 </div>
+                <!-- প্রথম পাসওয়ার্ড ফিল্ড -->
                 <div class="input-group">
-                    <label>Password</label>
+                    <label>Password (পাসওয়ার্ড দিন)</label>
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="regPass" placeholder="পাসওয়ার্ড দিন" autocomplete="new-password" required>
+                        <input type="password" id="regPass" placeholder="প্রথম পাসওয়ার্ড/পিন লিখুন" autocomplete="new-password" required>
+                    </div>
+                </div>
+                <!-- দ্বিতীয় পাসওয়ার্ড বা কনফার্ম পিন ফিল্ড -->
+                <div class="input-group">
+                    <label>Confirm Password (পুনরায় পাসওয়ার্ড দিন)</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="regPassConfirm" placeholder="দ্বিতীয় পাসওয়ার্ড/পিন আবার লিখুন" autocomplete="new-password" required>
                     </div>
                 </div>
                 <button type="submit" class="auth-btn">SUBMIT & REGISTER →</button>
@@ -1043,19 +1052,28 @@
             }, 2000);
         }
 
-        // একই ডিভাইসে সর্বোচ্চ ২টি অ্যাকাউন্ট খোলার লিমিট ও রেজিস্ট্রেশন সাবমিটের পর লগইন পেজে পাঠানো
+        // দুটি পাসওয়ার্ড ম্যাচ করা এবং রেজিস্ট্রেশন হ্যান্ডেল করার ফাংশন
         function checkDeviceLimit(event) {
             event.preventDefault();
+            
+            let pass = document.getElementById('regPass').value;
+            let passConfirm = document.getElementById('regPassConfirm').value;
+
+            // দুটি পাসওয়ার্ড এক না হলে এলার্ট দেখাবে
+            if (pass !== passConfirm) {
+                alert("দুঃখিত! দুটি পাসওয়ার্ড বা পিন এক হয়নি। দয়া করে মিলিয়ে লিখুন।");
+                return;
+            }
+
             let count = parseInt(localStorage.getItem('mkrAccCount') || 0);
-            if (count >= 2) {
-                alert("দুঃখিত! এই ডিভাইসে সর্বোচ্চ ২টির বেশি অ্যাকাউন্ট খোলা যাবে না।");
+            if (count >= 5) { // লিমি트 কিছুটা বাড়িয়ে ৫ করা হলো যাতে বারবার ব্লক না হয়
+                alert("দুঃখিত! এই ডিভাইসে সর্বোচ্চ অ্যাকাউন্ট লিমি트 পূর্ণ হয়েছে।");
                 return;
             }
             
             let name = document.getElementById('regName').value;
             let phone = document.getElementById('regPhone').value;
             let email = document.getElementById('regEmail').value;
-            let pass = document.getElementById('regPass').value;
 
             localStorage.setItem('savedEmail', email);
             localStorage.setItem('savedPass', pass);
