@@ -17,7 +17,8 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1e1b4b, #311042, #111827);
+            /* আরও উজ্জ্বল ও ঝিলমিলে ডায়নামিক ব্যাকগ্রাউন্ড */
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             background-attachment: fixed;
             max-width: 480px;
             margin: 0 auto;
@@ -48,9 +49,9 @@
 
         .navbar h2 {
             font-size: 17px;
-            color: #38bdf8;
+            color: #00f2fe;
             font-weight: 700;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
         }
 
         /* প্রোফাইল ড্রপডাউন কন্টেইনার */
@@ -61,14 +62,14 @@
         .profile-icon {
             width: 35px;
             height: 35px;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.8);
         }
 
         /* ড্রপডাউন মেনু স্টাইল */
@@ -112,12 +113,12 @@
 
         .dropdown-item:hover {
             background: rgba(255, 255, 255, 0.1);
-            color: #38bdf8;
+            color: #00f2fe;
         }
 
         .dropdown-item i {
             font-size: 15px;
-            color: #a855f7;
+            color: #00f2fe;
         }
 
         .dropdown-item.logout {
@@ -176,18 +177,18 @@
         }
 
         .sidebar-menu li:hover {
-            background: linear-gradient(135deg, #7c3aed, #db2777);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
         }
 
         .sidebar-menu li i {
             font-size: 16px;
-            color: #38bdf8;
+            color: #00f2fe;
         }
 
         .sidebar-menu li:hover i {
-            color: #fff;
+            color: #000;
         }
 
         .overlay {
@@ -215,8 +216,8 @@
         }
 
         .notice-bar {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+            border: 1px solid rgba(0, 242, 254, 0.3);
             margin: 15px;
             padding: 12px 15px;
             border-radius: 14px;
@@ -231,38 +232,50 @@
         }
 
         .notice-bar i {
-            color: #34d399;
+            color: #00f2fe;
             font-size: 16px;
         }
 
+        /* ঝিলমিলে বা glowing ব্যালেন্স কার্ড */
         .balance-card {
-            background: linear-gradient(135deg, #4f46e5, #9333ea, #db2777);
+            background: linear-gradient(135deg, #ff007f, #7928ca, #00f2fe);
+            background-size: 200% 200%;
+            animation: glowingGradient 5s ease infinite;
             color: white;
             padding: 22px;
             border-radius: 20px;
             margin: 15px;
             position: relative;
-            box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.5), 0 0 45px rgba(0, 242, 254, 0.3);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes glowingGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .balance-card p {
             font-size: 11px;
-            color: #f3e8ff;
+            color: #fff;
             letter-spacing: 1px;
-            font-weight: 600;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
 
         .balance-card h1 {
-            font-size: 32px;
+            font-size: 34px;
             margin: 8px 0;
             color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(0, 242, 254, 0.8);
+            font-weight: 800;
         }
 
         .earn-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             color: #fff;
             padding: 6px 14px;
             border-radius: 20px;
@@ -273,6 +286,7 @@
             align-items: center;
             gap: 5px;
             backdrop-filter: blur(5px);
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
         .action-btns {
@@ -292,7 +306,7 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: 0.3s;
         }
 
@@ -302,8 +316,8 @@
             opacity: 0.9;
         }
 
-        .btn-dep { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-        .btn-with { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .btn-dep { background: linear-gradient(135deg, #00b09b, #96c93d); color: white; box-shadow: 0 0 15px rgba(0, 176, 155, 0.5); }
+        .btn-with { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; box-shadow: 0 0 15px rgba(255, 65, 108, 0.5); }
 
         .social-grid {
             display: grid;
@@ -315,7 +329,7 @@
 
         .social-card {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             padding: 15px;
             border-radius: 16px;
@@ -329,7 +343,9 @@
 
         .social-card:hover {
             transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
         }
 
         .social-card i {
@@ -348,12 +364,12 @@
 
         /* রেফার কার্ড স্টাইল */
         .refer-card {
-            background: linear-gradient(135deg, rgba(219, 39, 119, 0.15), rgba(124, 58, 237, 0.15));
-            border: 1px solid rgba(219, 39, 119, 0.3);
+            background: linear-gradient(135deg, rgba(255, 0, 127, 0.15), rgba(0, 242, 254, 0.15));
+            border: 1px solid rgba(0, 242, 254, 0.3);
             margin: 0 15px 20px 15px;
             padding: 18px;
             border-radius: 18px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
             backdrop-filter: blur(10px);
         }
 
@@ -366,7 +382,8 @@
 
         .refer-header i {
             font-size: 24px;
-            color: #ec4899;
+            color: #00f2fe;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
         }
 
         .refer-header h4 {
@@ -393,21 +410,22 @@
             background: transparent;
             border: none;
             padding: 8px 12px;
-            color: #38bdf8;
+            color: #00f2fe;
             font-size: 12px;
             outline: none;
         }
 
         .refer-copy-btn {
-            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
             border: none;
             padding: 8px 15px;
-            color: white;
+            color: #000;
             font-weight: bold;
             font-size: 12px;
             border-radius: 10px;
             cursor: pointer;
             white-space: nowrap;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         .section-title {
@@ -439,8 +457,9 @@
 
         .service-card:hover {
             transform: translateY(-5px);
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(219, 39, 119, 0.2));
-            border-color: rgba(219, 39, 119, 0.4);
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(255, 0, 127, 0.2));
+            border-color: rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
         }
 
         .service-card i {
@@ -460,13 +479,14 @@
         }
 
         .service-top-card {
-            background: linear-gradient(135deg, #059669, #2563eb, #7c3aed);
-            color: white;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #000;
             padding: 20px;
             border-radius: 16px;
             margin: 15px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            font-weight: 600;
         }
 
         .service-top-card h3 {
@@ -476,27 +496,28 @@
 
         .service-top-card p {
             font-size: 11px;
-            color: #e2e8f0;
+            color: #051c24;
             margin-bottom: 15px;
         }
 
         .stats-row {
             display: flex;
             justify-content: space-around;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
             padding-top: 15px;
         }
 
         .stat-box span {
             font-size: 10px;
-            color: #e2e8f0;
+            color: #051c24;
             display: block;
             margin-bottom: 5px;
+            font-weight: bold;
         }
 
         .stat-box h2 {
             font-size: 16px;
-            color: #fff;
+            color: #000;
         }
 
         .password-box, .deposit-info-box {
@@ -520,19 +541,20 @@
 
         .pass-text strong {
             font-size: 14px;
-            color: #f8fafc;
+            color: #00f2fe;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
         }
 
         .copy-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
             border: none;
             padding: 8px 14px;
             border-radius: 10px;
             font-size: 12px;
-            color: #fff;
+            color: #000;
             cursor: pointer;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         .submit-form-card, .auth-card {
@@ -552,9 +574,9 @@
 
         .form-heading h3 {
             font-size: 18px;
-            color: #38bdf8;
+            color: #00f2fe;
             margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         .form-heading p {
@@ -583,7 +605,7 @@
         .input-field i:first-child {
             position: absolute;
             left: 15px;
-            color: #a855f7;
+            color: #00f2fe;
             font-size: 14px;
         }
 
@@ -603,8 +625,8 @@
         }
 
         .input-field input:focus, .input-field select:focus {
-            border-color: #a855f7;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
         }
 
         .report-note {
@@ -623,7 +645,7 @@
         .submit-account-btn, .auth-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #7c3aed, #db2777);
+            background: linear-gradient(135deg, #00f2fe, #ff007f);
             color: white;
             border: none;
             border-radius: 12px;
@@ -631,13 +653,13 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 5px;
-            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
             transition: 0.3s;
         }
 
         .submit-account-btn:hover, .auth-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(219, 39, 119, 0.5);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.8);
         }
 
         .auth-switch {
@@ -648,7 +670,7 @@
         }
 
         .auth-switch span {
-            color: #38bdf8;
+            color: #00f2fe;
             cursor: pointer;
             font-weight: bold;
             text-decoration: underline;
@@ -659,15 +681,15 @@
             border: none;
             font-size: 18px;
             cursor: pointer;
-            color: #38bdf8;
+            color: #00f2fe;
         }
 
         .admin-support {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background: linear-gradient(135deg, #10b981, #2563eb);
-            color: white;
+            background: linear-gradient(135deg, #00f2fe, #00c6ff);
+            color: black;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -675,7 +697,7 @@
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.8);
             text-decoration: none;
             z-index: 100;
         }
@@ -700,11 +722,12 @@
             padding-bottom: 8px;
         }
         .calc-row.total {
-            color: #38bdf8;
+            color: #00f2fe;
             font-size: 15px;
             font-weight: bold;
             margin-bottom: 0;
             padding-top: 5px;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
         }
         .number-display-box {
             background: rgba(17, 24, 39, 0.6);
@@ -724,8 +747,9 @@
         }
         .number-display-box strong {
             font-size: 16px;
-            color: #38bdf8;
+            color: #00f2fe;
             letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
         }
     </style>
 </head>
@@ -735,7 +759,7 @@
     <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2 style="font-size: 16px; color: #38bdf8;">MKR Micro Job</h2>
+            <h2 style="font-size: 16px; color: #00f2fe;">MKR Micro Job</h2>
             <i class="fa-solid fa-xmark" style="font-size: 18px; cursor: pointer; color: #fff;" onclick="toggleSidebar()"></i>
         </div>
         <ul class="sidebar-menu">
@@ -845,7 +869,7 @@
     <div id="homePage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
-                <i class="fa-solid fa-bars" style="font-size: 18px; color: #38bdf8; cursor: pointer;" onclick="toggleSidebar()"></i>
+                <i class="fa-solid fa-bars" style="font-size: 18px; color: #00f2fe; cursor: pointer;" onclick="toggleSidebar()"></i>
                 <h2>MKR Micro Job</h2>
             </div>
             
@@ -868,6 +892,7 @@
         </div>
 
         <div class="dashboard">
+            <!-- ঝিলমিলে ব্যাকগ্রাউন্ড সহ টোটাল ব্যালেন্স কার্ড -->
             <div class="balance-card">
                 <p>TOTAL BALANCE</p>
                 <h1>৳0.00</h1>
@@ -895,14 +920,14 @@
 
             <div class="social-grid">
                 <a href="https://t.me/abulkalam_mkr_bot" target="_blank" class="social-card">
-                    <i class="fa-brands fa-telegram" style="color: #38bdf8;"></i>
+                    <i class="fa-brands fa-telegram" style="color: #00f2fe;"></i>
                     <div>
                         <h4>Telegram</h4>
                         <p>আমাদের টেলিগ্রাম চ্যানেল</p>
                     </div>
                 </a>
                 <a href="#" class="social-card">
-                    <i class="fa-brands fa-youtube" style="color: #ef4444;"></i>
+                    <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
                     <div>
                         <h4>YouTube</h4>
                         <p>আমাদের ইউটিউব চ্যানেল</p>
@@ -913,17 +938,17 @@
             <h3 class="section-title">আমাদের ডিজিটাল সেবাসমূহ</h3>
             <div class="services-grid">
                 <div class="service-card" onclick="showPage('gmailPage')">
-                    <i class="fa-solid fa-envelope" style="color: #ef4444;"></i>
+                    <i class="fa-solid fa-envelope" style="color: #ff4b2b;"></i>
                     <h4>Gmail Sell</h4>
                     <p>জিমেইল একাউন্ট</p>
                 </div>
                 <div class="service-card" onclick="showPage('facebookPage')">
-                    <i class="fa-brands fa-facebook" style="color: #3b82f6;"></i>
+                    <i class="fa-brands fa-facebook" style="color: #00f2fe;"></i>
                     <h4>Facebook</h4>
                     <p>ফেসবুক সার্ভিস</p>
                 </div>
                 <div class="service-card" onclick="showPage('instagramPage')">
-                    <i class="fa-brands fa-instagram" style="color: #ec4899;"></i>
+                    <i class="fa-brands fa-instagram" style="color: #ff007f;"></i>
                     <h4>Instagram</h4>
                     <p>ইনস্টাগ্রাম সার্ভিস</p>
                 </div>
@@ -1313,7 +1338,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const refUser = urlParams.get('ref');
             if (refUser) {
-                // ব্রাউজারে রেফারকারী ইউজрын তথ্য সেভ করে রাখা
+                // ব্রাউজারে রেফারকারী ইউজারের তথ্য সেভ করে রাখা
                 localStorage.setItem('referredBy', refUser);
             }
 
@@ -1573,7 +1598,7 @@
                 let pass = document.getElementById('gmailPass').value;
                 message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
             } else if (platform === 'Facebook') {
-                let uid = document.getElementById('fbUid').value;
+                let uid = document.getElementById('fbUid,').value || document.getElementById('fbUid').value;
                 let pass = document.getElementById('fbPass').value;
                 let cookies = document.getElementById('fbCookies').value;
                 message += `👤 UID/Email: ${uid}\n🔑 পাসওয়ার্ড: ${pass}\n🍪 Cookies: ${cookies}`;
