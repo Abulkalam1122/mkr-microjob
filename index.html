@@ -57,6 +57,76 @@
             cursor: pointer;
         }
 
+        /* সাইডবার মেনু স্টাইল */
+        .sidebar {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 75%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 1000;
+            transition: 0.3s ease;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar-menu li:hover {
+            background: #f1f5f9;
+            color: #2563eb;
+        }
+
+        .sidebar-menu li i {
+            font-size: 16px;
+            color: #2563eb;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         .section-page {
             display: none;
         }
@@ -424,11 +494,29 @@
 </head>
 <body>
 
+    <!-- ওভারলে এবং সাইডবার মেনু -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 style="font-size: 16px; color: #1e3a8a;">MKR Micro Job</h2>
+            <i class="fa-solid fa-xmark" style="font-size: 18px; cursor: pointer;" onclick="toggleSidebar()"></i>
+        </div>
+        <ul class="sidebar-menu">
+            <li onclick="toggleSidebar(); showPage('homePage');"><i class="fa-solid fa-house"></i> হোম পেজ</li>
+            <li onclick="toggleSidebar(); showPage('depositPage');"><i class="fa-solid fa-wallet"></i> ডিপোজিট করুন</li>
+            <li onclick="toggleSidebar(); showPage('withdrawPage');"><i class="fa-solid fa-money-bill-transfer"></i> উইথড্র করুন</li>
+            <li onclick="toggleSidebar(); showPage('gmailPage');"><i class="fa-solid fa-envelope"></i> জিমেইল সেল</li>
+            <li onclick="toggleSidebar(); showPage('facebookPage');"><i class="fa-brands fa-facebook"></i> ফেসবুক সেল</li>
+            <li onclick="toggleSidebar(); showPage('instagramPage');"><i class="fa-brands fa-instagram"></i> ইনস্টাগ্রাম সেল</li>
+            <li onclick="toggleSidebar(); showPage('loginPage');"><i class="fa-solid fa-right-to-bracket"></i> লগইন / রেজিস্টার</li>
+        </ul>
+    </div>
+
     <!-- হোম পেজ সেকশন -->
     <div id="homePage" class="section-page active">
         <header class="navbar">
             <div class="nav-left">
-                <i class="fa-solid fa-bars" style="font-size: 18px; color: #1e3a8a;"></i>
+                <i class="fa-solid fa-bars" style="font-size: 18px; color: #1e3a8a; cursor: pointer;" onclick="toggleSidebar()"></i>
                 <h2>MKR Micro Job</h2>
             </div>
             <div class="profile-icon" onclick="showPage('loginPage')">
@@ -655,33 +743,33 @@
                 <h3>✨ নতুন অ্যাকাউন্ট ✨</h3>
                 <p>আজই যোগ দিন এবং ইনকাম শুরু করুন</p>
             </div>
-            <form onsubmit="event.preventDefault(); alert('রেজিস্ট্রেশন সফল হয়েছে!'); showPage('loginPage');">
+            <form onsubmit="checkDeviceLimit(event)">
                 <div class="input-group">
                     <label>Full Name</label>
                     <div class="input-field">
                         <i class="fa-solid fa-user"></i>
-                        <input type="text" placeholder="আপনার পুরো নাম লিখুন" required>
+                        <input type="text" id="regName" placeholder="আপনার পুরো নাম লিখুন" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Phone Number</label>
                     <div class="input-field">
                         <i class="fa-solid fa-phone"></i>
-                        <input type="text" placeholder="আপনার Phone নাম্বার দিন" required>
+                        <input type="text" id="regPhone" placeholder="আপনার Phone নাম্বার দিন" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Email Address (Gmail)</label>
                     <div class="input-field">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" placeholder="আপনার জিমেইল একাউন্ট" required>
+                        <input type="email" id="regEmail" placeholder="আপনার জিমেইল একাউন্ট" required>
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="পাসওয়ার্ড দিন" required>
+                        <input type="password" id="regPass" placeholder="পাসওয়ার্ড দিন" required>
                     </div>
                 </div>
                 <button type="submit" class="auth-btn">Register Now →</button>
@@ -881,6 +969,12 @@
             window.scrollTo(0, 0);
         }
 
+        // সাইডবার মেনু টগল ফাংশন
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
         function copyPassword(id, btn) {
             var text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text);
@@ -888,6 +982,20 @@
             setTimeout(() => { 
                 btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy'; 
             }, 2000);
+        }
+
+        // একই ডিভাইসে সর্বোচ্চ ২টি অ্যাকাউন্ট খোলার লিমিট চেক
+        function checkDeviceLimit(event) {
+            event.preventDefault();
+            let count = parseInt(localStorage.getItem('mkrAccCount') || 0);
+            if (count >= 2) {
+                alert("দুঃখিত! এই ডিভাইসে সর্বোচ্চ ২টির বেশি অ্যাকাউন্ট খোলা যাবে না।");
+                return;
+            }
+            
+            localStorage.setItem('mkrAccCount', count + 1);
+            alert('রেজিস্ট্রেশন সফল হয়েছে!');
+            showPage('loginPage');
         }
 
         // ডিপোজিট রিকোয়েস্ট টেলিগ্রাম বটে পাঠানোর ফাংশন
