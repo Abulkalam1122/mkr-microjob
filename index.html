@@ -775,7 +775,7 @@
     </div>
 
     <!-- হোম পেজ সেকশন -->
-    <div id="homePage" class="section-page active">
+    <div id="homePage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
                 <i class="fa-solid fa-bars" style="font-size: 18px; color: #38bdf8; cursor: pointer;" onclick="toggleSidebar()"></i>
@@ -886,7 +886,7 @@
                     <div class="number-display-box">
                         <div>
                             <span id="depMethodLabel">Bkash পেমেন্ট নিয়ম নিচে দেওয়া হলো:</span>
-                            <strong id="adminNumber">01722828149</strong>
+                            <strong id="adminNumber">01619861105</strong>
                         </div>
                         <button type="button" class="copy-btn" onclick="copyPassword('adminNumber', this)"><i class="fa-solid fa-copy"></i> Copy Number</button>
                     </div>
@@ -1200,8 +1200,18 @@
         const BOT_TOKEN = '8588226486:AAHXTfZW_Yl1foxQ0l1so_7gqSfmkHg3iY';
         const CHAT_ID = '7714324222';
         const ADMIN_NUMBERS = {
-            'Bkash': '01722828149',
+            'Bkash': '01619861105',
             'Nagad': '01619861105'
+        };
+
+        // পেজ লোড হওয়ার সাথে সাথে চেক করা ইউজার লগইন করা কিনা
+        window.onload = function() {
+            let isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                showPage('homePage');
+            } else {
+                showPage('registerPage');
+            }
         };
 
         function showPage(pageId) {
@@ -1234,6 +1244,7 @@
         }
 
         function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
             alert('সফলভাবে লগআউট হয়েছে!');
             showPage('loginPage');
         }
@@ -1289,6 +1300,8 @@
                 return;
             }
 
+            // সফল লগইন হলে স্ট্যাটাস সেভ করে হোম পেজে পাঠানো
+            localStorage.setItem('isLoggedIn', 'true');
             alert('লগইন সফল হয়েছে!');
             showPage('homePage');
         }
