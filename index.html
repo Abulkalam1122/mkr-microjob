@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MKR Micro Job - Micro Job & Earning</title>
-    <!-- এসইও এবং গুগলে চেনার জন্য মেটা ট্যাগ -->
     <meta name="author" content="Abul Kalam">
     <meta name="description" content="MKR Micro Job - Abul Kalam এর মাইক্রো জব ওয়েবসাইট। এখানে কাজ করে সহজে আয় করুন।">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,7 +16,6 @@
         }
 
         body {
-            /* একদম স্পষ্ট এবং উজ্জ্বল ডার্ক ব্যাকগ্রাউন্ড */
             background: linear-gradient(135deg, #09061a, #1a153b, #0f1026);
             background-attachment: fixed;
             max-width: 480px;
@@ -52,7 +50,6 @@
             font-weight: 700;
         }
 
-        /* প্রোফাইল ড্রপডাউন কন্টেইনার */
         .profile-container {
             position: relative;
         }
@@ -70,7 +67,6 @@
             box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
-        /* ড্রপডাউন মেনু স্টাইল */
         .profile-dropdown {
             position: absolute;
             right: 0;
@@ -78,7 +74,7 @@
             background: #191436;
             border: 2px solid rgba(0, 242, 254, 0.6);
             border-radius: 16px;
-            width: 200px;
+            width: 210px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.8);
             display: none;
             flex-direction: column;
@@ -126,7 +122,6 @@
             color: #ef4444;
         }
 
-        /* সাইডবার মেনু স্টাইল */
         .sidebar {
             position: fixed;
             left: -100%;
@@ -232,7 +227,6 @@
             font-size: 16px;
         }
 
-        /* স্পষ্ট ও উজ্জ্বল ব্যালেন্স কার্ড */
         .balance-card {
             background: linear-gradient(135deg, #ff007f, #7928ca, #00f2fe);
             color: white;
@@ -343,7 +337,6 @@
             color: #cbd5e1;
         }
 
-        /* রেফার কার্ড স্টাইল */
         .refer-card {
             background: #191436;
             border: 2px solid rgba(0, 242, 254, 0.6);
@@ -743,7 +736,7 @@
             letter-spacing: 1px;
         }
 
-        .profile-info-card, .leaderboard-card {
+        .profile-info-card, .leaderboard-card, .task-history-card {
             background: #191436;
             border: 2px solid rgba(0, 242, 254, 0.6);
             margin: 15px;
@@ -768,40 +761,37 @@
             color: #00f2fe;
             font-weight: 600;
         }
-        .leaderboard-table {
+        .leaderboard-table, .history-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
-        .leaderboard-table th, .leaderboard-table td {
+        .leaderboard-table th, .leaderboard-table td, .history-table th, .history-table td {
             padding: 10px;
             text-align: left;
             font-size: 12px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .leaderboard-table th {
+        .leaderboard-table th, .history-table th {
             color: #00f2fe;
             font-weight: 700;
         }
-        .leaderboard-table td {
+        .leaderboard-table td, .history-table td {
             color: #fff;
         }
-        .admin-item {
-            background: #0f0c29;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(0, 242, 254, 0.4);
-            font-size: 13px;
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: bold;
         }
-        .btn-success { background: #22c55e; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .btn-danger { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .hidden { display: none !important; }
+        .status-loading { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid #fbbf24; }
+        .status-success { background: rgba(52, 211, 153, 0.2); color: #34d399; border: 1px solid #34d399; }
+        .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
     </style>
 </head>
 <body>
 
-    <!-- ওভারলে এবং সাইডবার মেনু -->
     <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -815,13 +805,13 @@
             <li onclick="toggleSidebar(); showPage('gmailPage');"><i class="fa-solid fa-envelope"></i> জিমেইল সেল</li>
             <li onclick="toggleSidebar(); showPage('facebookPage');"><i class="fa-brands fa-facebook"></i> ফেসবুক সেল</li>
             <li onclick="toggleSidebar(); showPage('instagramPage');"><i class="fa-brands fa-instagram"></i> ইনস্টাগ্রাম সেল</li>
-            <li onclick="toggleSidebar(); showPage('adminPage');"><i class="fa-solid fa-user-shield"></i> অ্যাডমিন প্যানেল</li>
+            <li onclick="toggleSidebar(); showPage('adminLoginModal');"><i class="fa-solid fa-user-shield" style="color: #fbbf24;"></i> এডমিন প্যানেল</li>
             <li onclick="toggleSidebar(); showPage('registerPage');"><i class="fa-solid fa-user-plus"></i> রেজিস্ট্রেশন পেজ</li>
             <li onclick="toggleSidebar(); showPage('loginPage');"><i class="fa-solid fa-right-to-bracket"></i> লগইন পেজ</li>
         </ul>
     </div>
 
-    <!-- ১. রেজিস্ট্রেশন পেজ -->
+    <!-- রেজিস্ট্রেশন পেজ -->
     <div id="registerPage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
@@ -856,17 +846,17 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Password (পাসওয়ার্ড দিন)</label>
+                    <label>Password</label>
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="regPass" placeholder="প্রথম পাসওয়ার্ড/পিন লিখুন" autocomplete="new-password" required>
+                        <input type="password" id="regPass" placeholder="পাসওয়ার্ড লিখুন" autocomplete="new-password" required>
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Confirm Password (পুনরায় পাসওয়ার্ড দিন)</label>
+                    <label>Confirm Password</label>
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="regPassConfirm" placeholder="দ্বিতীয় পাসওয়ার্ড/পিন আবার লিখুন" autocomplete="new-password" required>
+                        <input type="password" id="regPassConfirm" placeholder="পুনরায় পাসওয়ার্ড লিখুন" autocomplete="new-password" required>
                     </div>
                 </div>
                 <button type="submit" class="auth-btn">SUBMIT & REGISTER →</button>
@@ -912,6 +902,72 @@
         </div>
     </div>
 
+    <!-- এডমিন সিক্রেট লগইন পেজ -->
+    <div id="adminLoginModal" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2>Admin Panel Login</h2>
+            </div>
+        </header>
+        <div class="auth-card">
+            <div class="form-heading">
+                <h3><i class="fa-solid fa-user-shield" style="color: #fbbf24;"></i> Restricted Area</h3>
+                <p>এডমিন প্যানেলে প্রবেশ করতে আপনার সিক্রেট পাসওয়ার্ড দিন</p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)">
+                <div class="input-group">
+                    <label>Admin Number / ID</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="text" id="adminLoginPhone" value="01841161787" readonly style="color: #fbbf24;">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Secret Password</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" id="adminLoginPass" placeholder="পাসওয়ার্ড দিন" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn" style="background: linear-gradient(135deg, #fbbf24, #d97706); color: #000;">LOGIN AS ADMIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- আসল সিক্রেট এডমিন ড্যাশবোর্ড -->
+    <div id="adminDashboardPage" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 style="color: #fbbf24;">Admin Control Panel</h2>
+            </div>
+        </header>
+        <div class="dashboard">
+            <div class="service-top-card" style="background: linear-gradient(135deg, #fbbf24, #d97706); color: #000;">
+                <h3><i class="fa-solid fa-shield-halved"></i> Welcome Admin!</h3>
+                <p>ইউজারদের সাবমিট করা কাজের তালিকা ও ম্যানেজমেন্ট</p>
+            </div>
+            <div class="task-history-card">
+                <h3 style="color: #00f2fe; font-size: 14px; margin-bottom: 10px;">সকল সাবমিটেড কাজসমূহ (Live Submissions)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Platform</th>
+                                <th>Details</th>
+                                <th>Status Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminSubmissionsList">
+                            <!-- ডাইনামিক ডাটা আসবে -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- হোম পেজ সেকশন -->
     <div id="homePage" class="section-page">
         <header class="navbar">
@@ -927,7 +983,7 @@
                 <div class="profile-dropdown" id="profileDropdown">
                     <div class="dropdown-item" onclick="openProfilePage()"><i class="fa-solid fa-user"></i> Profile</div>
                     <div class="dropdown-item" onclick="openLeaderboardPage()"><i class="fa-solid fa-trophy" style="color: #fbbf24;"></i> Top (100) Reffered</div>
-                    <div class="dropdown-item" onclick="showPage('adminPage')"><i class="fa-solid fa-user-shield" style="color: #00f2fe;"></i> Admin Panel</div>
+                    <div class="dropdown-item" onclick="showPage('adminLoginModal')"><i class="fa-solid fa-user-shield" style="color: #fbbf24;"></i> Admin Panel</div>
                     <div class="dropdown-item logout" onclick="handleLogout()"><i class="fa-solid fa-power-off"></i> Logout</div>
                 </div>
             </div>
@@ -939,10 +995,9 @@
         </div>
 
         <div class="dashboard">
-            <!-- ব্যালেন্স কার্ড -->
             <div class="balance-card">
                 <p>TOTAL BALANCE</p>
-                <h1>৳<span id="userTotalBalance">0.00</span></h1>
+                <h1>৳0.00</h1>
                 <button class="earn-btn"><i class="fa-solid fa-chart-line"></i> কাজ করে আয় করুন আরও বেশি</button>
                 <div class="action-btns">
                     <button class="btn-dep" onclick="showPage('depositPage')">Deposit <span>ব্যালেেন্স যোগ করুন</span></button>
@@ -950,43 +1005,12 @@
                 </div>
             </div>
 
-            <!-- ইউজারের কাজের পরিসংখ্যান (লাইভ কাউন্ট) -->
-            <div class="submit-form-card" style="margin: 15px; padding: 15px;">
-                <div class="form-heading" style="margin-bottom: 10px;">
-                    <h3 style="font-size: 15px; color: #00f2fe;"><i class="fa-solid fa-chart-pie"></i> আপনার কাজের পরিসংখ্যান</h3>
-                    <p style="font-size: 11px;">আপনার সাবমিট করা কাজের লাইভ আপডেট</p>
-                </div>
-                <div class="stats-row" style="border-top: none; padding-top: 5px;">
-                    <div class="stat-box" style="text-align: center;">
-                        <span>TOTAL SUBMIT</span>
-                        <h2 id="userTotalSubmits">0</h2>
-                    </div>
-                    <div class="stat-box" style="text-align: center;">
-                        <span>APPROVED</span>
-                        <h2 id="userApprovedSubmits" style="color: #22c55e;">0</h2>
-                    </div>
-                    <div class="stat-box" style="text-align: center;">
-                        <span>PENDING</span>
-                        <h2 id="userPendingSubmits" style="color: #fbbf24;">0</h2>
-                    </div>
-                </div>
-            </div>
-
-            <!-- কাজের হিস্ট্রি (Task History) -->
-            <div class="submit-form-card" style="margin: 15px; padding: 15px;">
-                <h4 style="font-size: 14px; color: #00f2fe; margin-bottom: 10px;"><i class="fa-solid fa-history"></i> কাজের হিস্ট্রি (Task History)</h4>
-                <div id="userTaskHistoryList" style="max-height: 180px; overflow-y: auto;">
-                    <p style="color: #94a3b8; font-size: 12px; text-align: center;">আপনি এখনো কোনো কাজ জমা দেননি।</p>
-                </div>
-            </div>
-
-            <!-- রেফার করুন (Refer & Earn) সেকশন -->
             <div class="refer-card">
                 <div class="refer-header">
                     <i class="fa-solid fa-users"></i>
                     <div>
                         <h4>Refer & Earn (রেফার করে আয় করুন)</h4>
-                        <p>বন্ধু রেফার করলেই পাবেন ৳১০.০০</p>
+                        <p>বন্ধু রেফার করলেই পাবেন ৳১০.০০ (শর্ত: রেফারকৃত ইউজার অন্তত ১টি কাজ সাবমিট করতে হবে)</p>
                     </div>
                 </div>
                 <div class="refer-link-box">
@@ -1033,58 +1057,19 @@
         </div>
     </div>
 
-    <!-- অ্যাডমিন প্যানেল পেজ (পাসওয়ার্ড সুরক্ষিত) -->
-    <div id="adminPage" class="section-page">
-        <header class="navbar">
-            <div class="nav-left">
-                <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2>Admin Panel (Secure)</h2>
-            </div>
-        </header>
-
-        <div class="dashboard">
-            <div class="submit-form-card" id="adminLoginBox">
-                <div class="form-heading">
-                    <h3>🔒 Admin Authentication</h3>
-                    <p>এ্যাডমিন প্যানেলে প্রবেশ করতে আপনার সিক্রেট পাসওয়ার্ড দিন</p>
-                </div>
-                <div class="input-group">
-                    <label>Admin Password</label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="adminPasswordInput" placeholder="Enter admin password">
-                    </div>
-                </div>
-                <button type="button" class="submit-account-btn" onclick="verifyAdminPassword()">Login to Admin Panel</button>
-            </div>
-
-            <div class="submit-form-card hidden" id="adminPanelContent">
-                <div class="form-heading">
-                    <h3>🛠️ Admin Control Panel</h3>
-                    <p style="color: #34d399;">Authorized Access</p>
-                </div>
-                <h4 style="margin-bottom: 10px; color: #00f2fe; font-size: 14px;">Submitted Tasks Review:</h4>
-                <div id="adminTasksList">
-                    <p style="color: #94a3b8; font-size: 13px; text-align: center;">কোনো নতুন টাস্ক সাবমিট হয়নি।</p>
-                </div>
-                <button type="button" class="btn-danger" style="width: 100%; margin-top: 15px; padding: 10px; border-radius: 10px;" onclick="logoutAdmin()">Logout Admin</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- প্রোফাইল পেজ সেকশন -->
+    <!-- প্রোফাইল পেজ (যেখানে কাজের স্ট্যাটাস ও কাউন্ট দেখাবে) -->
     <div id="profilePage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
                 <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2>My Profile</h2>
+                <h2>My Profile & Task Status</h2>
             </div>
         </header>
 
         <div class="dashboard">
             <div class="service-top-card">
                 <h3><i class="fa-solid fa-user-circle"></i> User Profile</h3>
-                <p>আপনার অ্যাকাউন্ট সম্পর্কিত তথ্যাবলী</p>
+                <p>আপনার অ্যাকাউন্ট ও সাবমিট করা কাজের লাইভ হিস্ট্রি</p>
             </div>
 
             <div class="profile-info-card">
@@ -1101,14 +1086,35 @@
                     <span id="profEmail">user@gmail.com</span>
                 </div>
                 <div class="profile-info-row">
-                    <span>Account Status:</span>
-                    <span style="color: #34d399;">Active (Verified)</span>
+                    <span>Total Submitted Tasks:</span>
+                    <span id="profTotalSubmitted" style="color: #00f2fe; font-size: 15px; font-weight: bold;">0</span>
+                </div>
+            </div>
+
+            <!-- কাজের স্ট্যাটাস দেখার টেবিল -->
+            <div class="task-history-card">
+                <h3 style="color: #00f2fe; font-size: 14px; margin-bottom: 10px;"><i class="fa-solid fa-list-check"></i> কাজের স্ট্যাটাস (Loading / Success / Failed)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Platform</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTaskHistoryBody">
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: #94a3b8;">কোনো কাজ সাবমিট করা হয়নি এখনো।</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- টপ রেফারড পেজ সেকশন -->
+    <!-- টপ রেফার লিডারবোর্ড -->
     <div id="leaderboardPage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
@@ -1133,9 +1139,21 @@
                         </tr>
                     </thead>
                     <tbody id="leaderboardBody">
-                        <tr><td>1</td><td>Rakib Hossain</td><td>45 Referrals</td></tr>
-                        <tr><td>2</td><td>Tanvir Ahmed</td><td>32 Referrals</td></tr>
-                        <tr><td>3</td><td>Nazmul Islam</td><td>28 Referrals</td></tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Rakib Hossain</td>
+                            <td>45 Referrals</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Tanvir Ahmed</td>
+                            <td>32 Referrals</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Nazmul Islam</td>
+                            <td>28 Referrals</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -1154,10 +1172,15 @@
         <div class="dashboard">
             <div class="service-top-card">
                 <h3><i class="fa-solid fa-wallet"></i> Deposit Balance</h3>
-                <p>সঠিক তথ্য দিয়ে ডিপোজিট করুন</p>
+                <p>সঠিক তথ্য দিয়ে ডিপোজিট করুন, ৫-৩০ মিনিটে ব্যালেন্স যোগ হবে।</p>
             </div>
 
             <div class="submit-form-card">
+                <div class="form-heading">
+                    <h3>অটোমেটিক পেমেন্ট করুন</h3>
+                    <p>ইনস্ট্যান্ট ব্যালেন্স অ্যাড হবে</p>
+                </div>
+                
                 <form id="depositForm" onsubmit="submitDeposit(event)">
                     <div class="input-group">
                         <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
@@ -1177,6 +1200,8 @@
                         </div>
                         <button type="button" class="copy-btn" onclick="copyPassword('adminNumber', this)"><i class="fa-solid fa-copy"></i> Copy Number</button>
                     </div>
+
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> এখানে অবশ্যই Send Money করবেন।</div>
 
                     <div class="input-group">
                         <label>আপনি কত টাকা অ্যাড করতে চান?</label>
@@ -1239,6 +1264,10 @@
             </div>
 
             <div class="submit-form-card">
+                <div class="form-heading">
+                    <h3>Request Withdrawal</h3>
+                    <p>আপনার পেমেন্টের তথ্য দিয়ে উইথড্র করুন</p>
+                </div>
                 <form id="withdrawForm" onsubmit="submitWithdraw(event)">
                     <div class="input-group">
                         <label>Select Payment Method</label>
@@ -1282,6 +1311,7 @@
                         </div>
                     </div>
                     
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> উইথড্র চার্জ: ৫%।</div>
                     <button type="submit" class="submit-account-btn">CONFIRM WITHDRAWAL</button>
                 </form>
             </div>
@@ -1300,7 +1330,12 @@
         <div class="dashboard">
             <div class="service-top-card">
                 <h3><i class="fa-solid fa-envelope"></i> Gmail Account Sell</h3>
-                <p>সহজেই জিমেইল সেল করে টাকা আয় করুন</p>
+                <p>সহজেই জিমেইল সেল করে টাকা আয় করুন (রেট: ৳১৫.৭০)</p>
+                <div class="stats-row">
+                    <div class="stat-box"><span>RATE</span><h2>৳15.70</h2></div>
+                    <div class="stat-box"><span>LIMIT</span><h2>1000</h2></div>
+                    <div class="stat-box"><span>SUBMIT</span><h2 id="gmailSubmitCount">0</h2></div>
+                </div>
             </div>
 
             <div class="password-box">
@@ -1312,7 +1347,11 @@
             </div>
 
             <div class="submit-form-card">
-                <form id="gmailForm" onsubmit="submitAccount(event, 'Gmail', 15.70)">
+                <div class="form-heading">
+                    <h3>Submit Your Account</h3>
+                    <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
+                </div>
+                <form id="gmailForm" onsubmit="submitAccount(event, 'Gmail')">
                     <div class="input-group">
                         <label>Gmail Address</label>
                         <div class="input-field">
@@ -1327,6 +1366,7 @@
                             <input type="password" id="gmailPass" placeholder="Enter given password" autocomplete="current-password" required>
                         </div>
                     </div>
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> রিপোর্ট টাইম: ২০-৩০ ঘণ্টা</div>
                     <button type="submit" class="submit-account-btn">SUBMIT GMAIL ACCOUNT</button>
                 </form>
             </div>
@@ -1345,7 +1385,12 @@
         <div class="dashboard">
             <div class="service-top-card">
                 <h3><i class="fa-brands fa-facebook"></i> Facebook Account Sell</h3>
-                <p>আপনার ফেসবুক একাউন্ট সেল করে পেমেন্ট নিন</p>
+                <p>আপনার ফেসবুক একাউন্ট সেল করে পেমেন্ট নিন (রেট: ৳৫.৭০)</p>
+                <div class="stats-row">
+                    <div class="stat-box"><span>RATE</span><h2>৳5.70</h2></div>
+                    <div class="stat-box"><span>LIMIT</span><h2>1000</h2></div>
+                    <div class="stat-box"><span>SUBMIT</span><h2 id="fbSubmitCount">0</h2></div>
+                </div>
             </div>
 
             <div class="password-box">
@@ -1357,7 +1402,11 @@
             </div>
 
             <div class="submit-form-card">
-                <form id="facebookForm" onsubmit="submitAccount(event, 'Facebook', 5.70)">
+                <div class="form-heading">
+                    <h3>Submit Your Account</h3>
+                    <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
+                </div>
+                <form id="facebookForm" onsubmit="submitAccount(event, 'Facebook')">
                     <div class="input-group">
                         <label>Facebook UID / Email / Number</label>
                         <div class="input-field">
@@ -1379,6 +1428,7 @@
                             <input type="text" id="fbCookies" placeholder="Paste Cookies here..." required>
                         </div>
                     </div>
+                    <div class="report-note"><i class="fa-solid fa-circle-info"></i> রিপোর্ট টাইম: ১২-২৪ ঘণ্টা</div>
                     <button type="submit" class="submit-account-btn">SUBMIT FACEBOOK ACCOUNT</button>
                 </form>
             </div>
@@ -1397,7 +1447,12 @@
         <div class="dashboard">
             <div class="service-top-card">
                 <h3><i class="fa-brands fa-instagram"></i> Instagram Account Sell</h3>
-                <p>ইনস্টাগ্রাম অ্যাকাউন্ট সেল করে ইনকাম করুন</p>
+                <p>ইনস্টাগ্রাম অ্যাকাউন্ট সেল করে ইনকাম করুন (রেট: ৳৪.২০)</p>
+                <div class="stats-row">
+                    <div class="stat-box"><span>RATE</span><h2>৳4.20</h2></div>
+                    <div class="stat-box"><span>LIMIT</span><h2>1000</h2></div>
+                    <div class="stat-box"><span>SUBMIT</span><h2 id="instaSubmitCount">0</h2></div>
+                </div>
             </div>
 
             <div class="password-box">
@@ -1409,7 +1464,11 @@
             </div>
 
             <div class="submit-form-card">
-                <form id="instagramForm" onsubmit="submitAccount(event, 'Instagram', 4.20)">
+                <div class="form-heading">
+                    <h3>Submit Your Account</h3>
+                    <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন</p>
+                </div>
+                <form id="instagramForm" onsubmit="submitAccount(event, 'Instagram')">
                     <div class="input-group">
                         <label>Instagram Username</label>
                         <div class="input-field">
@@ -1437,21 +1496,21 @@
         </div>
     </div>
 
-    <!-- টেলিগ্রাম সাপোর্ট বাটন -->
+    <!-- সাপোর্ট বাটনসমূহ -->
     <a href="https://t.me/abulkalam_mkr_bot" target="_blank" class="admin-support">
         <i class="fa-solid fa-headset"></i>
     </a>
-
-    <!-- হোয়াটসঅ্যাপ সাপোর্ট বাটন -->
     <a href="https://wa.me/8801906748429" target="_blank" class="whatsapp-support">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <!-- জাভাস্ক্রিপ্ট কোড -->
     <script>
-        const BOT_TOKEN = '8588226486:AAHXTfZW_Yl1foxQ0l1so_7gqSfmkHg3iY';
+        const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg';
         const CHAT_ID = '7714324222';
-        const ADMIN_PASSWORD = "01841161787";
+        const ADMIN_PHONE = '01841161787';
+        const ADMIN_PASS = '01841161787'; // আপনার সিক্রেট পাসওয়ার্ড
+
         const ADMIN_NUMBERS = {
             'Bkash': '01619861105',
             'Nagad': '01619861105'
@@ -1467,9 +1526,9 @@
             const gmailPass = `@MyJob_MKR${day}`;
             const fbInstaPass = `MYJOB_MKR${day}`;
 
-            if(document.getElementById('passText1')) document.getElementById('passText1').innerText = gmailPass;
-            if(document.getElementById('passText2')) document.getElementById('passText2').innerText = fbInstaPass;
-            if(document.getElementById('passText3')) document.getElementById('passText3').innerText = fbInstaPass;
+            document.getElementById('passText1').innerText = gmailPass;
+            document.getElementById('passText2').innerText = fbInstaPass;
+            document.getElementById('passText3').innerText = fbInstaPass;
 
             if(document.getElementById('currentDateLabel1')) document.getElementById('currentDateLabel1').innerText = dateStr;
             if(document.getElementById('currentDateLabel2')) document.getElementById('currentDateLabel2').innerText = dateStr;
@@ -1496,35 +1555,27 @@
                 refLinkField.value = window.location.origin + window.location.pathname + '?ref=' + userPhone;
             }
 
-            updateBalanceDisplay();
             updateDailyPasswords();
-            updateUserTaskStats();
+            updateTaskCounters();
+            loadUserTaskHistory();
         };
-
-        function updateBalanceDisplay() {
-            let balance = parseFloat(localStorage.getItem('userTotalBalance')) || 0.00;
-            document.getElementById('userTotalBalance').innerText = balance.toFixed(2);
-        }
 
         function showPage(pageId) {
             const pages = document.querySelectorAll('.section-page');
             pages.forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
-            
             document.getElementById('profileDropdown').classList.remove('active');
-            if(pageId === 'adminPage') {
-                checkAdminSession();
-            }
-            if(pageId === 'homePage') {
-                updateUserTaskStats();
-            }
         }
 
         function openProfilePage() {
             document.getElementById('profName').innerText = localStorage.getItem('savedName') || 'Abul Kalam';
             document.getElementById('profPhone').innerText = localStorage.getItem('savedPhone') || '017XXXXXXXX';
             document.getElementById('profEmail').innerText = localStorage.getItem('savedEmail') || 'user@gmail.com';
+            
+            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            document.getElementById('profTotalSubmitted').innerText = tasks.length;
+            loadUserTaskHistory();
             showPage('profilePage');
         }
 
@@ -1555,6 +1606,18 @@
             showPage('loginPage');
         }
 
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            let passInput = document.getElementById('adminLoginPass').value;
+            if (passInput === ADMIN_PASS) {
+                alert('এডমিন প্যানেলে সফলভাবে প্রবেশ করেছেন!');
+                loadAdminSubmissions();
+                showPage('adminDashboardPage');
+            } else {
+                alert('ভুল সিক্রেট পাসওয়ার্ড দিয়েছেন!');
+            }
+        }
+
         function copyPassword(id, btn) {
             var text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text);
@@ -1583,7 +1646,7 @@
                 alert("দুঃখিত! দুটি পাসওয়ার্ড এক হয়নি।");
                 return;
             }
-            
+
             let name = document.getElementById('regName').value;
             let phone = document.getElementById('regPhone').value;
             let email = document.getElementById('regEmail').value;
@@ -1601,7 +1664,6 @@
             event.preventDefault();
             let inputEmail = document.getElementById('loginEmail').value;
             let inputPass = document.getElementById('loginPass').value;
-
             let savedEmail = localStorage.getItem('savedEmail');
             let savedPass = localStorage.getItem('savedPass');
 
@@ -1613,107 +1675,6 @@
             localStorage.setItem('isLoggedIn', 'true');
             alert('লগইন সফল হয়েছে!');
             showPage('homePage');
-        }
-
-        function verifyAdminPassword() {
-            let inputPass = document.getElementById('adminPasswordInput').value;
-            if (inputPass === ADMIN_PASSWORD) {
-                localStorage.setItem('isAdminLoggedIn', 'true');
-                checkAdminSession();
-            } else {
-                alert('ভুল পাসওয়ার্ড!');
-            }
-        }
-
-        function checkAdminSession() {
-            let isAdmin = localStorage.getItem('isAdminLoggedIn');
-            if (isAdmin === 'true') {
-                document.getElementById('adminLoginBox').classList.add('hidden');
-                document.getElementById('adminPanelContent').classList.remove('hidden');
-                loadAdminTasks();
-            } else {
-                document.getElementById('adminLoginBox').classList.remove('hidden');
-                document.getElementById('adminPanelContent').classList.add('hidden');
-            }
-        }
-
-        function logoutAdmin() {
-            localStorage.removeItem('isAdminLoggedIn');
-            document.getElementById('adminPasswordInput').value = '';
-            checkAdminSession();
-        }
-
-        function loadAdminTasks() {
-            let tasks = JSON.parse(localStorage.getItem('submittedTasksList')) || [];
-            let container = document.getElementById('adminTasksList');
-            if (tasks.length === 0) {
-                container.innerHTML = '<p style="color: #94a3b8; font-size: 13px; text-align: center;">কোনো নতুন টাস্ক সাবমিট হয়নি।</p>';
-                return;
-            }
-            container.innerHTML = '';
-            tasks.forEach((t, index) => {
-                let statusColor = t.status === 'Approved' ? '#22c55e' : (t.status === 'Rejected' ? '#ef4444' : '#fbbf24');
-                container.innerHTML += `
-                    <div class="admin-item">
-                        <b>Platform:</b> ${t.platform}<br>
-                        <b>Details:</b> ${t.details}<br>
-                        <b>Reward:</b> ৳${t.reward}<br>
-                        <b>Status:</b> <span style="color: ${statusColor}; font-weight: bold;">${t.status || 'Pending'}</span><br><br>
-                        ${!t.status || t.status === 'Pending' ? `
-                            <button class="btn-success" onclick="reviewTask(${index}, 'Approved', ${t.reward})">Approve</button>
-                            <button class="btn-danger" onclick="reviewTask(${index}, 'Rejected', 0)">Reject</button>
-                        ` : ''}
-                    </div>
-                `;
-            });
-        }
-
-        function reviewTask(index, status, reward) {
-            let tasks = JSON.parse(localStorage.getItem('submittedTasksList')) || [];
-            tasks[index].status = status;
-            localStorage.setItem('submittedTasksList', JSON.stringify(tasks));
-
-            if (status === 'Approved') {
-                let currentBal = parseFloat(localStorage.getItem('userTotalBalance')) || 0.00;
-                let newBal = currentBal + reward;
-                localStorage.setItem('userTotalBalance', newBal);
-                updateBalanceDisplay();
-            }
-            loadAdminTasks();
-            updateUserTaskStats();
-        }
-
-        function updateUserTaskStats() {
-            let tasks = JSON.parse(localStorage.getItem('submittedTasksList')) || [];
-            let total = tasks.length;
-            let approved = tasks.filter(t => t.status === 'Approved').length;
-            let pending = tasks.filter(t => !t.status || t.status === 'Pending').length;
-
-            if(document.getElementById('userTotalSubmits')) {
-                document.getElementById('userTotalSubmits').innerText = total;
-                document.getElementById('userApprovedSubmits').innerText = approved;
-                document.getElementById('userPendingSubmits').innerText = pending;
-            }
-
-            let historyContainer = document.getElementById('userTaskHistoryList');
-            if(historyContainer) {
-                if (tasks.length === 0) {
-                    historyContainer.innerHTML = '<p style="color: #94a3b8; font-size: 12px; text-align: center;">আপনি এখনো কোনো কাজ জমা দেননি।</p>';
-                    return;
-                }
-                historyContainer.innerHTML = '';
-                tasks.slice().reverse().forEach(t => {
-                    let statusColor = t.status === 'Approved' ? '#22c55e' : (t.status === 'Rejected' ? '#ef4444' : '#fbbf24');
-                    let statusText = t.status === 'Approved' ? 'Approved' : (t.status === 'Rejected' ? 'Rejected' : 'Pending');
-                    
-                    historyContainer.innerHTML += `
-                        <div style="background: #0f0c29; padding: 10px; border-radius: 8px; margin-bottom: 8px; border: 1px solid rgba(0, 242, 254, 0.3); font-size: 12px;">
-                            <b>Platform:</b> ${t.platform} | <b>Reward:</b> ৳${t.reward}<br>
-                            <b>Status:</b> <span style="color: ${statusColor}; font-weight: bold;">${statusText}</span>
-                        </div>
-                    `;
-                });
-            }
         }
 
         function updateDepositInfo() {
@@ -1732,11 +1693,9 @@
                 document.getElementById('depCalcTotal').innerText = "৳0.00";
                 return;
             }
-            let fee = 0;
-            let total = amount + fee;
             document.getElementById('depCalcAmount').innerText = `৳${amount.toFixed(2)}`;
-            document.getElementById('depCalcFee').innerText = `+ ৳${fee.toFixed(2)}`;
-            document.getElementById('depCalcTotal').innerText = `৳${total.toFixed(2)}`;
+            document.getElementById('depCalcFee').innerText = `+ ৳0.00`;
+            document.getElementById('depCalcTotal').innerText = `৳${amount.toFixed(2)}`;
         }
 
         function submitDeposit(event) {
@@ -1744,11 +1703,14 @@
             let method = document.getElementById('depMethod').value;
             let sender = document.getElementById('senderNumber').value;
             let amount = document.getElementById('depAmount').value;
-            let message = `💰 নতুন ডিপোজিট রিকোয়েস্ট!\n\n🔹 মাধ্যম: ${method}\n📱 প্রেরক: ${sender}\n💵 পরিমাণ: ৳${amount}`;
+            let message = `💰 নতুন ডিপোজিট রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 প্রেরক নাম্বার: ${sender}\n💵 পরিমাণ: ৳${amount}`;
 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`)
-            .then(res => {
-                if(res.ok) {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+            }).then(res => res.json()).then(data => {
+                if(data.ok) {
                     alert('ডিপোজিট রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
                     event.target.reset();
                     showPage('homePage');
@@ -1784,53 +1746,147 @@
             }
             let charge = amount * 0.05;
             let finalAmount = amount - charge;
-            let message = `💸 নতুন উইথড্র!\n\n🔹 মাধ্যম: ${method}\n📱 নাম্বার: ${number}\n💵 পরিমাণ: ৳${amount}\n✅ প্রদেয়: ৳${finalAmount.toFixed(2)}`;
+            let message = `💸 নতুন উইথড্র রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 নাম্বার: ${number}\n💵 পরিমাণ: ৳${amount}\n🔻 ৫% চার্জ: ৳${charge.toFixed(2)}\n✅ প্রদেয়: ৳${finalAmount.toFixed(2)}`;
 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`)
-            .then(res => {
-                if(res.ok) {
-                    alert('উইথড্র সফলভাবে সাবমিট হয়েছে!');
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+            }).then(res => res.json()).then(data => {
+                if(data.ok) {
+                    alert('উইথড্র রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
                     event.target.reset();
                     showPage('homePage');
                 }
             });
         }
 
-        function submitAccount(event, platform, reward) {
+        function submitAccount(event, platform) {
             event.preventDefault();
-            let detailsStr = '';
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
+            let detailsText = "";
 
             if (platform === 'Gmail') {
                 let email = document.getElementById('gmailEmail').value;
                 let pass = document.getElementById('gmailPass').value;
-                detailsStr = `Email: ${email}`;
+                detailsText = `Gmail: ${email}`;
                 message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
             } else if (platform === 'Facebook') {
                 let uid = document.getElementById('fbUid').value;
                 let pass = document.getElementById('fbPass').value;
-                detailsStr = `FB UID: ${uid}`;
+                detailsText = `FB UID: ${uid}`;
                 message += `👤 UID: ${uid}\n🔑 পাসওয়ার্ড: ${pass}`;
             } else if (platform === 'Instagram') {
                 let user = document.getElementById('instaUser').value;
                 let pass = document.getElementById('instaPass').value;
-                detailsStr = `Insta User: ${user}`;
+                detailsText = `Insta User: ${user}`;
                 message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}`;
             }
 
-            let tasks = JSON.parse(localStorage.getItem('submittedTasksList')) || [];
-            tasks.push({ platform, details: detailsStr, reward, status: 'Pending' });
-            localStorage.setItem('submittedTasksList', JSON.stringify(tasks));
+            // লোকাল স্টোরেজে কাজের হিস্ট্রি সেভ করা (Status: Loading)
+            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            let newTask = {
+                platform: platform,
+                details: detailsText,
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+                status: 'Loading' // প্রসেসিং বা লোডিং স্ট্যাটাস
+            };
+            tasks.push(newTask);
+            localStorage.setItem('userTasks', JSON.stringify(tasks));
 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`)
-            .then(res => {
-                if(res.ok) {
-                    alert('টাস্ক সফলভাবে সাবমিট হয়েছে!');
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+            }).then(res => res.json()).then(data => {
+                if(data.ok) {
+                    alert('সফলভাবে কাজ সাবমিট হয়েছে!');
                     event.target.reset();
+                    updateTaskCounters();
+                    loadUserTaskHistory();
                     showPage('homePage');
-                    updateUserTaskStats();
                 }
             });
+        }
+
+        function updateTaskCounters() {
+            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            let gmailCount = 0, fbCount = 0, instaCount = 0;
+
+            tasks.forEach(t => {
+                if(t.platform === 'Gmail') gmailCount++;
+                if(t.platform === 'Facebook') fbCount++;
+                if(t.platform === 'Instagram') instaCount++;
+            });
+
+            if(document.getElementById('gmailSubmitCount')) document.getElementById('gmailSubmitCount').innerText = gmailCount;
+            if(document.getElementById('fbSubmitCount')) document.getElementById('fbSubmitCount').innerText = fbCount;
+            if(document.getElementById('instaSubmitCount')) document.getElementById('instaSubmitCount').innerText = instaCount;
+        }
+
+        function loadUserTaskHistory() {
+            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            let tbody = document.getElementById('userTaskHistoryBody');
+            if(!tbody) return;
+
+            if(tasks.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #94a3b8;">কোনো কাজ সাবমিট করা হয়নি এখনো।</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = '';
+            tasks.forEach(t => {
+                let badgeClass = 'status-loading';
+                let statusText = 'Loading (প্রসেসিং)';
+                if(t.status === 'Success') {
+                    badgeClass = 'status-success';
+                    statusText = 'Success (সঠিক)';
+                } else if(t.status === 'Failed') {
+                    badgeClass = 'status-failed';
+                    statusText = 'Failed (সঠিক নয়)';
+                }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${t.platform}</td>
+                        <td>${t.date}</td>
+                        <td><span class="status-badge ${badgeClass}">${statusText}</span></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function loadAdminSubmissions() {
+            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            let tbody = document.getElementById('adminSubmissionsList');
+            if(!tbody) return;
+
+            if(tasks.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #94a3b8;">কোনো সাবমিশন নেই।</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = '';
+            tasks.forEach((t, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><b>${t.platform}</b><br><small>${t.details}</small></td>
+                        <td>${t.date}</td>
+                        <td>
+                            <button onclick="changeTaskStatus(${index}, 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000;">ס Correct</button>
+                            <button onclick="changeTaskStatus(${index}, 'Failed')" style="background:#ef4444; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#fff;">X Wrong</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function changeTaskStatus(index, newStatus) {
+            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            tasks[index].status = newStatus;
+            localStorage.setItem('userTasks', JSON.stringify(tasks));
+            alert('কাজের স্ট্যাটাস আপডেট করা হয়েছে!');
+            loadAdminSubmissions();
         }
     </script>
 </body>
