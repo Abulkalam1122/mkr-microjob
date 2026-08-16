@@ -1204,7 +1204,7 @@
             'Nagad': '01619861105'
         };
 
-        // পেজ লোড হওয়ার সাথে সাথে চেক করা ইউজার লগইন করা কিনা
+        // পেজ লোড হলে চেক করবে লগইন করা আছে কিনা, না থাকলে রেজিস্টার পেজে রাখবে
         window.onload = function() {
             let isLoggedIn = localStorage.getItem('isLoggedIn');
             if (isLoggedIn === 'true') {
@@ -1220,7 +1220,6 @@
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
             
-            // পেজ পরিবর্তন করলে ড্রপডাউন বন্ধ হয়ে যাবে
             document.getElementById('profileDropdown').classList.remove('active');
         }
 
@@ -1229,13 +1228,11 @@
             document.getElementById('overlay').classList.toggle('active');
         }
 
-        // প্রোফাইল আইকনে ক্লিক করলে ড্রপডাউন টগল হবে
         function toggleProfileDropdown(event) {
             event.stopPropagation();
             document.getElementById('profileDropdown').classList.toggle('active');
         }
 
-        // পেজের যেকোনো জায়গায় ক্লিক করলে ড্রপডাউন বন্ধ হয়ে যাবে
         window.onclick = function(event) {
             let dropdown = document.getElementById('profileDropdown');
             if (dropdown && dropdown.classList.contains('active')) {
@@ -1300,7 +1297,6 @@
                 return;
             }
 
-            // সফল লগইন হলে স্ট্যাটাস সেভ করে হোম পেজে পাঠানো
             localStorage.setItem('isLoggedIn', 'true');
             alert('লগইন সফল হয়েছে!');
             showPage('homePage');
