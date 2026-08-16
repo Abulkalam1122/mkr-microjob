@@ -14,23 +14,27 @@
         }
 
         body {
-            background: #eef2f7;
+            background: linear-gradient(135deg, #1e1b4b, #311042, #111827);
+            background-attachment: fixed;
             max-width: 480px;
             margin: 0 auto;
             min-height: 100vh;
             padding-bottom: 70px;
+            color: #fff;
         }
 
         .navbar {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-left {
@@ -41,20 +45,22 @@
 
         .navbar h2 {
             font-size: 18px;
-            color: #1e3a8a;
+            color: #38bdf8;
             font-weight: 700;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
         }
 
         .profile-icon {
             width: 35px;
             height: 35px;
-            background: #e2e8f0;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
+            color: #fff;
             cursor: pointer;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
         }
 
         /* সাইডবার মেনু স্টাইল */
@@ -64,11 +70,12 @@
             top: 0;
             width: 75%;
             height: 100%;
-            background: #ffffff;
+            background: #111827;
             z-index: 1000;
             transition: 0.3s ease;
-            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            box-shadow: 5px 0 25px rgba(0,0,0,0.5);
             padding: 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .sidebar.active {
@@ -79,7 +86,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
@@ -91,25 +98,31 @@
         .sidebar-menu li {
             padding: 12px 15px;
             margin-bottom: 8px;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #1e293b;
+            color: #cbd5e1;
             font-weight: 600;
             font-size: 14px;
-            transition: 0.2s;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .sidebar-menu li:hover {
-            background: #f1f5f9;
-            color: #2563eb;
+            background: linear-gradient(135deg, #7c3aed, #db2777);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
         }
 
         .sidebar-menu li i {
             font-size: 16px;
-            color: #2563eb;
+            color: #38bdf8;
+        }
+
+        .sidebar-menu li:hover i {
+            color: #fff;
         }
 
         .overlay {
@@ -118,7 +131,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
             display: none;
             z-index: 999;
         }
@@ -136,39 +150,40 @@
         }
 
         .notice-bar {
-            background: #ffffff;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
+            border: 1px solid rgba(16, 185, 129, 0.3);
             margin: 15px;
             padding: 12px 15px;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             font-size: 13px;
-            color: #333;
+            color: #e2e8f0;
             overflow: hidden;
             white-space: nowrap;
         }
 
         .notice-bar i {
-            color: #f59e0b;
+            color: #34d399;
             font-size: 16px;
         }
 
         .balance-card {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #4f46e5, #9333ea, #db2777);
             color: white;
-            padding: 20px;
+            padding: 22px;
             border-radius: 20px;
             margin: 15px;
             position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3);
             overflow: hidden;
         }
 
         .balance-card p {
             font-size: 11px;
-            color: #94a3b8;
+            color: #f3e8ff;
             letter-spacing: 1px;
             font-weight: 600;
         }
@@ -177,13 +192,14 @@
             font-size: 32px;
             margin: 8px 0;
             color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .earn-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: #fff;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 11px;
             cursor: pointer;
@@ -191,6 +207,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            backdrop-filter: blur(5px);
         }
 
         .action-btns {
@@ -200,9 +217,9 @@
 
         .action-btns button {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
             font-weight: bold;
             font-size: 13px;
@@ -210,16 +227,18 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
 
         .action-btns button span {
             font-size: 10px;
             font-weight: normal;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        .btn-dep { background: #2563eb; color: white; }
-        .btn-with { background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: white; }
+        .btn-dep { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .btn-with { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
 
         .social-grid {
             display: grid;
@@ -230,14 +249,22 @@
         }
 
         .social-card {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 15px;
-            border-radius: 15px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .social-card i {
@@ -246,18 +273,18 @@
 
         .social-card h4 {
             font-size: 13px;
-            color: #1e293b;
+            color: #f8fafc;
         }
 
         .social-card p {
             font-size: 10px;
-            color: #64748b;
+            color: #94a3b8;
         }
 
         .section-title {
             padding: 0 15px;
             font-size: 15px;
-            color: #1e293b;
+            color: #f8fafc;
             margin-bottom: 12px;
             font-weight: 700;
         }
@@ -270,17 +297,21 @@
         }
 
         .service-card {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 20px 10px;
             text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         .service-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(219, 39, 119, 0.2));
+            border-color: rgba(219, 39, 119, 0.4);
         }
 
         .service-card i {
@@ -290,22 +321,23 @@
 
         .service-card h4 {
             font-size: 13px;
-            color: #1e293b;
+            color: #f8fafc;
             margin-bottom: 2px;
         }
 
         .service-card p {
             font-size: 10px;
-            color: #64748b;
+            color: #94a3b8;
         }
 
         .service-top-card {
-            background: #0f172a;
+            background: linear-gradient(135deg, #059669, #2563eb, #7c3aed);
             color: white;
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 16px;
             margin: 15px;
             text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         .service-top-card h3 {
@@ -315,20 +347,20 @@
 
         .service-top-card p {
             font-size: 11px;
-            color: #94a3b8;
+            color: #e2e8f0;
             margin-bottom: 15px;
         }
 
         .stats-row {
             display: flex;
             justify-content: space-around;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             padding-top: 15px;
         }
 
         .stat-box span {
             font-size: 10px;
-            color: #94a3b8;
+            color: #e2e8f0;
             display: block;
             margin-bottom: 5px;
         }
@@ -339,44 +371,49 @@
         }
 
         .password-box, .deposit-info-box {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             margin: 15px;
             padding: 15px;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .pass-text span {
             display: block;
             font-size: 11px;
-            color: #64748b;
+            color: #94a3b8;
         }
 
         .pass-text strong {
             font-size: 14px;
-            color: #1e293b;
+            color: #f8fafc;
         }
 
         .copy-btn {
-            background: #f1f5f9;
+            background: linear-gradient(135deg, #10b981, #059669);
             border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 8px 14px;
+            border-radius: 10px;
             font-size: 12px;
-            color: #2563eb;
+            color: #fff;
             cursor: pointer;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
         }
 
         .submit-form-card, .auth-card {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
             margin: 15px;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            padding: 22px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .form-heading {
@@ -386,13 +423,14 @@
 
         .form-heading h3 {
             font-size: 18px;
-            color: #1e3a8a;
-            margin-bottom: 3px;
+            color: #38bdf8;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
         }
 
         .form-heading p {
             font-size: 11px;
-            color: #64748b;
+            color: #cbd5e1;
         }
 
         .input-group {
@@ -402,7 +440,7 @@
         .input-group label {
             display: block;
             font-size: 12px;
-            color: #333;
+            color: #e2e8f0;
             margin-bottom: 6px;
             font-weight: 600;
         }
@@ -416,53 +454,75 @@
         .input-field i:first-child {
             position: absolute;
             left: 15px;
-            color: #2563eb;
+            color: #a855f7;
             font-size: 14px;
         }
 
         .input-field input, .input-field select {
             width: 100%;
             padding: 12px 15px 12px 45px;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
             outline: none;
             font-size: 14px;
-            background: #f8fafc;
+            background: rgba(17, 24, 39, 0.6);
+            color: #fff;
+        }
+
+        .input-field input::placeholder {
+            color: #64748b;
+        }
+
+        .input-field input:focus, .input-field select:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
         }
 
         .report-note {
             font-size: 11px;
-            color: #d97706;
+            color: #fbbf24;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 5px;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
         }
 
         .submit-account-btn, .auth-btn {
             width: 100%;
-            padding: 12px;
-            background: #2563eb;
+            padding: 14px;
+            background: linear-gradient(135deg, #7c3aed, #db2777);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             margin-top: 5px;
+            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+            transition: 0.3s;
+        }
+
+        .submit-account-btn:hover, .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(219, 39, 119, 0.5);
         }
 
         .auth-switch {
             text-align: center;
             margin-top: 15px;
             font-size: 12px;
-            color: #64748b;
+            color: #94a3b8;
         }
 
         .auth-switch span {
-            color: #2563eb;
+            color: #38bdf8;
             cursor: pointer;
             font-weight: bold;
+            text-decoration: underline;
         }
 
         .back-btn {
@@ -470,14 +530,14 @@
             border: none;
             font-size: 18px;
             cursor: pointer;
-            color: #333;
+            color: #38bdf8;
         }
 
         .admin-support {
             position: fixed;
             bottom: 25px;
             right: 25px;
-            background: #2563eb;
+            background: linear-gradient(135deg, #10b981, #2563eb);
             color: white;
             width: 50px;
             height: 50px;
@@ -486,7 +546,7 @@
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5);
             text-decoration: none;
             z-index: 100;
         }
@@ -498,8 +558,8 @@
     <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2 style="font-size: 16px; color: #1e3a8a;">MKR Micro Job</h2>
-            <i class="fa-solid fa-xmark" style="font-size: 18px; cursor: pointer;" onclick="toggleSidebar()"></i>
+            <h2 style="font-size: 16px; color: #38bdf8;">MKR Micro Job</h2>
+            <i class="fa-solid fa-xmark" style="font-size: 18px; cursor: pointer; color: #fff;" onclick="toggleSidebar()"></i>
         </div>
         <ul class="sidebar-menu">
             <li onclick="toggleSidebar(); showPage('homePage');"><i class="fa-solid fa-house"></i> হোম পেজ</li>
@@ -508,15 +568,100 @@
             <li onclick="toggleSidebar(); showPage('gmailPage');"><i class="fa-solid fa-envelope"></i> জিমেইল সেল</li>
             <li onclick="toggleSidebar(); showPage('facebookPage');"><i class="fa-brands fa-facebook"></i> ফেসবুক সেল</li>
             <li onclick="toggleSidebar(); showPage('instagramPage');"><i class="fa-brands fa-instagram"></i> ইনস্টাগ্রাম সেল</li>
-            <li onclick="toggleSidebar(); showPage('loginPage');"><i class="fa-solid fa-right-to-bracket"></i> লগইন / রেজিস্টার</li>
+            <li onclick="toggleSidebar(); showPage('registerPage');"><i class="fa-solid fa-user-plus"></i> রেজিস্ট্রেশন পেজ</li>
+            <li onclick="toggleSidebar(); showPage('loginPage');"><i class="fa-solid fa-right-to-bracket"></i> লগইন পেজ</li>
         </ul>
     </div>
 
-    <!-- হোম পেজ সেকশন -->
-    <div id="homePage" class="section-page active">
+    <!-- ১. প্রথম পেজ: রেজিস্ট্রেশন/সাবমিট পেজ (ওয়েবসাইটে ঢোকার সাথে সাথে আসবে) -->
+    <div id="registerPage" class="section-page active">
         <header class="navbar">
             <div class="nav-left">
-                <i class="fa-solid fa-bars" style="font-size: 18px; color: #1e3a8a; cursor: pointer;" onclick="toggleSidebar()"></i>
+                <h2>MKR Micro Job - Register</h2>
+            </div>
+        </header>
+        <div class="auth-card">
+            <div class="form-heading">
+                <h3>✨ স্বাগত! প্রথমে একাউন্ট তৈরি করুন ✨</h3>
+                <p>নাম, জিমেইল, ফোন নাম্বার ও পাসওয়ার্ড দিয়ে তথ্য সাবমিট করুন</p>
+            </div>
+            <form onsubmit="checkDeviceLimit(event)">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="regName" placeholder="আপনার পুরো নাম লিখুন" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Phone Number</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="text" id="regPhone" placeholder="আপনার Phone নাম্বার দিন" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Email Address (Gmail)</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="regEmail" placeholder="আপনার জিমেইল একাউন্ট" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="regPass" placeholder="পাসওয়ার্ড দিন" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn">SUBMIT & REGISTER →</button>
+                <div class="auth-switch">
+                    ইতিমধ্যেই একাউন্ট আছে? <span onclick="showPage('loginPage')">লগইন করুন</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- লগইন পেজ -->
+    <div id="loginPage" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <h2>MKR Micro Job - Login</h2>
+            </div>
+        </header>
+        <div class="auth-card">
+            <div class="form-heading">
+                <h3>স্বাগত!</h3>
+                <p>আপনার জিমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন</p>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Email (Gmail)</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="আপনার জিমেইল দিন" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="loginPass" placeholder="পাসওয়ার্ড দিন" required>
+                    </div>
+                </div>
+                <button type="submit" class="auth-btn">লগইন করুন</button>
+                <div class="auth-switch">
+                    কোনো একাউন্ট নেই? <span onclick="showPage('registerPage')">নতুন একাউন্ট তৈরি করুন</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- হোম পেজ সেকশন -->
+    <div id="homePage" class="section-page">
+        <header class="navbar">
+            <div class="nav-left">
+                <i class="fa-solid fa-bars" style="font-size: 18px; color: #38bdf8; cursor: pointer;" onclick="toggleSidebar()"></i>
                 <h2>MKR Micro Job</h2>
             </div>
             <div class="profile-icon" onclick="showPage('loginPage')">
@@ -544,14 +689,14 @@
             <!-- সোশ্যাল মিডিয়া শর্টকাট -->
             <div class="social-grid">
                 <a href="https://t.me/abulkalam_mkr_bot" target="_blank" class="social-card">
-                    <i class="fa-brands fa-telegram" style="color: #0088cc;"></i>
+                    <i class="fa-brands fa-telegram" style="color: #38bdf8;"></i>
                     <div>
                         <h4>Telegram</h4>
                         <p>আমাদের টেলিগ্রাম চ্যানেল</p>
                     </div>
                 </a>
                 <a href="#" class="social-card">
-                    <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
+                    <i class="fa-brands fa-youtube" style="color: #ef4444;"></i>
                     <div>
                         <h4>YouTube</h4>
                         <p>আমাদের ইউটিউব চ্যানেল</p>
@@ -562,17 +707,17 @@
             <h3 class="section-title">আমাদের ডিজিটাল সেবাসমূহ</h3>
             <div class="services-grid">
                 <div class="service-card" onclick="showPage('gmailPage')">
-                    <i class="fa-solid fa-envelope" style="color: #ea4335;"></i>
+                    <i class="fa-solid fa-envelope" style="color: #ef4444;"></i>
                     <h4>Gmail Sell</h4>
                     <p>জিমেইল একাউন্ট</p>
                 </div>
                 <div class="service-card" onclick="showPage('facebookPage')">
-                    <i class="fa-brands fa-facebook" style="color: #1877f2;"></i>
+                    <i class="fa-brands fa-facebook" style="color: #3b82f6;"></i>
                     <h4>Facebook</h4>
                     <p>ফেসবুক সার্ভিস</p>
                 </div>
                 <div class="service-card" onclick="showPage('instagramPage')">
-                    <i class="fa-brands fa-instagram" style="color: #e4405f;"></i>
+                    <i class="fa-brands fa-instagram" style="color: #ec4899;"></i>
                     <h4>Instagram</h4>
                     <p>ইনস্টাগ্রাম সার্ভিস</p>
                 </div>
@@ -691,92 +836,6 @@
                     <button type="submit" class="submit-account-btn">SUBMIT WITHDRAW</button>
                 </form>
             </div>
-        </div>
-    </div>
-
-    <!-- লগইন পেজ -->
-    <div id="loginPage" class="section-page">
-        <header class="navbar">
-            <div class="nav-left">
-                <button class="back-btn" onclick="showPage('homePage')"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2>MKR Micro Job - Login</h2>
-            </div>
-        </header>
-        <div class="auth-card">
-            <div class="form-heading">
-                <h3>স্বাগত!</h3>
-                <p>আপনার একাউন্টে লগইন করতে নিচের তথ্যগুলো দিন</p>
-            </div>
-            <form onsubmit="event.preventDefault(); alert('লগইন সফল হয়েছে!'); showPage('homePage');">
-                <div class="input-group">
-                    <label>Email / Phone</label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="text" placeholder="Enter your email" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="Enter your password" required>
-                    </div>
-                </div>
-                <button type="submit" class="auth-btn">লগইন করুন</button>
-                <div class="auth-switch">
-                    আনার কি কোনো একাউন্ট নেই? <span onclick="showPage('registerPage')">নতুন একাউন্ট তৈরি করুন</span>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- রেজিস্ট্রেশন পেজ -->
-    <div id="registerPage" class="section-page">
-        <header class="navbar">
-            <div class="nav-left">
-                <button class="back-btn" onclick="showPage('loginPage')"><i class="fa-solid fa-arrow-left"></i></button>
-                <h2>MKR Micro Job - Register</h2>
-            </div>
-        </header>
-        <div class="auth-card">
-            <div class="form-heading">
-                <h3>✨ নতুন অ্যাকাউন্ট ✨</h3>
-                <p>আজই যোগ দিন এবং ইনকাম শুরু করুন</p>
-            </div>
-            <form onsubmit="checkDeviceLimit(event)">
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="text" id="regName" placeholder="আপনার পুরো নাম লিখুন" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Phone Number</label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-phone"></i>
-                        <input type="text" id="regPhone" placeholder="আপনার Phone নাম্বার দিন" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Email Address (Gmail)</label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="regEmail" placeholder="আপনার জিমেইল একাউন্ট" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <div class="input-field">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" id="regPass" placeholder="পাসওয়ার্ড দিন" required>
-                    </div>
-                </div>
-                <button type="submit" class="auth-btn">Register Now →</button>
-                <div class="auth-switch">
-                    ইতিমধ্যেই একাউন্ট আছে? <span onclick="showPage('loginPage')">লগইন করুন</span>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -984,7 +1043,7 @@
             }, 2000);
         }
 
-        // একই ডিভাইসে সর্বোচ্চ ২টি অ্যাকাউন্ট খোলার লিমিট চেক
+        // একই ডিভাইসে সর্বোচ্চ ২টি অ্যাকাউন্ট খোলার লিমিট ও রেজিস্ট্রেশন সাবমিটের পর লগইন পেজে পাঠানো
         function checkDeviceLimit(event) {
             event.preventDefault();
             let count = parseInt(localStorage.getItem('mkrAccCount') || 0);
@@ -993,9 +1052,35 @@
                 return;
             }
             
+            let name = document.getElementById('regName').value;
+            let phone = document.getElementById('regPhone').value;
+            let email = document.getElementById('regEmail').value;
+            let pass = document.getElementById('regPass').value;
+
+            localStorage.setItem('savedEmail', email);
+            localStorage.setItem('savedPass', pass);
             localStorage.setItem('mkrAccCount', count + 1);
-            alert('রেজিস্ট্রেশন সফল হয়েছে!');
+
+            alert('রেজিস্ট্রেশন সফল হয়েছে! এখন আপনার জিমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন।');
             showPage('loginPage');
+        }
+
+        // লগইন হ্যান্ডেল করার ফাংশন
+        function handleLogin(event) {
+            event.preventDefault();
+            let inputEmail = document.getElementById('loginEmail').value;
+            let inputPass = document.getElementById('loginPass').value;
+
+            let savedEmail = localStorage.getItem('savedEmail');
+            let savedPass = localStorage.getItem('savedPass');
+
+            if (savedEmail && (inputEmail !== savedEmail || inputPass !== savedPass)) {
+                alert('ভুল জিমেইল অথবা পাসওয়ার্ড দিয়েছেন!');
+                return;
+            }
+
+            alert('লগইন সফল হয়েছে!');
+            showPage('homePage');
         }
 
         // ডিপোজিট রিকোয়েস্ট টেলিগ্রাম বটে পাঠানোর ফাংশন
@@ -1034,8 +1119,8 @@
             let number = document.getElementById('withNumber').value;
             let amount = parseFloat(document.getElementById('withAmount').value);
             
-            let charge = amount * 0.05; // ৫% চার্জ
-            let finalAmount = amount - charge; // চার্জ বাদে পেমেন্ট
+            let charge = amount * 0.05;
+            let finalAmount = amount - charge;
 
             let message = `💸 নতুন উইথড্র রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 গ্রহণকারী নাম্বার: ${number}\n💵 উইথড্র পরিমাণ: ৳${amount}\n🔻 ৫% চার্জ: ৳${charge.toFixed(2)}\n✅ প্রদেয় পরিমাণ: ৳${finalAmount.toFixed(2)}\n📌 প্রেরক অ্যাডমিন নাম্বার: ${ADMIN_NUMBER}`;
 
