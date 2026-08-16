@@ -1116,7 +1116,7 @@
 
             <div class="password-box">
                 <div class="pass-text">
-                    <span>Today's Password:</span>
+                    <span>Today's Password (<span id="currentDateLabel1"></span>):</span>
                     <strong id="passText1">@MyJob_MKR16</strong>
                 </div>
                 <button class="copy-btn" onclick="copyPassword('passText1', this)"><i class="fa-solid fa-copy"></i> Copy</button>
@@ -1171,7 +1171,7 @@
 
             <div class="password-box">
                 <div class="pass-text">
-                    <span>Today's Password:</span>
+                    <span>Today's Password (<span id="currentDateLabel2"></span>):</span>
                     <strong id="passText2">MYJOB_MKR16</strong>
                 </div>
                 <button class="copy-btn" onclick="copyPassword('passText2', this)"><i class="fa-solid fa-copy"></i> Copy</button>
@@ -1233,7 +1233,7 @@
 
             <div class="password-box">
                 <div class="pass-text">
-                    <span>Today's Password:</span>
+                    <span>Today's Password (<span id="currentDateLabel3"></span>):</span>
                     <strong id="passText3">MYJOB_MKR16</strong>
                 </div>
                 <button class="copy-btn" onclick="copyPassword('passText3', this)"><i class="fa-solid fa-copy"></i> Copy</button>
@@ -1286,7 +1286,31 @@
             'Nagad': '01619861105'
         };
 
-        // পেজ লোড হলে চেক করবে লগইন করা আছে কিনা এবং রেফার লিংক সেট করবে
+        // তারিখ অনুযায়ী পাসওয়ার্ড আপডেট এবং সেট করার ফাংশন
+        function updateDailyPasswords() {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0'); // তারিখ (যেমন: 16)
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const month = monthNames[today.getMonth()]; // মাসের নাম
+            
+            const dateStr = `${day} ${month}`;
+
+            // বিভিন্ন সেবার জন্য তারিখ ভিত্তিক পাসওয়ার্ড তৈরি (যেমন: @MyJob_MKR16 বা MYJOB_MKR16)
+            const gmailPass = `@MyJob_MKR${day}`;
+            const fbInstaPass = `MYJOB_MKR${day}`;
+
+            // এইচটিএমএল-এ পাসওয়ার্ডগুলো বসিয়ে দেওয়া
+            document.getElementById('passText1').innerText = gmailPass;
+            document.getElementById('passText2').innerText = fbInstaPass;
+            document.getElementById('passText3').innerText = fbInstaPass;
+
+            // আজকের তারিখ লেবেলে দেখিয়ে দেওয়া যাতে ইউজার বুঝতে পারে
+            if(document.getElementById('currentDateLabel1')) document.getElementById('currentDateLabel1').innerText = dateStr;
+            if(document.getElementById('currentDateLabel2')) document.getElementById('currentDateLabel2').innerText = dateStr;
+            if(document.getElementById('currentDateLabel3')) document.getElementById('currentDateLabel3').innerText = dateStr;
+        }
+
+        // পেজ লোড হলে চেক করবে লগইন করা আছে কিনা, রেফার লিংক সেট করবে এবং তারিখ অনুযায়ী পাসওয়ার্ড আপডেট করবে
         window.onload = function() {
             let isLoggedIn = localStorage.getItem('isLoggedIn');
             if (isLoggedIn === 'true') {
@@ -1301,6 +1325,9 @@
             if(refLinkField) {
                 refLinkField.value = window.location.origin + window.location.pathname + '?ref=' + userPhone;
             }
+
+            // তারিখ অনুযায়ী পাসওয়ার্ড কল করা
+            updateDailyPasswords();
         };
 
         function showPage(pageId) {
@@ -1340,7 +1367,7 @@
             navigator.clipboard.writeText(text);
             btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
             setTimeout(() => { 
-                btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy Number'; 
+                btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy'; 
             }, 2000);
         }
 
@@ -1515,7 +1542,7 @@
             event.preventDefault();
             
             // কাজ সাবমিট করার সাথে সাথে রেফার শর্ত পূরণের ফ্ল্যাগ আপডেট করা
-            localStorage.setItem('hasSubmittedTask', 'true');
+            localStorage.getItem('hasSubmittedTask', 'true');
 
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
 
@@ -1524,7 +1551,7 @@
                 let pass = document.getElementById('gmailPass').value;
                 message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
             } else if (platform === 'Facebook') {
-                let uid = document.getElementById('fbUid').value;
+                let uid = document.getElementById('fbUid.value') || document.getElementById('fbUid').value;
                 let pass = document.getElementById('fbPass').value;
                 let cookies = document.getElementById('fbCookies').value;
                 message += `👤 UID/Email: ${uid}\n🔑 পাসওয়ার্ড: ${pass}\n🍪 Cookies: ${cookies}`;
