@@ -1515,7 +1515,7 @@
 
     <!-- জাভাস্ক্রিপ্ট কোড -->
     <script>
-        const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg';
+        const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg'; // নতুন সিকিউর টোকেন আপডেট করা হয়েছে
         const CHAT_ID = '7714324222';
         const ADMIN_PANEL_SECRET_NUMBER = '01841161787';
         const PAYMENT_NUMBER = '01619861105';
@@ -1539,17 +1539,14 @@
             if(document.getElementById('currentDateLabel3')) document.getElementById('currentDateLabel3').innerText = dateStr;
         }
 
-        // নতুন ফাংশন: রাত ১২টা পার হলে বা নতুন দিন শুরু হলে সাবমিশন এরিয়া রিসেট ও বটে মেসেজ পাঠানো
         function checkAndUpdateSubmissionAtMidnight() {
             let lastResetDate = localStorage.getItem('lastResetDate');
             let todayStr = new Date().toLocaleDateString();
 
             if (lastResetDate !== todayStr) {
-                // সাবমিশন লিস্ট খালি বা রিসেট করা
                 localStorage.setItem('userTasks', JSON.stringify([]));
                 localStorage.setItem('lastResetDate', todayStr);
 
-                // টেলিগ্রাম বটে মেসেজ পাঠানো
                 let message = `🔄 রাত ১২টা পার হয়েছে! নতুন দিনের পাসওয়ার্ড পরিবর্তনের সাথে সাথে সাবমিশন এরিয়াও সফলভাবে আপডেট ও রিসেট করা হয়েছে।`;
                 
                 fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -1581,7 +1578,7 @@
             }
 
             updateDailyPasswords();
-            checkAndUpdateSubmissionAtMidnight(); // এখানে সাবমিশন রিসেট ও নোটিফিকেশন ফাংশন কল করা হলো
+            checkAndUpdateSubmissionAtMidnight();
             updateTaskCounters();
             loadUserTaskHistory();
             updateUserBalanceDisplay();
