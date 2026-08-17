@@ -881,7 +881,7 @@
         </div>
     </div>
 
-    <!-- এডমিন সিক্রেট লগইন পেজ (নাম্বার ফিল্ড রিমুভ করা হয়েছে) -->
+    <!-- এডমিন সিক্রেট লগইন পেজ -->
     <div id="adminLoginModal" class="section-page">
         <header class="navbar">
             <div class="nav-left">
@@ -907,7 +907,7 @@
         </div>
     </div>
 
-    <!-- আসল সিক্রেট এডমিন ড্যাশবোর্ড (টোটাল, সাক্সেস এবং ফেইল্ড হিসাব দেখানোর অপশনসহ) -->
+    <!-- আসল সিক্রেট এডমিন ড্যাশবোর্ড -->
     <div id="adminDashboardPage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
@@ -958,7 +958,7 @@
                     <i class="fa-solid fa-user"></i>
                 </div>
                 <div class="profile-dropdown" id="profileDropdown">
-                    <div class="dropdown-item" onclick="openProfilePage()"><i class="fa-solid fa-user"></i> Profile</div>
+                    <div class="dropdown-item" onclick="openProfilePage()"><i class="fa-solid fa-user"></i> Profile & Task Status</div>
                     <div class="dropdown-item" onclick="openLeaderboardPage()"><i class="fa-solid fa-trophy" style="color: #fbbf24;"></i> Top (100) Reffered</div>
                     <div class="dropdown-item" onclick="showPage('adminLoginModal')"><i class="fa-solid fa-user-shield" style="color: #fbbf24;"></i> Admin Panel</div>
                     <div class="dropdown-item logout" onclick="handleLogout()"><i class="fa-solid fa-power-off"></i> Logout</div>
@@ -974,11 +974,27 @@
         <div class="dashboard">
             <div class="balance-card">
                 <p>TOTAL BALANCE</p>
-                <h1>৳0.00</h1>
+                <h1 id="userTotalBalance">৳0.00</h1>
                 <button class="earn-btn"><i class="fa-solid fa-chart-line"></i> কাজ করে আয় করুন আরও বেশি</button>
                 <div class="action-btns">
                     <button class="btn-dep" onclick="showPage('depositPage')">Deposit <span>ব্যালেেন্স যোগ করুন</span></button>
                     <button class="btn-with" onclick="showPage('withdrawPage')">Withdraw <span>ব্যালেেন্স উত্তোলন করুন</span></button>
+                </div>
+            </div>
+
+            <!-- কাজের হিসাব দেখার নতুন কাউন্টার সেকশন -->
+            <div class="refer-card" style="border-color: #34d399;">
+                <div class="refer-header">
+                    <i class="fa-solid fa-list-check" style="color: #34d399;"></i>
+                    <div>
+                        <h4>আপনার কাজের স্ট্যাটাস ওভারভিউ</h4>
+                        <p>আপনার জমা দেওয়া কাজের বর্তমান অবস্থা একনজরে দেখুন</p>
+                    </div>
+                </div>
+                <div class="stats-row" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                    <div class="stat-box" style="color:#fff;"><span style="color:#cbd5e1;">TOTAL</span><h2 id="userStatTotal" style="color:#00f2fe;">0</h2></div>
+                    <div class="stat-box" style="color:#fff;"><span style="color:#cbd5e1;">ACCEPTED</span><h2 id="userStatSuccess" style="color:#34d399;">0</h2></div>
+                    <div class="stat-box" style="color:#fff;"><span style="color:#cbd5e1;">REJECTED</span><h2 id="userStatFailed" style="color:#ef4444;">0</h2></div>
                 </div>
             </div>
 
@@ -1522,6 +1538,7 @@
             updateDailyPasswords();
             updateTaskCounters();
             loadUserTaskHistory();
+            updateUserBalanceDisplay();
         };
 
         function showPage(pageId) {
@@ -1530,6 +1547,10 @@
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
             document.getElementById('profileDropdown').classList.remove('active');
+            if(pageId === 'homePage') {
+                updateUserBalanceDisplay();
+                updateTaskCounters();
+            }
         }
 
         function openProfilePage() {
@@ -1570,7 +1591,7 @@
             showPage('loginPage');
         }
 
-        // এডমিন লগইন (শুধু পাসওয়ার্ড দিয়ে)
+        // এডমিন লগইন
         function handleAdminLogin(event) {
             event.preventDefault();
             let passInput = document.getElementById('adminLoginPass').value;
@@ -1620,6 +1641,9 @@
             localStorage.setItem('savedEmail', email);
             localStorage.setItem('savedPass', pass);
             localStorage.setItem('savedPhone', phone);
+            if(!localStorage.getItem('userBalance')) {
+                localStorage.setItem('userBalance', '0');
+            }
 
             alert('রেজিস্ট্রেশন সফল হয়েছে! এখন লগইন করুন।');
             showPage('loginPage');
@@ -1640,6 +1664,14 @@
             localStorage.setItem('isLoggedIn', 'true');
             alert('লগইন সফল হয়েছে!');
             showPage('homePage');
+        }
+
+        function updateUserBalanceDisplay() {
+            let balance = parseFloat(localStorage.getItem('userBalance') || '0');
+            let balEl = document.getElementById('userTotalBalance');
+            if(balEl) {
+                balEl.innerText = `৳${balance.toFixed(2)}`;
+            }
         }
 
         function calculateDepositFee() {
@@ -1702,6 +1734,12 @@
                 alert("সর্বনিম্ন উইথড্র পরিমাণ ৫০ টাকা।");
                 return;
             }
+            let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
+            if (amount > currentBal) {
+                alert("আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালেন্স নেই!");
+                return;
+            }
+
             let charge = amount * 0.05;
             let finalAmount = amount - charge;
             let message = `💸 নতুন উইথড্র রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 নাম্বার: ${number}\n💵 পরিমাণ: ৳${amount}\n🔻 ৫% চার্জ: ৳${charge.toFixed(2)}\n✅ প্রদেয়: ৳${finalAmount.toFixed(2)}`;
@@ -1712,6 +1750,9 @@
                 body: JSON.stringify({ chat_id: CHAT_ID, text: message })
             }).then(res => res.json()).then(data => {
                 if(data.ok) {
+                    // উইথড্র করলে ব্যালেন্স কেটে নেওয়া
+                    localStorage.setItem('userBalance', (currentBal - amount).toFixed(2));
+                    updateUserBalanceDisplay();
                     alert('উইথড্র রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
                     event.target.reset();
                     showPage('homePage');
@@ -1724,27 +1765,32 @@
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
             let detailsText = "";
 
+            let rate = 0;
             if (platform === 'Gmail') {
                 let email = document.getElementById('gmailEmail').value;
                 let pass = document.getElementById('gmailPass').value;
                 detailsText = `Gmail: ${email}`;
                 message += `📧 ইমেইল: ${email}\n🔑 পাসওয়ার্ড: ${pass}`;
+                rate = 15.70;
             } else if (platform === 'Facebook') {
                 let uid = document.getElementById('fbUid').value;
                 let pass = document.getElementById('fbPass').value;
                 detailsText = `FB UID: ${uid}`;
                 message += `👤 UID: ${uid}\n🔑 পাসওয়ার্ড: ${pass}`;
+                rate = 5.70;
             } else if (platform === 'Instagram') {
                 let user = document.getElementById('instaUser').value;
                 let pass = document.getElementById('instaPass').value;
                 detailsText = `Insta User: ${user}`;
                 message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}`;
+                rate = 4.20;
             }
 
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let newTask = {
                 platform: platform,
                 details: detailsText,
+                rate: rate,
                 date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
                 status: 'Loading'
             };
@@ -1769,16 +1815,27 @@
         function updateTaskCounters() {
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let gmailCount = 0, fbCount = 0, instaCount = 0;
+            let totalCnt = tasks.length;
+            let successCnt = 0;
+            let failedCnt = 0;
 
             tasks.forEach(t => {
                 if(t.platform === 'Gmail') gmailCount++;
                 if(t.platform === 'Facebook') fbCount++;
                 if(t.platform === 'Instagram') instaCount++;
+
+                if(t.status === 'Success') successCnt++;
+                if(t.status === 'Failed') failedCnt++;
             });
 
             if(document.getElementById('gmailSubmitCount')) document.getElementById('gmailSubmitCount').innerText = gmailCount;
             if(document.getElementById('fbSubmitCount')) document.getElementById('fbSubmitCount').innerText = fbCount;
             if(document.getElementById('instaSubmitCount')) document.getElementById('instaSubmitCount').innerText = instaCount;
+
+            // হোম পেজের নতুন স্ট্যাটাস কাউন্টার আপডেট
+            if(document.getElementById('userStatTotal')) document.getElementById('userStatTotal').innerText = totalCnt;
+            if(document.getElementById('userStatSuccess')) document.getElementById('userStatSuccess').innerText = successCnt;
+            if(document.getElementById('userStatFailed')) document.getElementById('userStatFailed').innerText = failedCnt;
         }
 
         function loadUserTaskHistory() {
@@ -1813,7 +1870,6 @@
             });
         }
 
-        // এডমিন প্যানেলে মোট কতটি, কয়টি সাক্সেস এবং কয়টি ফেইল্ড হয়েছে তার হিসাব দেখানোর লজিক
         function loadAdminSubmissions() {
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let tbody = document.getElementById('adminSubmissionsList');
@@ -1855,11 +1911,30 @@
             });
         }
 
+        // অ্যাডমিন থেকে স্ট্যাটাস পরিবর্তন করার সময় ব্যালেন্স যোগ করার লজিক
         function changeTaskStatus(index, newStatus) {
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            let oldStatus = tasks[index].status;
+
+            // যদি আগে Success না হয়ে থাকে এবং এখন Success করা হয়, তবেই ব্যালেন্স যোগ হবে
+            if (oldStatus !== 'Success' && newStatus === 'Success') {
+                let taskRate = tasks[index].rate || 0;
+                let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
+                let newBal = currentBal + taskRate;
+                localStorage.setItem('userBalance', newBal.toFixed(2));
+            } 
+            // যদি ভুলবশত আগে Success দেওয়া হয়েছিল কিন্তু এখন Failed করা হয়, তবে ব্যালেন্স আবার কেটে নেওয়া হবে
+            else if (oldStatus === 'Success' && newStatus === 'Failed') {
+                let taskRate = tasks[index].rate || 0;
+                let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
+                let newBal = currentBal - taskRate;
+                if(newBal < 0) newBal = 0;
+                localStorage.setItem('userBalance', newBal.toFixed(2));
+            }
+
             tasks[index].status = newStatus;
             localStorage.setItem('userTasks', JSON.stringify(tasks));
-            alert('কাজের স্ট্যাটাস আপডেট করা হয়েছে!');
+            alert('কাজের স্ট্যাটাস আপডেট করা হয়েছে এবং ইউজারের ব্যালেন্স আপডেট হয়েছে!');
             loadAdminSubmissions();
         }
     </script>
