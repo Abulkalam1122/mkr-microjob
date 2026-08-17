@@ -913,21 +913,21 @@
         <div class="auth-card">
             <div class="form-heading">
                 <h3><i class="fa-solid fa-user-shield" style="color: #fbbf24;"></i> Restricted Area</h3>
-                <p>এডমিন প্যানেলে প্রবেশ করতে আপনার সিক্রেট পাসওয়ার্ড দিন</p>
+                <p>এডমিন প্যানেলে প্রবেশ করতে প্যানেলে সংরক্ষিত সিক্রেট নাম্বারটি পাসওয়ার্ড হিসেবে দিন</p>
             </div>
             <form onsubmit="handleAdminLogin(event)">
                 <div class="input-group">
-                    <label>Admin Number / ID</label>
+                    <label>Admin ID / Username</label>
                     <div class="input-field">
-                        <i class="fa-solid fa-phone"></i>
-                        <input type="text" id="adminLoginPhone" value="01841161787" readonly style="color: #fbbf24;">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="adminLoginUser" value="Admin Panel" readonly style="color: #fbbf24;">
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Secret Password</label>
+                    <label>Secret Password (প্যানেলের নাম্বারটি)</label>
                     <div class="input-field">
                         <i class="fa-solid fa-key"></i>
-                        <input type="password" id="adminLoginPass" placeholder="পাসওয়ার্ড দিন" required>
+                        <input type="password" id="adminLoginPass" placeholder="প্যানেলের নির্দিষ্ট নাম্বারটি দিন" required>
                     </div>
                 </div>
                 <button type="submit" class="auth-btn" style="background: linear-gradient(135deg, #fbbf24, #d97706); color: #000;">LOGIN AS ADMIN</button>
@@ -1057,7 +1057,7 @@
         </div>
     </div>
 
-    <!-- প্রোফাইল পেজ -->
+    <!-- প্রোফাইল পেজ (ইউজার কোনো পাসওয়ার্ড ছাড়াই তার সাবমিট করা কাজের স্ট্যাটাস দেখতে পারবে) -->
     <div id="profilePage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
@@ -1069,7 +1069,7 @@
         <div class="dashboard">
             <div class="service-top-card">
                 <h3><i class="fa-solid fa-user-circle"></i> User Profile</h3>
-                <p>আপনার অ্যাকাউন্ট ও সাবমিট করা কাজের লাইভ হিস্ট্রি</p>
+                <p>আপনার অ্যাকাউন্ট ও সাবমিট করা কাজের লাইভ হিস্ট্রি (কোনো পাসওয়ার্ড ছাড়াই)</p>
             </div>
 
             <div class="profile-info-card">
@@ -1507,12 +1507,13 @@
     <script>
         const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg';
         const CHAT_ID = '7714324222';
-        const ADMIN_PHONE = '01841161787';
-        const ADMIN_PASS = '01841161787';
+        
+        // প্যানেলের জন্য নির্ধারিত এডমিন পেমেন্ট নাম্বার (যেটি দিয়ে এডমিন প্যানেলে লগইন পাসওয়ার্ড হিসেবে কাজ করবে)
+        const ADMIN_PANEL_SECRET_NUMBER = '01619861105';
 
         const ADMIN_NUMBERS = {
-            'Bkash': '01619861105',
-            'Nagad': '01619861105'
+            'Bkash': ADMIN_PANEL_SECRET_NUMBER,
+            'Nagad': ADMIN_PANEL_SECRET_NUMBER
         };
 
         function updateDailyPasswords() {
@@ -1605,15 +1606,16 @@
             showPage('loginPage');
         }
 
+        // এডমিন লগইন (প্যানেলে থাকা নাম্বারটি দিয়েই পাসওয়ার্ড যাচাই হবে)
         function handleAdminLogin(event) {
             event.preventDefault();
             let passInput = document.getElementById('adminLoginPass').value;
-            if (passInput === ADMIN_PASS) {
+            if (passInput === ADMIN_PANEL_SECRET_NUMBER) {
                 alert('এডমিন প্যানেলে সফলভাবে প্রবেশ করেছেন!');
                 loadAdminSubmissions();
                 showPage('adminDashboardPage');
             } else {
-                alert('ভুল সিক্রেট পাসওয়ার্ড দিয়েছেন!');
+                alert('ভুল সিক্রেট পাসওয়ার্ড দিয়েছেন! প্যানেলের সংরক্ষিত নাম্বারটি দিন।');
             }
         }
 
@@ -1864,7 +1866,7 @@
                 return;
             }
 
-            tbody.innerHTML = '';
+            tbody.innerHTML = ``;
             tasks.forEach((t, index) => {
                 tbody.innerHTML += `
                     <tr>
