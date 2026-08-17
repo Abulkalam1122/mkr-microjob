@@ -1001,7 +1001,7 @@
                 </div>
             </div>
 
-            <!-- কাজের হিসাব দেখার নতুন কাউন্টার সেকশন -->
+            <!-- কাজের হিসাব দেখার কাউন্টার সেকশন -->
             <div class="refer-card" style="border-color: #34d399;">
                 <div class="refer-header">
                     <i class="fa-solid fa-list-check" style="color: #34d399;"></i>
@@ -1204,7 +1204,7 @@
                         </div>
                     </div>
 
-                    <!-- বিকাশ/নগদ নাম্বার প্রদর্শন বক্স -->
+                    <!-- পেমেন্ট নাম্বার প্রদর্শন বক্স -->
                     <div class="payment-number-box">
                         <span>সেন্ড মানি করার জন্য নাম্বার (Send Money):</span>
                         <strong id="displayPaymentNumber">01619861105</strong>
@@ -1517,11 +1517,7 @@
     <script>
         const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg';
         const CHAT_ID = '7714324222';
-        
-        // এডমিনের নতুন সিক্রেট পাসওয়ার্ড নাম্বার
         const ADMIN_PANEL_SECRET_NUMBER = '01841161787';
-
-        // নির্দিষ্ট পেমেন্ট নাম্বার (বিকাশ ও নগদ উভয়টির জন্য)
         const PAYMENT_NUMBER = '01619861105';
 
         function updateDailyPasswords() {
@@ -1627,7 +1623,6 @@
             showPage('loginPage');
         }
 
-        // এডমিন লগইন
         function handleAdminLogin(event) {
             event.preventDefault();
             let passInput = document.getElementById('adminLoginPass').value;
