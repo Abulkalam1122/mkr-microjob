@@ -1546,25 +1546,6 @@
             if(document.getElementById('currentDateLabel3')) document.getElementById('currentDateLabel3').innerText = dateStr;
         }
 
-        function checkAndUpdateSubmissionAtMidnight() {
-            let lastResetDate = localStorage.getItem('lastResetDate');
-            let todayStr = getBangladeshDate();
-
-            // রাত ১২টা পার হয়ে নতুন দিন শুরু হলে এবং আগের ডেট না মিললে এটি কেবল একবার ট্রিগার হবে
-            if (lastResetDate !== todayStr) {
-                localStorage.setItem('userTasks', JSON.stringify([]));
-                localStorage.setItem('lastResetDate', todayStr);
-
-                let message = `🔄 রাত ১২টা পার হয়েছে! নতুন দিনের পাসওয়ার্ড পরিবর্তনের সাথে সাথে সাবমিশন এরিয়াও সফলভাবে আপডেট ও রিসেট করা হয়েছে।`;
-                
-                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: CHAT_ID, text: message })
-                });
-            }
-        }
-
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const refUser = urlParams.get('ref');
@@ -1586,7 +1567,6 @@
             }
 
             updateDailyPasswords();
-            checkAndUpdateSubmissionAtMidnight();
             updateTaskCounters();
             loadUserTaskHistory();
             updateUserBalanceDisplay();
@@ -1970,7 +1950,7 @@
                         <td><b>👤 ${uName}</b><br><span style="color: #fbbf24;">${t.platform}</span><br><small style="color: #00f2fe;">${maskedDetails}</small></td>
                         <td>${t.date}</td>
                         <td>
-                            <button onclick="changeTaskStatus(${index}, 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000;">✓ Correct</button>
+                            <button onclick="changeTaskStatus(${index}, 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000; margin-bottom: 4px;">✓ Correct</button>
                             <button onclick="changeTaskStatus(${index}, 'Failed')" style="background:#ef4444; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#fff;">X Wrong</button>
                         </td>
                     </tr>
@@ -1998,7 +1978,7 @@
 
             tasks[index].status = newStatus;
             localStorage.setItem('userTasks', JSON.stringify(tasks));
-            alert('কাজের স্ট্যাটাস আপডেট করা হয়েছে এবং ইউজারের ব্যালেন্স আপডেট হয়েছে!');
+            alert('কাজের স্ট্যাটাস আপডেট করা হয়েছে!');
             loadAdminSubmissions();
         }
     </script>
