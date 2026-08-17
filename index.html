@@ -1350,7 +1350,7 @@
             <div class="password-box">
                 <div class="pass-text">
                     <span>Today's Password (<span id="currentDateLabel1"></span>):</span>
-                    <strong id="passText1">@MyJob_MKR16</strong>
+                    <strong id="passText1">@MyJob_MKR17</strong>
                 </div>
                 <button class="copy-btn" onclick="copyPassword('passText1', this)"><i class="fa-solid fa-copy"></i> Copy</button>
             </div>
@@ -1405,7 +1405,7 @@
             <div class="password-box">
                 <div class="pass-text">
                     <span>Today's Password (<span id="currentDateLabel2"></span>):</span>
-                    <strong id="passText2">MYJOB_MKR16</strong>
+                    <strong id="passText2">MYJOB_MKR17</strong>
                 </div>
                 <button class="copy-btn" onclick="copyPassword('passText2', this)"><i class="fa-solid fa-copy"></i> Copy</button>
             </div>
@@ -1467,7 +1467,7 @@
             <div class="password-box">
                 <div class="pass-text">
                     <span>Today's Password (<span id="currentDateLabel3"></span>):</span>
-                    <strong id="passText3">MYJOB_MKR16</strong>
+                    <strong id="passText3">MYJOB_MKR17</strong>
                 </div>
                 <button class="copy-btn" onclick="copyPassword('passText3', this)"><i class="fa-solid fa-copy"></i> Copy</button>
             </div>
@@ -1515,18 +1515,27 @@
 
     <!-- জাভাস্ক্রিপ্ট কোড -->
     <script>
-        const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg'; // নতুন সিকিউর টোকেন আপডেট করা হয়েছে
+        const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg';
         const CHAT_ID = '7714324222';
         const ADMIN_PANEL_SECRET_NUMBER = '01841161787';
         const PAYMENT_NUMBER = '01619861105';
 
-        function updateDailyPasswords() {
-            const today = new Date();
-            const day = String(today.getDate()).padStart(2, '0');
-            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            const month = monthNames[today.getMonth()];
-            const dateStr = `${day} ${month}`;
+        // বাংলাদেশ টাইম জোন অনুযায়ী সঠিক তারিখ বের করার ফাংশন
+        function getBangladeshDate() {
+            const options = { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' };
+            const formatter = new Intl.DateTimeFormat('en-CA', options); // en-CA gives YYYY-MM-DD format
+            return formatter.format(new Date());
+        }
 
+        function updateDailyPasswords() {
+            const options = { timeZone: 'Asia/Dhaka', day: '2-digit', month: 'short' };
+            const parts = new Intl.DateTimeFormat('en-US', options).formatToParts(new Date());
+            
+            let day = parts.find(p => p.type === 'day').value;
+            let month = parts.find(p => p.type === 'month').value;
+            let dateStr = `${day} ${month}`;
+
+            // নির্দিষ্ট দিন অনুযায়ী পাসওয়ার্ড আপডেট হবে (যেমন আজ ১৭ তারিখ হলে শেষাংশে 17 থাকবে)
             const gmailPass = `@MyJob_MKR${day}`;
             const fbInstaPass = `MYJOB_MKR${day}`;
 
@@ -1541,9 +1550,11 @@
 
         function checkAndUpdateSubmissionAtMidnight() {
             let lastResetDate = localStorage.getItem('lastResetDate');
-            let todayStr = new Date().toLocaleDateString();
+            let todayStr = getBangladeshDate(); // বাংলাদেশ টাইম জোন অনুযায়ী আজকের তারিখ
 
+            // যদি তারিখ পরিবর্তন হয় (রাত ১২টা পার হয়ে নতুন দিন শুরু হলে)
             if (lastResetDate !== todayStr) {
+                // সাবমিশন লিস্ট সম্পূর্ণ খালি বা রিসেট করে দেওয়া হবে
                 localStorage.setItem('userTasks', JSON.stringify([]));
                 localStorage.setItem('lastResetDate', todayStr);
 
@@ -1578,7 +1589,7 @@
             }
 
             updateDailyPasswords();
-            checkAndUpdateSubmissionAtMidnight();
+            checkAndUpdateSubmissionAtMidnight(); // রাত ১২টার চেক ও রিসেট ফাংশন
             updateTaskCounters();
             loadUserTaskHistory();
             updateUserBalanceDisplay();
