@@ -767,6 +767,25 @@
         .status-loading { background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid #fbbf24; }
         .status-success { background: rgba(52, 211, 153, 0.2); color: #34d399; border: 1px solid #34d399; }
         .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+        
+        .payment-number-box {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px dashed #00f2fe;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .payment-number-box span {
+            font-size: 12px;
+            color: #cbd5e1;
+            display: block;
+        }
+        .payment-number-box strong {
+            font-size: 16px;
+            color: #00f2fe;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
@@ -931,7 +950,7 @@
                     <table class="history-table">
                         <thead>
                             <tr>
-                                <th>Platform</th>
+                                <th>Platform & User</th>
                                 <th>Details (Hidden)</th>
                                 <th>Status Action</th>
                             </tr>
@@ -1178,11 +1197,17 @@
                         <label>পেমেন্ট মেথড সিলেক্ট করুন</label>
                         <div class="input-field">
                             <i class="fa-solid fa-wallet"></i>
-                            <select id="depMethod" required>
+                            <select id="depMethod" onchange="updateDepositNumberInfo()" required>
                                 <option value="Bkash">Bkash (0.00% Charge)</option>
                                 <option value="Nagad">Nagad (0.00% Charge)</option>
                             </select>
                         </div>
+                    </div>
+
+                    <!-- বিকাশ/নগদ নাম্বার প্রদর্শন বক্স -->
+                    <div class="payment-number-box">
+                        <span>সেন্ড মানি করার জন্য নাম্বার (Send Money):</span>
+                        <strong id="displayPaymentNumber">01619861105</strong>
                     </div>
 
                     <div class="report-note"><i class="fa-solid fa-circle-info"></i> পেমেন্ট করার নির্দিষ্ট তথ্যের জন্য অ্যাডমিনের সাথে যোগাযোগ করুন।</div>
@@ -1496,6 +1521,9 @@
         // এডমিনের নতুন সিক্রেট পাসওয়ার্ড নাম্বার
         const ADMIN_PANEL_SECRET_NUMBER = '01841161787';
 
+        // নির্দিষ্ট পেমেন্ট নাম্বার (বিকাশ ও নগদ উভয়টির জন্য)
+        const PAYMENT_NUMBER = '01619861105';
+
         function updateDailyPasswords() {
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
@@ -1539,7 +1567,15 @@
             updateTaskCounters();
             loadUserTaskHistory();
             updateUserBalanceDisplay();
+            updateDepositNumberInfo();
         };
+
+        function updateDepositNumberInfo() {
+            let numBox = document.getElementById('displayPaymentNumber');
+            if(numBox) {
+                numBox.innerText = PAYMENT_NUMBER;
+            }
+        }
 
         function showPage(pageId) {
             const pages = document.querySelectorAll('.section-page');
@@ -1693,7 +1729,10 @@
             let method = document.getElementById('depMethod').value;
             let sender = document.getElementById('senderNumber').value;
             let amount = document.getElementById('depAmount').value;
-            let message = `💰 নতুন ডিপোজিট রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 প্রেরক নাম্বার: ${sender}\n💵 পরিমাণ: ৳${amount}`;
+            let userName = localStorage.getItem('savedName') || 'Unknown User';
+            let userPhone = localStorage.getItem('savedPhone') || 'N/A';
+
+            let message = `💰 নতুন ডিপোজিট রিকোয়েস্ট এসেছে!\n\n👤 ইউজারের নাম: ${userName}\n📱 একাউন্ট নাম্বার: ${userPhone}\n🔹 মাধ্যম: ${method} (এজেন্ট নাম্বার: ${PAYMENT_NUMBER})\n📱 প্রেরক নাম্বার: ${sender}\n💵 পরিমাণ: ৳${amount}`;
 
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
@@ -1729,6 +1768,7 @@
             let method = document.getElementById('withMethod').value;
             let number = document.getElementById('withNumber').value;
             let amount = parseFloat(document.getElementById('withAmount').value);
+            let userName = localStorage.getItem('savedName') || 'Unknown User';
 
             if (amount < 50) {
                 alert("সর্বনিম্ন উইথড্র পরিমাণ ৫০ টাকা।");
@@ -1742,7 +1782,7 @@
 
             let charge = amount * 0.05;
             let finalAmount = amount - charge;
-            let message = `💸 নতুন উইথড্র রিকোয়েস্ট এসেছে!\n\n🔹 মাধ্যম: ${method}\n📱 নাম্বার: ${number}\n💵 পরিমাণ: ৳${amount}\n🔻 ৫% চার্জ: ৳${charge.toFixed(2)}\n✅ প্রদেয়: ৳${finalAmount.toFixed(2)}`;
+            let message = `💸 নতুন উইথড্র রিকোয়েস্ট এসেছে!\n\n👤 ইউজারের নাম: ${userName}\n🔹 মাধ্যম: ${method}\n📱 পেমেন্ট নাম্বার: ${number}\n💵 পরিমাণ: ৳${amount}\n🔻 ৫% চার্জ: ৳${charge.toFixed(2)}\n✅ প্রদেয়: ৳${finalAmount.toFixed(2)}`;
 
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
@@ -1750,7 +1790,6 @@
                 body: JSON.stringify({ chat_id: CHAT_ID, text: message })
             }).then(res => res.json()).then(data => {
                 if(data.ok) {
-                    // উইথড্র করলে ব্যালেন্স কেটে নেওয়া
                     localStorage.setItem('userBalance', (currentBal - amount).toFixed(2));
                     updateUserBalanceDisplay();
                     alert('উইথড্র রিকোয়েস্ট সফলভাবে পাঠানো হয়েছে!');
@@ -1762,7 +1801,10 @@
 
         function submitAccount(event, platform) {
             event.preventDefault();
-            let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
+            let userName = localStorage.getItem('savedName') || 'Unknown User';
+            let userPhone = localStorage.getItem('savedPhone') || 'N/A';
+            
+            let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n👤 ইউজারের নাম: ${userName}\n📱 ফোন: ${userPhone}\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
             let detailsText = "";
 
             let rate = 0;
@@ -1788,6 +1830,7 @@
 
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let newTask = {
+                userName: userName,
                 platform: platform,
                 details: detailsText,
                 rate: rate,
@@ -1832,7 +1875,6 @@
             if(document.getElementById('fbSubmitCount')) document.getElementById('fbSubmitCount').innerText = fbCount;
             if(document.getElementById('instaSubmitCount')) document.getElementById('instaSubmitCount').innerText = instaCount;
 
-            // হোম পেজের নতুন স্ট্যাটাস কাউন্টার আপডেট
             if(document.getElementById('userStatTotal')) document.getElementById('userStatTotal').innerText = totalCnt;
             if(document.getElementById('userStatSuccess')) document.getElementById('userStatSuccess').innerText = successCnt;
             if(document.getElementById('userStatFailed')) document.getElementById('userStatFailed').innerText = failedCnt;
@@ -1897,10 +1939,11 @@
             tbody.innerHTML = ``;
             tasks.forEach((t, index) => {
                 let maskedDetails = t.details.replace(/\d{4,}/g, '**** (Hidden)');
+                let uName = t.userName || 'Unknown';
 
                 tbody.innerHTML += `
                     <tr>
-                        <td><b>${t.platform}</b><br><small style="color: #00f2fe;">${maskedDetails}</small></td>
+                        <td><b>👤 ${uName}</b><br><span style="color: #fbbf24;">${t.platform}</span><br><small style="color: #00f2fe;">${maskedDetails}</small></td>
                         <td>${t.date}</td>
                         <td>
                             <button onclick="changeTaskStatus(${index}, 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000;">✓ Correct</button>
@@ -1911,19 +1954,16 @@
             });
         }
 
-        // অ্যাডমিন থেকে স্ট্যাটাস পরিবর্তন করার সময় ব্যালেন্স যোগ করার লজিক
         function changeTaskStatus(index, newStatus) {
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let oldStatus = tasks[index].status;
 
-            // যদি আগে Success না হয়ে থাকে এবং এখন Success করা হয়, তবেই ব্যালেন্স যোগ হবে
             if (oldStatus !== 'Success' && newStatus === 'Success') {
                 let taskRate = tasks[index].rate || 0;
                 let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
                 let newBal = currentBal + taskRate;
                 localStorage.setItem('userBalance', newBal.toFixed(2));
             } 
-            // যদি ভুলবশত আগে Success দেওয়া হয়েছিল কিন্তু এখন Failed করা হয়, তবে ব্যালেন্স আবার কেটে নেওয়া হবে
             else if (oldStatus === 'Success' && newStatus === 'Failed') {
                 let taskRate = tasks[index].rate || 0;
                 let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
