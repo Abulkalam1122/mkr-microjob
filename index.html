@@ -1523,7 +1523,7 @@
         // বাংলাদেশ টাইম জোন অনুযায়ী সঠিক তারিখ বের করার ফাংশন
         function getBangladeshDate() {
             const options = { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' };
-            const formatter = new Intl.DateTimeFormat('en-CA', options); // en-CA gives YYYY-MM-DD format
+            const formatter = new Intl.DateTimeFormat('en-CA', options);
             return formatter.format(new Date());
         }
 
@@ -1535,7 +1535,6 @@
             let month = parts.find(p => p.type === 'month').value;
             let dateStr = `${day} ${month}`;
 
-            // নির্দিষ্ট দিন অনুযায়ী পাসওয়ার্ড আপডেট হবে (যেমন আজ ১৭ তারিখ হলে শেষাংশে 17 থাকবে)
             const gmailPass = `@MyJob_MKR${day}`;
             const fbInstaPass = `MYJOB_MKR${day}`;
 
@@ -1550,11 +1549,9 @@
 
         function checkAndUpdateSubmissionAtMidnight() {
             let lastResetDate = localStorage.getItem('lastResetDate');
-            let todayStr = getBangladeshDate(); // বাংলাদেশ টাইম জোন অনুযায়ী আজকের তারিখ
+            let todayStr = getBangladeshDate();
 
-            // যদি তারিখ পরিবর্তন হয় (রাত ১২টা পার হয়ে নতুন দিন শুরু হলে)
             if (lastResetDate !== todayStr) {
-                // সাবমিশন লিস্ট সম্পূর্ণ খালি বা রিসেট করে দেওয়া হবে
                 localStorage.setItem('userTasks', JSON.stringify([]));
                 localStorage.setItem('lastResetDate', todayStr);
 
@@ -1589,7 +1586,7 @@
             }
 
             updateDailyPasswords();
-            checkAndUpdateSubmissionAtMidnight(); // রাত ১২টার চেক ও রিসেট ফাংশন
+            checkAndUpdateSubmissionAtMidnight();
             updateTaskCounters();
             loadUserTaskHistory();
             updateUserBalanceDisplay();
