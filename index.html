@@ -951,7 +951,7 @@
                         <thead>
                             <tr>
                                 <th>Platform & User</th>
-                                <th>Details (Hidden)</th>
+                                <th>Date</th>
                                 <th>Status Action</th>
                             </tr>
                         </thead>
@@ -1576,12 +1576,39 @@
             }
 
             updateDailyPasswords();
-            updateTaskCounters();
-            loadUserTaskHistory();
-            updateUserBalanceDisplay();
             updateDepositNumberInfo();
-            loadAdminSubmissions(); // পেজ লোড হলেই রিয়েল-টাইম লিসেনার চালু হয়ে যাবে
+            loadAdminSubmissions(); 
+            syncUserTasksFromFirebase();
         };
+
+        window.syncUserTasksFromFirebase = function() {
+            let userPhone = localStorage.getItem('savedPhone');
+            if (!userPhone) return;
+
+            const tasksRef = ref(db, 'tasks');
+            onValue(tasksRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    let tasksObj = snapshot.val();
+                    let allTasks = Object.values(tasksObj);
+                    
+                    let myTasks = allTasks.filter(t => t.userPhone === userPhone);
+                    localStorage.setItem('userTasks', JSON.stringify(myTasks));
+
+                    let calculatedBalance = 0;
+                    myTasks.forEach(t => {
+                        if(t.status === 'Success') {
+                            calculatedBalance += parseFloat(t.rate || 0);
+                        }
+                    });
+                    
+                    localStorage.setItem('userBalance', calculatedBalance.toFixed(2));
+
+                    updateUserBalanceDisplay();
+                    updateTaskCounters();
+                    loadUserTaskHistory();
+                }
+            });
+        }
 
         window.updateDepositNumberInfo = function() {
             let numBox = document.getElementById('displayPaymentNumber');
@@ -1711,6 +1738,7 @@
             localStorage.setItem('isLoggedIn', 'true');
             alert('লগইন সফল হয়েছে!');
             showPage('homePage');
+            syncUserTasksFromFirebase();
         }
 
         window.updateUserBalanceDisplay = function() {
@@ -1845,6 +1873,7 @@
             let newTask = {
                 id: taskId,
                 userName: userName,
+                userPhone: userPhone,
                 platform: platform,
                 details: detailsText,
                 rate: rate,
@@ -1852,12 +1881,7 @@
                 status: 'Loading'
             };
 
-            // সেভ টু ফায়ারবেজ
             set(ref(db, 'tasks/' + taskId), newTask).then(() => {
-                let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
-                tasks.push(newTask);
-                localStorage.setItem('userTasks', JSON.stringify(tasks));
-
                 fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1866,8 +1890,7 @@
                     if(data.ok) {
                         alert('সফলভাবে কাজ সাবমিট হয়েছে!');
                         event.target.reset();
-                        updateTaskCounters();
-                        loadUserTaskHistory();
+                        syncUserTasksFromFirebase();
                         showPage('homePage');
                     }
                 });
@@ -1930,7 +1953,6 @@
             });
         }
 
-        // রিয়েল-টাইম ডাটা সিংক করার জন্য onValue ব্যবহার করা হলো
         window.loadAdminSubmissions = function() {
             const tasksRef = ref(db, 'tasks');
             
@@ -1964,7 +1986,7 @@
 
                 tbody.innerHTML = ``;
                 tasks.forEach((t) => {
-                    let maskedDetails = t.details ? t.details.replace(/\d{4,}/g, '**** (Hidden)') : '';
+                    let maskedDetails = t.details ? t.details : '';
                     let uName = t.userName || 'Unknown';
 
                     tbody.innerHTML += `
@@ -1983,29 +2005,8 @@
 
         window.changeTaskStatus = function(taskId, newStatus) {
             const taskRef = ref(db, 'tasks/' + taskId);
-            get(taskRef).then((snapshot) => {
-                if (snapshot.exists()) {
-                    let taskData = snapshot.val();
-                    let oldStatus = taskData.status;
-
-                    if (oldStatus !== 'Success' && newStatus === 'Success') {
-                        let taskRate = taskData.rate || 0;
-                        let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
-                        let newBal = currentBal + taskRate;
-                        localStorage.setItem('userBalance', newBal.toFixed(2));
-                    } 
-                    else if (oldStatus === 'Success' && newStatus === 'Failed') {
-                        let taskRate = taskData.rate || 0;
-                        let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
-                        let newBal = currentBal - taskRate;
-                        if(newBal < 0) newBal = 0;
-                        localStorage.setItem('userBalance', newBal.toFixed(2));
-                    }
-
-                    update(taskRef, { status: newStatus }).then(() => {
-                        alert('কাজের স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে!');
-                    });
-                }
+            update(taskRef, { status: newStatus }).then(() => {
+                alert('কাজের স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে!');
             });
         }
     </script>
