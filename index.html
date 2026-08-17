@@ -1539,6 +1539,27 @@
             if(document.getElementById('currentDateLabel3')) document.getElementById('currentDateLabel3').innerText = dateStr;
         }
 
+        // নতুন ফাংশন: রাত ১২টা পার হলে বা নতুন দিন শুরু হলে সাবমিশন এরিয়া রিসেট ও বটে মেসেজ পাঠানো
+        function checkAndUpdateSubmissionAtMidnight() {
+            let lastResetDate = localStorage.getItem('lastResetDate');
+            let todayStr = new Date().toLocaleDateString();
+
+            if (lastResetDate !== todayStr) {
+                // সাবমিশন লিস্ট খালি বা রিসেট করা
+                localStorage.setItem('userTasks', JSON.stringify([]));
+                localStorage.setItem('lastResetDate', todayStr);
+
+                // টেলিগ্রাম বটে মেসেজ পাঠানো
+                let message = `🔄 রাত ১২টা পার হয়েছে! নতুন দিনের পাসওয়ার্ড পরিবর্তনের সাথে সাথে সাবমিশন এরিয়াও সফলভাবে আপডেট ও রিসেট করা হয়েছে।`;
+                
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+                });
+            }
+        }
+
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const refUser = urlParams.get('ref');
@@ -1560,6 +1581,7 @@
             }
 
             updateDailyPasswords();
+            checkAndUpdateSubmissionAtMidnight(); // এখানে সাবমিশন রিসেট ও নোটিফিকেশন ফাংশন কল করা হলো
             updateTaskCounters();
             loadUserTaskHistory();
             updateUserBalanceDisplay();
