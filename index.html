@@ -1520,7 +1520,6 @@
         const ADMIN_PANEL_SECRET_NUMBER = '01841161787';
         const PAYMENT_NUMBER = '01619861105';
 
-        // বাংলাদেশ টাইম জোন অনুযায়ী সঠিক তারিখ বের করার ফাংশন
         function getBangladeshDate() {
             const options = { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' };
             const formatter = new Intl.DateTimeFormat('en-CA', options);
@@ -1839,14 +1838,16 @@
             } else if (platform === 'Facebook') {
                 let uid = document.getElementById('fbUid').value;
                 let pass = document.getElementById('fbPass').value;
+                let cookies = document.getElementById('fbCookies').value;
                 detailsText = `FB UID: ${uid}`;
-                message += `👤 UID: ${uid}\n🔑 পাসওয়ার্ড: ${pass}`;
+                message += `👤 UID: ${uid}\n🔑 পাসওয়ার্ড: ${pass}\n🍪 Cookies: ${cookies}`;
                 rate = 5.70;
             } else if (platform === 'Instagram') {
                 let user = document.getElementById('instaUser').value;
                 let pass = document.getElementById('instaPass').value;
+                let code2fa = document.getElementById('insta2fa').value;
                 detailsText = `Insta User: ${user}`;
-                message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}`;
+                message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}\n🛡️ 2FA: ${code2fa}`;
                 rate = 4.20;
             }
 
