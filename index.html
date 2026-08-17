@@ -1057,7 +1057,7 @@
         </div>
     </div>
 
-    <!-- প্রোফাইল পেজ (যেখানে কাজের স্ট্যাটাস ও কাউন্ট দেখাবে) -->
+    <!-- প্রোফাইল পেজ -->
     <div id="profilePage" class="section-page">
         <header class="navbar">
             <div class="nav-left">
@@ -1091,7 +1091,6 @@
                 </div>
             </div>
 
-            <!-- কাজের স্ট্যাটাস দেখার টেবিল -->
             <div class="task-history-card">
                 <h3 style="color: #00f2fe; font-size: 14px; margin-bottom: 10px;"><i class="fa-solid fa-list-check"></i> কাজের স্ট্যাটাস (Loading / Success / Failed)</h3>
                 <div style="overflow-x: auto;">
@@ -1865,7 +1864,7 @@
                 return;
             }
 
-,           tbody.innerHTML = '';
+            tbody.innerHTML = '';
             tasks.forEach((t, index) => {
                 tbody.innerHTML += `
                     <tr>
