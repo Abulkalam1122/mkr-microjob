@@ -1513,20 +1513,29 @@
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- জাভাস্ক্রিপ্ট কোড -->
-    <script>
+    <!-- ফায়ারবেজ এবং জাভাস্ক্রিপ্ট কোড -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            databaseURL: "https://mkr-microjob-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
         const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg';
         const CHAT_ID = '7714324222';
         const ADMIN_PANEL_SECRET_NUMBER = '01841161787';
         const PAYMENT_NUMBER = '01619861105';
 
-        function getBangladeshDate() {
+        window.getBangladeshDate = function() {
             const options = { timeZone: 'Asia/Dhaka', year: 'numeric', month: '2-digit', day: '2-digit' };
-            const formatter = new Intl.DateTimeFormat('en-CA', options);
-            return formatter.format(new Date());
+            return new Intl.DateTimeFormat('en-CA', options).format(new Date());
         }
 
-        function updateDailyPasswords() {
+        window.updateDailyPasswords = function() {
             const options = { timeZone: 'Asia/Dhaka', day: '2-digit', month: 'short' };
             const parts = new Intl.DateTimeFormat('en-US', options).formatToParts(new Date());
             
@@ -1537,9 +1546,9 @@
             const gmailPass = `@MyJob_MKR${day}`;
             const fbInstaPass = `MYJOB_MKR${day}`;
 
-            document.getElementById('passText1').innerText = gmailPass;
-            document.getElementById('passText2').innerText = fbInstaPass;
-            document.getElementById('passText3').innerText = fbInstaPass;
+            if(document.getElementById('passText1')) document.getElementById('passText1').innerText = gmailPass;
+            if(document.getElementById('passText2')) document.getElementById('passText2').innerText = fbInstaPass;
+            if(document.getElementById('passText3')) document.getElementById('passText3').innerText = fbInstaPass;
 
             if(document.getElementById('currentDateLabel1')) document.getElementById('currentDateLabel1').innerText = dateStr;
             if(document.getElementById('currentDateLabel2')) document.getElementById('currentDateLabel2').innerText = dateStr;
@@ -1573,14 +1582,14 @@
             updateDepositNumberInfo();
         };
 
-        function updateDepositNumberInfo() {
+        window.updateDepositNumberInfo = function() {
             let numBox = document.getElementById('displayPaymentNumber');
             if(numBox) {
                 numBox.innerText = PAYMENT_NUMBER;
             }
         }
 
-        function showPage(pageId) {
+        window.showPage = function(pageId) {
             const pages = document.querySelectorAll('.section-page');
             pages.forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -1592,7 +1601,7 @@
             }
         }
 
-        function openProfilePage() {
+        window.openProfilePage = function() {
             document.getElementById('profName').innerText = localStorage.getItem('savedName') || 'Abul Kalam';
             document.getElementById('profPhone').innerText = localStorage.getItem('savedPhone') || '017XXXXXXXX';
             document.getElementById('profEmail').innerText = localStorage.getItem('savedEmail') || 'user@gmail.com';
@@ -1603,16 +1612,16 @@
             showPage('profilePage');
         }
 
-        function openLeaderboardPage() {
+        window.openLeaderboardPage = function() {
             showPage('leaderboardPage');
         }
 
-        function toggleSidebar() {
+        window.toggleSidebar = function() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
         }
 
-        function toggleProfileDropdown(event) {
+        window.toggleProfileDropdown = function(event) {
             event.stopPropagation();
             document.getElementById('profileDropdown').classList.toggle('active');
         }
@@ -1624,13 +1633,13 @@
             }
         }
 
-        function handleLogout() {
+        window.handleLogout = function() {
             localStorage.removeItem('isLoggedIn');
             alert('সফলভাবে লগআউট হয়েছে!');
             showPage('loginPage');
         }
 
-        function handleAdminLogin(event) {
+        window.handleAdminLogin = function(event) {
             event.preventDefault();
             let passInput = document.getElementById('adminLoginPass').value;
             if (passInput === ADMIN_PANEL_SECRET_NUMBER) {
@@ -1642,7 +1651,7 @@
             }
         }
 
-        function copyPassword(id, btn) {
+        window.copyPassword = function(id, btn) {
             var text = document.getElementById(id).innerText;
             navigator.clipboard.writeText(text);
             btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
@@ -1651,7 +1660,7 @@
             }, 2000);
         }
 
-        function copyReferLink(btn) {
+        window.copyReferLink = function(btn) {
             let refInput = document.getElementById('myReferLink');
             refInput.select();
             navigator.clipboard.writeText(refInput.value);
@@ -1661,7 +1670,7 @@
             }, 2000);
         }
 
-        function checkDeviceLimit(event) {
+        window.checkDeviceLimit = function(event) {
             event.preventDefault();
             let pass = document.getElementById('regPass').value;
             let passConfirm = document.getElementById('regPassConfirm').value;
@@ -1687,7 +1696,7 @@
             showPage('loginPage');
         }
 
-        function handleLogin(event) {
+        window.handleLogin = function(event) {
             event.preventDefault();
             let inputEmail = document.getElementById('loginEmail').value;
             let inputPass = document.getElementById('loginPass').value;
@@ -1704,7 +1713,7 @@
             showPage('homePage');
         }
 
-        function updateUserBalanceDisplay() {
+        window.updateUserBalanceDisplay = function() {
             let balance = parseFloat(localStorage.getItem('userBalance') || '0');
             let balEl = document.getElementById('userTotalBalance');
             if(balEl) {
@@ -1712,7 +1721,7 @@
             }
         }
 
-        function calculateDepositFee() {
+        window.calculateDepositFee = function() {
             let amountInput = document.getElementById('depAmount').value;
             let amount = parseFloat(amountInput);
             if (isNaN(amount) || amount <= 0) {
@@ -1726,7 +1735,7 @@
             document.getElementById('depCalcTotal').innerText = `৳${amount.toFixed(2)}`;
         }
 
-        function submitDeposit(event) {
+        window.submitDeposit = function(event) {
             event.preventDefault();
             let method = document.getElementById('depMethod').value;
             let sender = document.getElementById('senderNumber').value;
@@ -1749,7 +1758,7 @@
             });
         }
 
-        function calculateWithdrawFee() {
+        window.calculateWithdrawFee = function() {
             let amountInput = document.getElementById('withAmount').value;
             let amount = parseFloat(amountInput);
             if (isNaN(amount) || amount <= 0) {
@@ -1765,7 +1774,7 @@
             document.getElementById('calcTotal').innerText = `৳${total.toFixed(2)}`;
         }
 
-        function submitWithdraw(event) {
+        window.submitWithdraw = function(event) {
             event.preventDefault();
             let method = document.getElementById('withMethod').value;
             let number = document.getElementById('withNumber').value;
@@ -1801,15 +1810,15 @@
             });
         }
 
-        function submitAccount(event, platform) {
+        window.submitAccount = function(event, platform) {
             event.preventDefault();
             let userName = localStorage.getItem('savedName') || 'Unknown User';
             let userPhone = localStorage.getItem('savedPhone') || 'N/A';
             
             let message = `📥 নতুন কাজ সাবমিট হয়েছে!\n\n👤 ইউজারের নাম: ${userName}\n📱 ফোন: ${userPhone}\n🔹 প্ল্যাটফর্ম: ${platform}\n`;
             let detailsText = "";
-
             let rate = 0;
+
             if (platform === 'Gmail') {
                 let email = document.getElementById('gmailEmail').value;
                 let pass = document.getElementById('gmailPass').value;
@@ -1832,8 +1841,9 @@
                 rate = 4.20;
             }
 
-            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+            let taskId = 'task_' + Date.now();
             let newTask = {
+                id: taskId,
                 userName: userName,
                 platform: platform,
                 details: detailsText,
@@ -1841,25 +1851,30 @@
                 date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
                 status: 'Loading'
             };
-            tasks.push(newTask);
-            localStorage.setItem('userTasks', JSON.stringify(tasks));
 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
-            }).then(res => res.json()).then(data => {
-                if(data.ok) {
-                    alert('সফলভাবে কাজ সাবমিট হয়েছে!');
-                    event.target.reset();
-                    updateTaskCounters();
-                    loadUserTaskHistory();
-                    showPage('homePage');
-                }
+            // সেভ টু ফায়ারবেজ
+            set(ref(db, 'tasks/' + taskId), newTask).then(() => {
+                let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
+                tasks.push(newTask);
+                localStorage.setItem('userTasks', JSON.stringify(tasks));
+
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+                }).then(res => res.json()).then(data => {
+                    if(data.ok) {
+                        alert('সফলভাবে কাজ সাবমিট হয়েছে!');
+                        event.target.reset();
+                        updateTaskCounters();
+                        loadUserTaskHistory();
+                        showPage('homePage');
+                    }
+                });
             });
         }
 
-        function updateTaskCounters() {
+        window.updateTaskCounters = function() {
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let gmailCount = 0, fbCount = 0, instaCount = 0;
             let totalCnt = tasks.length;
@@ -1870,7 +1885,6 @@
                 if(t.platform === 'Gmail') gmailCount++;
                 if(t.platform === 'Facebook') fbCount++;
                 if(t.platform === 'Instagram') instaCount++;
-
                 if(t.status === 'Success') successCnt++;
                 if(t.status === 'Failed') failedCnt++;
             });
@@ -1884,7 +1898,7 @@
             if(document.getElementById('userStatFailed')) document.getElementById('userStatFailed').innerText = failedCnt;
         }
 
-        function loadUserTaskHistory() {
+        window.loadUserTaskHistory = function() {
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let tbody = document.getElementById('userTaskHistoryBody');
             if(!tbody) return;
@@ -1916,70 +1930,82 @@
             });
         }
 
-        function loadAdminSubmissions() {
-            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
-            let tbody = document.getElementById('adminSubmissionsList');
-            
-            let totalCount = tasks.length;
-            let successCount = 0;
-            let failedCount = 0;
+        window.loadAdminSubmissions = function() {
+            const dbRef = ref(db);
+            get(child(dbRef, 'tasks')).then((snapshot) => {
+                let tbody = document.getElementById('adminSubmissionsList');
+                if (!tbody) return;
 
-            tasks.forEach(t => {
-                if(t.status === 'Success') successCount++;
-                if(t.status === 'Failed') failedCount++;
-            });
+                if (!snapshot.exists()) {
+                    tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #94a3b8;">কোনো সাবমিশন নেই।</td></tr>`;
+                    document.getElementById('adminTotalCount').innerText = 0;
+                    document.getElementById('adminSuccessCount').innerText = 0;
+                    document.getElementById('adminFailedCount').innerText = 0;
+                    return;
+                }
 
-            if(document.getElementById('adminTotalCount')) document.getElementById('adminTotalCount').innerText = totalCount;
-            if(document.getElementById('adminSuccessCount')) document.getElementById('adminSuccessCount').innerText = successCount;
-            if(document.getElementById('adminFailedCount')) document.getElementById('adminFailedCount').innerText = failedCount;
+                let tasksObj = snapshot.val();
+                let tasks = Object.values(tasksObj);
 
-            if(!tbody) return;
+                let totalCount = tasks.length;
+                let successCount = 0;
+                let failedCount = 0;
 
-            if(tasks.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #94a3b8;">কোনো সাবমিশন নেই।</td></tr>`;
-                return;
-            }
+                tasks.forEach(t => {
+                    if(t.status === 'Success') successCount++;
+                    if(t.status === 'Failed') failedCount++;
+                });
 
-            tbody.innerHTML = ``;
-            tasks.forEach((t, index) => {
-                let maskedDetails = t.details.replace(/\d{4,}/g, '**** (Hidden)');
-                let uName = t.userName || 'Unknown';
+                if(document.getElementById('adminTotalCount')) document.getElementById('adminTotalCount').innerText = totalCount;
+                if(document.getElementById('adminSuccessCount')) document.getElementById('adminSuccessCount').innerText = successCount;
+                if(document.getElementById('adminFailedCount')) document.getElementById('adminFailedCount').innerText = failedCount;
 
-                tbody.innerHTML += `
-                    <tr>
-                        <td><b>👤 ${uName}</b><br><span style="color: #fbbf24;">${t.platform}</span><br><small style="color: #00f2fe;">${maskedDetails}</small></td>
-                        <td>${t.date}</td>
-                        <td>
-                            <button onclick="changeTaskStatus(${index}, 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000; margin-bottom: 4px;">✓ Correct</button>
-                            <button onclick="changeTaskStatus(${index}, 'Failed')" style="background:#ef4444; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#fff;">X Wrong</button>
-                        </td>
-                    </tr>
-                `;
+                tbody.innerHTML = ``;
+                tasks.forEach((t) => {
+                    let maskedDetails = t.details.replace(/\d{4,}/g, '**** (Hidden)');
+                    let uName = t.userName || 'Unknown';
+
+                    tbody.innerHTML += `
+                        <tr>
+                            <td><b>👤 ${uName}</b><br><span style="color: #fbbf24;">${t.platform}</span><br><small style="color: #00f2fe;">${maskedDetails}</small></td>
+                            <td>${t.date}</td>
+                            <td>
+                                <button onclick="changeTaskStatus('${t.id}', 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000; margin-bottom: 4px;">✓ Correct</button>
+                                <button onclick="changeTaskStatus('${t.id}', 'Failed')" style="background:#ef4444; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#fff;">X Wrong</button>
+                            </td>
+                        </tr>
+                    `;
+                });
             });
         }
 
-        function changeTaskStatus(index, newStatus) {
-            let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
-            let oldStatus = tasks[index].status;
+        window.changeTaskStatus = function(taskId, newStatus) {
+            const taskRef = ref(db, 'tasks/' + taskId);
+            get(taskRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    let taskData = snapshot.val();
+                    let oldStatus = taskData.status;
 
-            if (oldStatus !== 'Success' && newStatus === 'Success') {
-                let taskRate = tasks[index].rate || 0;
-                let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
-                let newBal = currentBal + taskRate;
-                localStorage.setItem('userBalance', newBal.toFixed(2));
-            } 
-            else if (oldStatus === 'Success' && newStatus === 'Failed') {
-                let taskRate = tasks[index].rate || 0;
-                let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
-                let newBal = currentBal - taskRate;
-                if(newBal < 0) newBal = 0;
-                localStorage.setItem('userBalance', newBal.toFixed(2));
-            }
+                    if (oldStatus !== 'Success' && newStatus === 'Success') {
+                        let taskRate = taskData.rate || 0;
+                        let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
+                        let newBal = currentBal + taskRate;
+                        localStorage.setItem('userBalance', newBal.toFixed(2));
+                    } 
+                    else if (oldStatus === 'Success' && newStatus === 'Failed') {
+                        let taskRate = taskData.rate || 0;
+                        let currentBal = parseFloat(localStorage.getItem('userBalance') || '0');
+                        let newBal = currentBal - taskRate;
+                        if(newBal < 0) newBal = 0;
+                        localStorage.setItem('userBalance', newBal.newUserBalance = newBal.toFixed(2));
+                    }
 
-            tasks[index].status = newStatus;
-            localStorage.setItem('userTasks', JSON.stringify(tasks));
-            alert('কাজের স্ট্যাটাস আপডেট করা হয়েছে!');
-            loadAdminSubmissions();
+                    update(taskRef, { status: newStatus }).then(() => {
+                        alert('কাজের স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে!');
+                        loadAdminSubmissions();
+                    });
+                }
+            });
         }
     </script>
 </body>
