@@ -1550,6 +1550,7 @@
             let lastResetDate = localStorage.getItem('lastResetDate');
             let todayStr = getBangladeshDate();
 
+            // রাত ১২টা পার হয়ে নতুন দিন শুরু হলে এবং আগের ডেট না মিললে এটি কেবল একবার ট্রিগার হবে
             if (lastResetDate !== todayStr) {
                 localStorage.setItem('userTasks', JSON.stringify([]));
                 localStorage.setItem('lastResetDate', todayStr);
